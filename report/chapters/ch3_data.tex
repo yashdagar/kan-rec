@@ -1,0 +1,129 @@
+\chapter{Datasets and Preprocessing}
+\label{ch:data}
+
+Three public datasets are used: YooChoose for session-based recommendation, and
+Instacart and Dunnhumby for next-basket recommendation. All three are downloaded
+from Kaggle by the notebook. All preprocessing follows published protocols so
+that the results can be compared with prior work, and every statistic in this
+chapter is computed and exported by the notebook.
+
+\section{YooChoose (Session-Based)}
+
+YooChoose is the click log of the ACM RecSys Challenge 2015 \cite{benshimon2015},
+collected from a European e-commerce site over six months in 2014. Each row
+contains a session ID, a timestamp, an item ID and a category; the click file has
+33,003,944 rows.
+
+\subsection{Protocol}
+
+The preprocessing follows GRU4Rec \cite{hidasi2016} and the yoochoose1/64 split
+used by NARM, STAMP and SR-GNN \cite{li2017,liu2018,wu2019}:
+
+\begin{enumerate}
+    \item Remove sessions with a single click, then items that occur in fewer than
+          5 sessions, then sessions that have become shorter than 2 clicks.
+    \item \textbf{Test set}: all sessions that end during the last day of the log.
+    \item \textbf{Training data}: the most recent 1/64 of the remaining sessions
+          (ordered by start time). This is the common yoochoose1/64 setting; the
+          UPES profile also runs yoochoose1/4.
+    \item \textbf{Validation set}: the sessions of the last day of that training
+          data are held out for early stopping and model selection.
+    \item Validation and test keep only items that occur in the final training
+          data; sessions shorter than 2 clicks after this filter are removed.
+\end{enumerate}
+
+Every click after the first in a validation or test session is a prediction
+target, so a session of length $n$ contributes $n-1$ predictions. Because the
+split is by session and by time, no session contributes to more than one split.
+The notebook asserts this, and that every training session ends before the
+validation window and every validation session before the test window. This
+removes the leakage of the first draft, where prefixes of the same session were
+shuffled into both training and test sets.
+
+\generated{dataset_yoochoose.tex}
+
+The resulting split closely matches the one reported by SR-GNN for
+yoochoose1/64 (55,898 test predictions and 16,766 items in \cite{wu2019}).
+
+\begin{figure}[H]
+\centering
+\genfigure{eda.pdf}{width=\textwidth}
+\caption{Left: clicks per session in the raw YooChoose log (log scale). Centre:
+item popularity by rank (log-log), showing the long tail. Right: number of
+baskets per user in the two next-basket datasets.}
+\label{fig:eda}
+\end{figure}
+
+\section{Instacart (Next-Basket)}
+
+The Instacart Market Basket Analysis data contain over three million grocery
+orders from 206,209 users, with 49,688 products in 134 aisles. Each user has
+between 4 and 100 orders. Kaggle's \texttt{eval\_set} column marks every user's
+final order as either \emph{train} (products given) or \emph{test} (products
+hidden for the competition).
+
+\subsection{Protocol}
+
+Following van Maasakkers et al.\ \cite{vanmaasakkers2023}:
+
+\begin{enumerate}
+    \item Drop the hidden Kaggle \emph{test} orders; each user's last remaining
+          order is the target basket and all earlier orders are the history.
+    \item \textbf{Product clustering.} Rare products (fewer than 500 purchases in
+          the training history) are merged within their aisle. The authors'
+          R script merges greedily by cosine similarity of the products' purchase
+          vectors; we re-implemented it in Python, merging the rarest cluster with
+          its most similar rare cluster in the same aisle until every cluster
+          reaches 500 purchases or the aisle has no rare products left. Frequent
+          products keep their own index. Products that appear only in target
+          baskets are removed.
+    \item Users are split at random into equal validation and test groups. The
+          target basket of a validation user is used for early stopping; the
+          target basket of a test user for the final evaluation. The histories of
+          all users are used for training.
+\end{enumerate}
+
+Our clustering yields 12,058 product groups, against 9,407 in the original
+paper, because our implementation only merges rare products with each other,
+whereas the original evidently also merged more aggressively. On the Mac profile a random 10\% of users is used, as in the
+NBR re-evaluation study \cite{li2023}; the GPU profiles use all users.
+
+\section{Dunnhumby: The Complete Journey (Next-Basket)}
+
+The Complete Journey contains two years of transactions of 2,500 households at a
+retailer: 2,595,732 transaction rows over 92,339 products, with the household,
+basket, day and time of each purchase.
+
+\subsection{Protocol}
+
+Following van Maasakkers et al.\ \cite{vanmaasakkers2023}:
+
+\begin{enumerate}
+    \item Keep products bought at least 50 times and households with at least 3
+          baskets.
+    \item Order each household's baskets by day and transaction time and keep the
+          \emph{100 most recent} baskets. (The published script keeps the first
+          100 baskets, which discards the most recent history of 37\% of the
+          households; we keep the most recent ones.)
+    \item The last basket of each household is the target; households are split
+          at random into equal validation and test groups.
+\end{enumerate}
+
+After preprocessing the data contain 2,478 households, 10,370 products, 163,937
+baskets and 66.16 baskets per household. These figures are identical to those
+reported by van Maasakkers et al.
+
+Note that several next-basket benchmarks, including TIFU-KNN \cite{hu2020} and
+the NBR re-evaluation \cite{li2023}, use a different Dunnhumby dataset (``Let's
+Get Sort-of-Real''), so their Dunnhumby results are not comparable with ours.
+
+\generated{dataset_baskets.tex}
+
+\section{Repeat Behaviour}
+
+The ``Repeat ratio'' row of Table~\ref{tab:basket_stats} gives the average share
+of a target basket that the customer had bought before. It is about 0.60 on
+Instacart and 0.53 on Dunnhumby, in line with the 60\% and 51\% reported by van
+Maasakkers et al. Repeat items are much easier to predict than new ones
+\cite{li2023}, which is why the results in Chapter~\ref{ch:results} are also
+reported separately for repeat and explore items.

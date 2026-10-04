@@ -1,0 +1,1508 @@
+\documentclass[12pt,a4paper]{report}
+
+% ── Packages ──────────────────────────────────────────────────────
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit, backgrounds}
+
+% ── Fix paragraph indentation (no indent, small skip between paras) ──
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+
+% ── Colors ────────────────────────────────────────────────────────
+\definecolor{codegray}{RGB}{245, 245, 245}
+\definecolor{codegreen}{RGB}{0, 128, 0}
+\definecolor{codepurple}{RGB}{128, 0, 128}
+\definecolor{codeblue}{RGB}{0, 82, 147}
+\definecolor{winnergreen}{RGB}{220, 255, 220}
+\definecolor{lightblue}{RGB}{235, 245, 255}
+
+% ── Hyperref setup ────────────────────────────────────────────────
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=black,
+}
+
+% ── Code listing style ────────────────────────────────────────────
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{codegray},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue}\bfseries,
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    language=Python,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+% ── Page style ────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lightweight Session-Based Recommendation System}
+\fancyhead[R]{\small UPES, Dehradun}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Chapter/Section title format ──────────────────────────────────
+\titleformat{\chapter}[block]
+  {\normalfont\large\bfseries\centering}
+  {\thechapter.}{0.5em}{\large\bfseries\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{12pt}{12pt}
+
+\titleformat{\section}[block]
+  {\normalfont\normalsize\bfseries}
+  {\thesection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+\titleformat{\subsection}[block]
+  {\normalfont\normalsize\bfseries}
+  {\thesubsection.}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+
+\titleformat{\subsubsection}[block]
+  {\normalfont\normalsize\bfseries}
+  {\thesubsubsection.}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{6pt}{4pt}
+
+% ── Line spacing ──────────────────────────────────────────────────
+\onehalfspacing
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% ─────────────────────────────────────────────────────────────────
+\begin{document}
+
+% ═══════════════════════════════════════════════════════════════
+% TITLE PAGE
+% ═══════════════════════════════════════════════════════════════
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+
+{\Large \textbf{Lightweight Session-Based Recommendation System}}\\[0.5cm]
+{\large \textit{A}}\\[0.3cm]
+{\large \textit{\textbf{Project Report}}}\\[0.2cm]
+{\normalsize \textit{submitted in partial fulfillment of the}}\\
+{\normalsize \textit{requirements for the award of the degree of}}\\[0.5cm]
+
+{\Large \textbf{BACHELOR OF TECHNOLOGY}}\\[0.2cm]
+{\large \textbf{in}}\\[0.2cm]
+{\Large \textbf{COMPUTER SCIENCE \& ENGINEERING}}\\[0.8cm]
+
+{\normalsize \textbf{by}}\\[0.5cm]
+
+\begin{tabular}{ll}
+\textbf{Name} & \textbf{Roll No.} \\
+Saksham Agrawal & R2142231383 \\
+Abhishek Yadav  & R2142231410 \\
+Yash Dagar      & R2142231424 \\
+\end{tabular}\\[0.8cm]
+
+{\normalsize \textit{under the guidance of}}\\[0.3cm]
+{\large \textbf{Dr. Amar Jindal}}\\[1.5cm]
+
+\includegraphics[width=4cm]{upes_logo.png}\\[0.5cm]
+
+{\large \textbf{School of Computer Science}}\\
+{\large \textbf{University of Petroleum \& Energy Studies}}\\
+{\normalsize Bidholi, Via Prem Nagar, Dehradun, Uttarakhand}\\[0.4cm]
+{\normalsize \textbf{January -- May, 2026}}
+
+\end{titlepage}
+
+% ── Roman numeral page numbering for front matter ─────────────────
+\pagenumbering{roman}
+
+% ═══════════════════════════════════════════════════════════════
+% CANDIDATE'S DECLARATION
+% ═══════════════════════════════════════════════════════════════
+\chapter*{Candidate's Declaration}
+\addcontentsline{toc}{chapter}{Candidate's Declaration}
+
+I/We hereby certify that the project work entitled
+\textbf{``Lightweight Session-Based Recommendation System''}
+in partial fulfillment of the requirements for the award of the Degree of
+\textbf{BACHELOR OF TECHNOLOGY} in
+\textbf{COMPUTER SCIENCE AND ENGINEERING}
+with specialization in \textbf{Artificial Intelligence and Machine Learning}
+and submitted to the Department of Artificial Intelligence, School of Computer Science,
+University of Petroleum \& Energy Studies, Dehradun, is an authentic record of
+my/our work carried out during a period from \textbf{January, 2026} to
+\textbf{May, 2026} under the supervision of
+\textbf{Dr.\ Amar Jindal, Assistant Professor, Data Science Cluster, UPES}.
+
+The matter presented in this project has not been submitted by me/us for the award
+of any other degree of this or any other University.
+
+\vspace{2cm}
+
+\noindent
+\begin{tabular}{p{4cm} p{4cm} p{4cm}}
+\textbf{(Saksham Agrawal)} & \textbf{(Abhishek Yadav)} & \textbf{(Yash Dagar)} \\
+\textbf{Roll No.\ R2142231383} & \textbf{Roll No.\ R2142231410} & \textbf{Roll No.\ R2142231424} \\
+\end{tabular}
+
+\vspace{1.5cm}
+\noindent
+This is to certify that the above statement made by the candidate is correct to the
+best of my knowledge.
+
+\vspace{1.5cm}
+
+\noindent
+Date: \underline{\hspace{3cm}} \hfill \textbf{Dr.\ Amar Jindal}\\
+\hfill Project Guide
+
+% ═══════════════════════════════════════════════════════════════
+% ACKNOWLEDGEMENT
+% ═══════════════════════════════════════════════════════════════
+\chapter*{Acknowledgement}
+\addcontentsline{toc}{chapter}{Acknowledgement}
+
+We wish to express our deep gratitude to our guide \textbf{Dr.\ Amar Jindal},
+for all advice, encouragement and constant support he has given us throughout our
+project work. This work would not have been possible without his support and
+valuable suggestions on integrating Kolmogorov-Arnold Networks into sequential
+recommendation systems.
+
+We sincerely thanks to our respected Head of Department, School of Computer
+Science, UPES, for great support in doing our project, and for providing access
+to the High-Performance Computing (HPC) cluster which was essential for training
+our deep learning models.
+
+We are also grateful to Dean SoCS, UPES for giving us the necessary facilities
+to carry out our project work successfully. We also thanks to our Course
+Coordinator and Activity Coordinator for providing timely support and information
+during the completion of this project.
+
+We acknowledge the use of the \textbf{YooChoose} dataset provided by the RecSys 2015
+challenge organizers, which served as the benchmark for evaluating all our proposed
+architectures.
+
+We would like to thank all our friends for their help and constructive criticism
+during our project work. Finally, we have no words to express our sincere gratitude
+to our parents who have shown us this world and for every support they have given us.
+
+\vspace{1.5cm}
+
+\noindent
+\begin{tabular}{p{4cm} p{4cm} p{4cm}}
+\textbf{Saksham Agrawal} & \textbf{Abhishek Yadav} & \textbf{Yash Dagar} \\
+R2142231383 & R2142231410 & R2142231424 \\
+\end{tabular}
+
+% ═══════════════════════════════════════════════════════════════
+% ABSTRACT
+% ═══════════════════════════════════════════════════════════════
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Session-based recommendation systems have emerged as a critical solution for
+modern digital platforms where user identity is often anonymous, transient, or
+privacy-restricted. Unlike traditional recommendation systems that rely on
+long-term user profiles, session-based approaches predict the next item a user
+will interact with by analyzing only the current click sequence within a single
+session.
+
+This project proposes and evaluates a family of architectures that integrate
+\textbf{Kolmogorov-Arnold Networks (KANs)} with recurrent neural network
+frameworks to address the limitations of traditional RNN-MLP-based recommenders.
+Three architectures are designed, implemented, and systematically compared on the
+\textbf{YooChoose} e-commerce dataset (50,000 sessions, 11,910 unique items):
+
+\begin{enumerate}
+    \item \textbf{RNN Baseline}: Standard 2-layer GRU encoder with embedding and
+          fully connected output layer.
+    \item \textbf{Pure KAN}: GRU entirely replaced by a recurrent KAN layer ---
+          each time step computes $h_t = \text{KAN}(\text{concat}(x_t, h_{t-1}))$.
+    \item \textbf{Hybrid (GRU + KAN)}: Two-level recurrence --- GRU processes raw
+          embeddings first, then a recurrent KAN layer further refines the GRU outputs.
+\end{enumerate}
+
+All models use B-spline parameterized learnable activation functions with grid
+size 8 and spline order 3. Evaluation metrics include Top-1 Accuracy, Hit Ratio
+at 10 (HR@10), Hit Ratio at 20 (HR@20), Normalized Discounted Cumulative Gain
+at 10 (NDCG@10), Mean Reciprocal Rank (MRR@20), training time, and parameter
+count. Experimental results on 128,029 total samples show the RNN baseline
+achieves the best predictive performance (HR@10 = 0.5808, NDCG@10 = 0.3942) in
+substantially less training time (145.8 s), while KAN-based architectures
+demonstrate enhanced interpretability through learnable B-spline transformations
+at the cost of additional parameters and compute.
+
+\vspace{0.3cm}
+\noindent\textbf{Keywords:} Session-based Recommendation, Kolmogorov-Arnold Networks,
+B-Splines, Recurrent Neural Networks, GRU, YooChoose, Deep Learning
+
+% ═══════════════════════════════════════════════════════════════
+% TABLE OF CONTENTS / FIGURES / TABLES
+% ═══════════════════════════════════════════════════════════════
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ── Switch to Arabic page numbering for main content ─────────────
+\pagenumbering{arabic}
+
+% ═══════════════════════════════════════════════════════════════
+% CHAPTER 1: INTRODUCTION
+% ═══════════════════════════════════════════════════════════════
+\chapter{Introduction}
+
+\section{Background and Context}
+
+The exponential growth of digital platforms has transformed how users discover
+and consume content. Recommendation systems have become indispensable tools for
+enhancing user experience and driving engagement on e-commerce sites, streaming
+services, and news portals. These systems analyze user behavior to predict
+preferences and suggest relevant items, addressing the information overload
+problem in modern digital ecosystems.
+
+Traditional approaches such as collaborative filtering rely heavily on persistent
+user profiles built from long-term historical data. These methods face significant
+challenges in contexts where user identity is unknown, sessions are short-lived,
+or privacy regulations restrict tracking. The rise of privacy-conscious users,
+anonymous browsing, and regulations like GDPR has amplified the need for
+recommendation systems that operate effectively without long-term user profiles.
+
+\section{Session-Based Recommendation}
+
+\textbf{Session-Based Recommendation Systems} represent a paradigm shift in
+recommendation technology. These systems predict the next item a user will
+interact with by analyzing only the current interaction sequence within a single
+session, without relying on historical user profiles. A session typically consists
+of a sequence of user actions --- clicks, views, or searches --- occurring within
+a limited timeframe.
+
+Formally, given a session $S = \{i_1, i_2, \ldots, i_{n-1}\}$, the task is to
+predict item $i_n$. The challenge lies in extracting meaningful patterns from
+short, noisy, and highly variable sequences to make accurate predictions.
+
+\section{Kolmogorov-Arnold Networks}
+
+\textbf{Kolmogorov-Arnold Networks (KANs)}, introduced by Liu et al.\ (2024),
+are a novel neural architecture based on the Kolmogorov-Arnold representation
+theorem. The theorem states that any multivariate continuous function
+$f(x_1, \ldots, x_n)$ can be written as:
+
+\begin{equation}
+f(x_1, \ldots, x_n) = \sum_{q=0}^{2n} \Phi_q \left( \sum_{p=1}^{n} \phi_{q,p}(x_p) \right)
+\end{equation}
+
+where $\phi_{q,p}: [0,1] \to \mathbb{R}$ and $\Phi_q: \mathbb{R} \to \mathbb{R}$
+are learnable univariate functions.
+
+Unlike traditional MLPs that use fixed activation functions (ReLU, sigmoid, tanh)
+applied uniformly across neurons, KANs employ \textbf{learnable univariate
+B-spline functions} on every network edge. This enables:
+
+\begin{itemize}
+    \item \textbf{Superior function approximation}: KANs represent complex
+          functions more efficiently than MLPs.
+    \item \textbf{Enhanced interpretability}: Learned B-spline functions provide
+          direct insights into feature transformations.
+    \item \textbf{Parameter efficiency}: Reduced redundancy compared to MLP
+          architectures.
+    \item \textbf{Mathematical grounding}: Based on rigorous theoretical
+          foundations.
+\end{itemize}
+
+\section{Problem Statement}
+
+Design a session-based recommendation system that predicts the next most probable
+item from short, noisy interaction sequences without relying on long-term user
+profiles. The solution must achieve:
+
+\begin{itemize}
+    \item \textbf{High prediction accuracy}: Competitive performance on standard
+          benchmarks.
+    \item \textbf{Computational efficiency}: Practical parameter usage.
+    \item \textbf{Interpretability}: Transparent feature transformations through
+          learnable B-splines.
+    \item \textbf{Robustness}: Effective handling of sparse and short sequences.
+\end{itemize}
+
+\section{Project Objectives}
+
+\begin{enumerate}
+    \item Implement three architectures: RNN baseline, Pure Recurrent KAN, and
+          Hybrid GRU+KAN.
+    \item Design a custom recurrent KAN cell where
+          $h_t = \text{KAN}(\text{concat}(x_t, h_{t-1}))$.
+    \item Evaluate all models on the YooChoose dataset using HR@10, HR@20,
+          NDCG@10, NDCG@20, MRR@20, and Top-1 Accuracy.
+    \item Compare parameter efficiency, training time, and predictive performance
+          across all three architectures.
+\end{enumerate}
+
+\section{Report Organization}
+
+The remainder of this report is organized as follows: Chapter 2 reviews related
+literature. Chapter 3 describes the dataset and preprocessing. Chapter 4 details
+all three model architectures. Chapter 5 covers the experimental setup and
+training procedure. Chapter 6 presents results and discussion. Chapter 7 concludes
+the work.
+
+% ═══════════════════════════════════════════════════════════════
+% CHAPTER 2: LITERATURE REVIEW
+% ═══════════════════════════════════════════════════════════════
+\chapter{Literature Review}
+
+\section{Session-Based Recommendation Systems}
+
+The evolution of session-based recommendation systems has been driven by the need
+to handle scenarios where traditional collaborative filtering fails. Early methods
+relied on item-to-item similarity and sequential pattern mining, which struggled
+to capture complex temporal dynamics.
+
+\textbf{Hidasi et al.\ (2015)} \cite{hidasi2015} introduced a groundbreaking
+approach using RNNs with GRU and LSTM architectures for session-based
+recommendations. Their work on the YooChoose dataset demonstrated that RNN-based
+methods significantly outperform standard non-sequential and neighborhood methods.
+However, their approach revealed limitations including dependency on long sequences
+and challenges with data sparsity.
+
+\textbf{Li et al.\ (2017)} \cite{li2017} advanced the field with NARM (Neural
+Attentive Recommendation Machine), which combines GRU encoders with attention
+mechanisms. By modeling both sequential behavior and the user's main purpose
+within a session, NARM achieved state-of-the-art performance. Despite these
+improvements, the model remained a black-box without inherent visualization of
+learned features.
+
+\textbf{Sun et al.\ (2019)} \cite{sun2019} introduced BERT4Rec, applying
+bidirectional Transformer encoder representations to sequential recommendation.
+While achieving impressive performance, Transformer-based models typically require
+significantly more parameters --- a consideration that motivates the development
+of lightweight KAN-RNN alternatives.
+
+\textbf{Kang and McAuley (2018)} \cite{kang2018} proposed SASRec, a
+self-attentive sequential recommendation model based on unidirectional
+Transformers. Their work demonstrated that attention mechanisms can capture
+long-range item dependencies more effectively than RNNs alone.
+
+\section{Kolmogorov-Arnold Networks}
+
+\textbf{Liu et al.\ (2024)} \cite{liu2024} introduced KANs as a novel neural
+network architecture inspired by the Kolmogorov-Arnold representation theorem.
+Their seminal work demonstrated that KANs achieve superior accuracy and data
+efficiency compared to traditional MLPs on multiple benchmark datasets. Key
+identified challenges include slower training speed due to B-spline computation
+complexity.
+
+\textbf{Hou et al.\ (2024)} \cite{hou2024} conducted a comprehensive survey
+reviewing KAN variants and applications across multiple domains, highlighting the
+diversity of KAN architectures, theoretical foundations, and directions for
+efficiency improvements.
+
+\section{KANs for Sequential and Temporal Tasks}
+
+\textbf{Xu, Chen, and Wang (2024)} \cite{xu2024kan} explored KANs for time
+series analysis, demonstrating how the architecture bridges predictive power and
+interpretability in temporal data. Their work established that KAN's learnable
+univariate functions effectively capture temporal patterns --- directly relevant
+to session-based recommendations.
+
+\textbf{Genet and Inzirillo (2024)} \cite{genet2024} proposed TKAN (Temporal
+Kolmogorov-Arnold Networks), specifically designed for temporal sequence modeling.
+This work validated the applicability of KAN architectures to sequential
+prediction tasks, providing architectural patterns that inform the design of
+KAN-RNN hybrids.
+
+\textbf{Xu, Fang, Gong et al.\ (2026)} \cite{xu2026} recently published work on
+enhancing sequential recommendations using KANs, focusing on fusing global and
+local interest patterns. Their research demonstrated that KAN-based architectures
+can effectively model both short-term session dynamics and broader user
+preferences.
+
+\section{Research Gap}
+
+The literature review reveals a critical gap: while KANs demonstrate superior
+interpretability and parameter efficiency in various domains, and session-based
+recommendation systems have evolved through RNN and Transformer architectures,
+\textbf{no prior work has systematically explored KAN-based recurrent cells for
+session-based recommendations} --- specifically building fully recurrent KAN cells
+or stacking KAN refinement on top of GRU encoders. This project directly addresses
+this gap by benchmarking three architectures under identical training conditions
+on the YooChoose dataset.
+
+% ═══════════════════════════════════════════════════════════════
+% CHAPTER 3: DATASET AND PREPROCESSING
+% ═══════════════════════════════════════════════════════════════
+\chapter{Dataset and Preprocessing}
+
+\section{YooChoose Dataset}
+
+The \textbf{YooChoose} dataset originates from the ACM RecSys Challenge 2015 and
+contains anonymized click-stream data from a European e-commerce platform. It is
+one of the most widely used benchmarks for session-based recommendation research.
+The raw dataset contains 33,003,944 interaction rows spanning 9,249,729 unique
+sessions.
+
+\subsection{Dataset Statistics}
+
+\begin{table}[H]
+\centering
+\caption{YooChoose Dataset Statistics (After Preprocessing)}
+\begin{tabular}{lr}
+\toprule
+\textbf{Property} & \textbf{Value} \\
+\midrule
+Raw rows (full dataset)         & 33,003,944 \\
+Raw unique sessions (full)      & 9,249,729  \\
+Sessions sampled                & 50,000     \\
+Unique items after encoding     & 11,910     \\
+Minimum session length          & 3          \\
+Maximum sequence length         & 20         \\
+Training samples                & 102,423    \\
+Testing samples                 & 25,606     \\
+Total samples                   & 128,029    \\
+Train/Test split                & 80\% / 20\% \\
+\bottomrule
+\end{tabular}
+\label{tab:dataset}
+\end{table}
+
+Each row in the raw dataset has the format:
+\begin{center}
+\texttt{SessionId, Timestamp, ItemId, Category}
+\end{center}
+
+\section{Preprocessing Pipeline}
+
+The full preprocessing pipeline consists of the following steps:
+
+\subsection{Session Filtering}
+
+Sessions with fewer than 3 items are removed to ensure meaningful sequential
+context. Sessions are trimmed to a maximum length of 20 to prevent excessive
+padding. From the full 9.2M sessions, 50,000 sessions are sampled for
+computational tractability on the HPC cluster.
+
+\subsection{Item Encoding}
+
+All raw item IDs are label-encoded to a contiguous integer range starting from 1.
+Index 0 is reserved as the padding token. The vocabulary size
+$|\mathcal{V}| = 11{,}910 + 1 = 11{,}911$.
+
+\subsection{Training Sample Generation}
+
+Each session of length $n$ is decomposed into $n-1$ training samples using a
+sliding window:
+
+\begin{equation}
+\{(i_1), i_2\}, \quad \{(i_1, i_2), i_3\}, \quad \ldots, \quad \{(i_1, \ldots, i_{n-1}), i_n\}
+\end{equation}
+
+This means a session of 8 items produces 7 training samples, maximizing data
+utilization. In total, 50,000 sessions produce 128,029 training/test samples.
+
+\subsection{Padding and Batching}
+
+Variable-length sequences within each batch are padded to the length of the
+longest sequence in that batch using \texttt{pad\_sequence} with
+\texttt{padding\_value=0}. Sequences longer than \texttt{MAX\_SEQ\_LEN=20} are
+truncated from the left, keeping the most recent items.
+
+\subsection{Train/Test Split}
+
+Samples are randomly shuffled and split 80/20 into training (102,423 samples)
+and test sets (25,606 samples).
+
+\section{Dataset Visualizations}
+
+The following figures provide an exploratory overview of the YooChoose dataset
+at both the raw and preprocessed stages, helping characterise the data
+distributions that drive all modelling decisions.
+
+% ----- Row 1: Session length + Sessions per item ----- %
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={0 740px 1090px 0}, clip]{eda_figure.png}
+    \caption{Distribution of items per session (raw). The histogram reveals a
+             heavily right-skewed distribution with mean 3.57 and median 2,
+             confirming the prevalence of short sessions.}
+    \label{fig:dist_items_session_raw}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={530px 740px 520px 0}, clip]{eda_figure.png}
+    \caption{Distribution of sessions per item (raw). Most items appear in
+             very few sessions (mean 625.80, median 22), reflecting the
+             long-tail nature of item popularity.}
+    \label{fig:dist_sessions_item_raw}
+  \end{subfigure}
+  \caption{Raw YooChoose interaction distributions before any preprocessing.}
+  \label{fig:raw_distributions}
+\end{figure}
+
+% ----- Top-20 items (full width) ----- %
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth, trim={1090px 740px 0 0}, clip]{eda_figure.png}
+  \caption{Top 20 most popular items. The strongly skewed popularity distribution,
+           where the single top item (\texttt{643078800}) accumulates over
+           150{,}000 sessions, motivates the item-frequency filtering step.}
+  \label{fig:top20_items}
+\end{figure}
+
+% ----- Train/Test pie + sequence length distributions ----- %
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.28\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={100px 400px 1190px 340px}, clip]{eda_figure.png}
+    \caption{Train\,/\,Test split (80\,\%\,/\,20\,\%).}
+    \label{fig:train_test_split}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.34\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={500px 400px 550px 360px}, clip]{eda_figure.png}
+    \caption{Training sequence length distribution (mean~4.85).}
+    \label{fig:train_seq_dist}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.34\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={1120px 400px 0 340px}, clip]{eda_figure.png}
+    \caption{Test sequence length distribution (mean~4.80).}
+    \label{fig:test_seq_dist}
+  \end{subfigure}
+  \caption{Train/Test split and sequence-length distributions after the
+           sliding-window preprocessing step. Both splits share nearly
+           identical length profiles, confirming a representative random split.}
+  \label{fig:split_seqlength}
+\end{figure}
+
+% ----- Cumulative distribution + dataset size comparison ----- %
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={0 0 1050px 680px}, clip]{eda_figure.png}
+    \caption{Cumulative distribution of sessions vs.\ fraction of items.
+             80\,\% of all sessions are covered by just 42{,}191 items,
+             quantifying the heavy concentration of user attention.}
+    \label{fig:cumulative_sessions}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={530px 0 520px 680px}, clip]{eda_figure.png}
+    \caption{Dataset size comparison (unique items, sessions, raw interactions,
+             and preprocessed train/test sequences) highlighting the scale
+             reduction achieved by the 50{,}000-session sampling strategy.}
+    \label{fig:dataset_size}
+  \end{subfigure}
+  \caption{Item popularity concentration and final dataset size overview for
+           the YooChoose 1/64 split used in this study.}
+  \label{fig:cumulative_and_size}
+\end{figure}
+
+% ═══════════════════════════════════════════════════════════════
+% CHAPTER 4: MODEL ARCHITECTURES
+% ═══════════════════════════════════════════════════════════════
+\chapter{Model Architectures}
+
+All three models share a common skeleton:
+
+\begin{equation}
+\text{Input} \xrightarrow{\text{Embedding}(N,\,128)} \xrightarrow{\text{Sequence Encoder}} \xrightarrow{\text{Last hidden state}} \xrightarrow{\text{Dropout}(0.3)} \xrightarrow{\text{FC}} \text{Item scores}
+\end{equation}
+
+The models differ only in the \textbf{Sequence Encoder} component.
+
+\section{Architecture Overview}
+
+\begin{table}[H]
+\centering
+\caption{Model Architecture Summary}
+\begin{tabular}{p{2.2cm} p{7.5cm} r r}
+\toprule
+\textbf{Model} & \textbf{Encoder Stack} & \textbf{Params} & \textbf{Time (s)} \\
+\midrule
+RNN Baseline
+  & Embedding(11910, 128) $\to$ GRU(128, 256, layers=2)
+    $\to$ LayerNorm $\to$ Dropout(0.3) $\to$ FC(256, 11910)
+  & 5,276,805 & 145.8 \\[4pt]
+Pure KAN
+  & Embedding(11910, 128) $\to$ KANRecurrent$\times$2(128/256, 256)
+    $\to$ LayerNorm $\to$ Dropout(0.3) $\to$ FC(256, 11910)
+  & 7,569,029 & 1569.8 \\[4pt]
+Hybrid
+  & Embedding(11910, 128) $\to$ GRU(128, 256)
+    $\to$ KANRecurrent(256, 256)
+    $\to$ LayerNorm $\to$ Dropout(0.3) $\to$ FC(256, 11910)
+  & 6,586,757 & 981.6 \\
+\bottomrule
+\end{tabular}
+\label{tab:arch_overview}
+\end{table}
+
+\section{KAN Layer --- Core Building Block}
+
+All KAN-based architectures use a shared \textbf{KANLinear} layer implemented as
+B-spline basis functions. For an input $\mathbf{x} \in \mathbb{R}^{d_{in}}$, the
+output is:
+
+\begin{equation}
+\text{KANLinear}(\mathbf{x}) =
+  \underbrace{\sum_{d=1}^{d_{in}} \sum_{k=1}^{K} c_{o,d,k} \cdot B_k(x_d)}_{\text{spline path}}
+  + \underbrace{\mathbf{W}\mathbf{x} + \mathbf{b}}_{\text{residual linear path}}
+\end{equation}
+
+where $B_k$ are B-spline basis functions of order 3 with grid size 8,
+$c_{o,d,k}$ are learnable spline coefficients, and the residual linear path
+ensures stable gradient flow.
+
+The B-spline basis is computed as:
+\begin{equation}
+B_k^{(0)}(x) = \mathbb{1}[t_k \leq x < t_{k+1}]
+\end{equation}
+\begin{equation}
+B_k^{(p)}(x) = \frac{x - t_k}{t_{k+p} - t_k} B_k^{(p-1)}(x)
+             + \frac{t_{k+p+1} - x}{t_{k+p+1} - t_{k+1}} B_{k+1}^{(p-1)}(x)
+\end{equation}
+
+where $t_k$ are knot positions uniformly distributed on $[-1, 1]$.
+
+\section{Model 1: RNN Baseline}
+
+The baseline model uses a standard 2-layer GRU:
+
+\begin{equation}
+z_t = \sigma(W_z [x_t, h_{t-1}] + b_z)
+\end{equation}
+\begin{equation}
+r_t = \sigma(W_r [x_t, h_{t-1}] + b_r)
+\end{equation}
+\begin{equation}
+\tilde{h}_t = \tanh(W_n [x_t + r_t \odot h_{t-1}] + b_n)
+\end{equation}
+\begin{equation}
+h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t
+\end{equation}
+
+\noindent\textbf{Full stack:}
+$\text{Embedding}(11910, 128) \to \text{GRU}(128, 256, \text{layers}=2)
+ \to \text{LayerNorm} \to \text{Dropout}(0.3) \to \text{FC}(256, 11910)$
+
+\noindent\textbf{Trainable parameters:} 5,276,805
+
+\section{Model 2: Pure Recurrent KAN}
+
+The GRU is \textbf{entirely replaced} by a custom recurrent KAN layer. At each
+time step $t$:
+
+\begin{equation}
+\text{combined}_t = [\mathbf{x}_t \; \| \; \mathbf{h}_{t-1}] \in \mathbb{R}^{d_{emb} + d_{hid}}
+\end{equation}
+\begin{equation}
+\mathbf{h}_t = \tanh\left(\text{LayerNorm}\left(\text{KAN}(\text{combined}_t)\right)\right)
+\end{equation}
+
+The hidden state $\mathbf{h}_t$ is fed back as input at the next time step,
+creating true recurrence through the KAN layer. Two such layers are stacked,
+where the output of layer $\ell$ becomes the input of layer $\ell+1$.
+The KAN layers use grid size 8 and spline order 3.
+
+\noindent\textbf{Full stack:}
+$\text{Embedding}(11910, 128) \to \text{KANRecurrent}^{(1)}(128\to256) \to
+ \text{KANRecurrent}^{(2)}(256\to256) \to \text{LayerNorm} \to \text{Dropout}(0.3) \to \text{FC}(256, 11910)$
+
+\noindent\textbf{Trainable parameters:} 7,569,029
+
+\section{Model 3: Hybrid (GRU + Recurrent KAN)}
+
+Two complete recurrent systems are stacked in sequence:
+
+\begin{enumerate}
+    \item \textbf{GRU Layer}: Processes raw embeddings, captures basic sequential
+          order and item co-occurrence patterns.
+    \item \textbf{KAN Recurrent Layer}: Processes GRU outputs, applies non-linear
+          learnable B-spline transformations over the encoded sequence.
+\end{enumerate}
+
+At each step in the KAN layer,
+$\mathbf{h}^{KAN}_t = \text{KAN}([\mathbf{h}^{GRU}_t \; \| \; \mathbf{h}^{KAN}_{t-1}])$,
+giving the KAN layer its own separate memory that evolves over the GRU's outputs.
+
+\noindent\textbf{Full stack:}
+$\text{Embedding}(11910, 128) \to \text{GRU}(128, 256) \to
+ \text{KANRecurrent}(256, 256) \to \text{LayerNorm} \to \text{Dropout}(0.3) \to \text{FC}(256, 11910)$
+
+\noindent\textbf{Trainable parameters:} 6,586,757
+
+\section{Architecture Comparison Summary}
+
+\begin{table}[H]
+\centering
+\caption{Detailed Architecture Comparison}
+\begin{tabular}{p{2.2cm} p{2.8cm} p{2.8cm} p{2.5cm} r}
+\toprule
+\textbf{Model}   & \textbf{Recurrence}         & \textbf{KAN Location} & \textbf{Activation}    & \textbf{Params}  \\
+\midrule
+RNN Baseline
+  & 2-layer GRU
+  & None
+  & Fixed sigmoid / tanh
+  & 5,276,805 \\[4pt]
+Pure KAN
+  & 2$\times$ KAN cell \newline $h_t{=}\text{KAN}([x_t,h_{t-1}])$
+  & Full recurrent cell
+  & Learnable B-spline
+  & 7,569,029 \\[4pt]
+Hybrid
+  & GRU then KAN stacked
+  & After GRU encoder
+  & GRU gates + B-spline
+  & 6,586,757 \\
+\bottomrule
+\end{tabular}
+\label{tab:arch_summary}
+\end{table}
+
+% ═══════════════════════════════════════════════════════════════
+% CHAPTER 5: EXPERIMENTAL SETUP
+% ═══════════════════════════════════════════════════════════════
+\chapter{Experimental Setup}
+
+\section{Hyperparameters}
+
+All three models are trained with identical hyperparameters to ensure a fair
+comparison:
+
+\begin{table}[H]
+\centering
+\caption{Hyperparameter Configuration (Actual Training Run)}
+\begin{tabular}{ll}
+\toprule
+\textbf{Hyperparameter}          & \textbf{Value}        \\
+\midrule
+Embedding Dimension              & 128                   \\
+Hidden Dimension                 & 256                   \\
+KAN Grid Size                    & 8                     \\
+KAN Spline Order                 & 3                     \\
+Dropout Rate                     & 0.3                   \\
+Batch Size                       & 512                   \\
+Epochs                           & 20                    \\
+Learning Rate                    & $5 \times 10^{-4}$    \\
+Weight Decay                     & $1 \times 10^{-5}$    \\
+Warmup Epochs                    & 3                     \\
+Optimizer                        & AdamW                 \\
+LR Schedule                      & Warmup + Cosine Decay \\
+Random Seed                      & 42                    \\
+Device                           & CUDA (GPU)            \\
+\bottomrule
+\end{tabular}
+\label{tab:hyperparams}
+\end{table}
+
+\section{Training Procedure}
+
+\subsection{Loss Function}
+
+Cross-entropy loss is used for next-item classification. For a session $S$ with
+target item $i_n$ and item vocabulary $\mathcal{V}$:
+
+\begin{equation}
+\mathcal{L} = -\log p(i_n \mid S)
+\end{equation}
+
+\subsection{Learning Rate Schedule}
+
+A linear warmup followed by cosine decay schedule is used:
+
+\begin{equation}
+\text{lr}(t) =
+\begin{cases}
+\text{lr}_{max} \cdot \dfrac{t}{T_{warmup}} & t < T_{warmup} \\[8pt]
+\text{lr}_{max} \cdot \dfrac{1}{2}\!\left(1 + \cos\!\left(\pi \cdot
+  \dfrac{t - T_{warmup}}{T_{total} - T_{warmup}}\right)\right) & t \geq T_{warmup}
+\end{cases}
+\end{equation}
+
+The RNN model converges quickly and benefits from warmup during epochs 1--3.
+KAN models converge more slowly due to the added spline complexity, reaching
+near-plateau performance by epoch 16.
+
+\subsection{Weight Initialization}
+
+\begin{itemize}
+    \item Embedding layer: Normal distribution ($\mu=0$, $\sigma=0.01$)
+    \item FC layers: Xavier uniform initialization
+    \item Bias terms: Zero initialization
+\end{itemize}
+
+\subsection{Gradient Clipping}
+
+Gradient norm is clipped to 1.0 to prevent exploding gradients.
+
+\section{Evaluation Metrics}
+
+The following metrics are computed on the held-out test set after each epoch.
+All ranking metrics treat next-item prediction as a ranking task over all
+11,910 items.
+
+\begin{table}[H]
+\centering
+\caption{Evaluation Metrics Definitions}
+\begin{tabular}{p{2.5cm} p{9cm}}
+\toprule
+\textbf{Metric}   & \textbf{Definition} \\
+\midrule
+Loss (CrossEntropy)
+  & Categorical cross-entropy on validation set. Lower $(\downarrow)$ is better. \\[4pt]
+Accuracy (Top-1)
+  & Fraction of test samples where the target item is the top-1 predicted item. Higher $(\uparrow)$ is better. \\[4pt]
+HR@10
+  & Hit Rate at 10. Fraction of sessions where the target item appears in the top-10 ranked predictions. Higher $(\uparrow)$ is better. \\[4pt]
+HR@20
+  & Hit Rate at 20. As above but within the top-20 predictions. Higher $(\uparrow)$ is better. \\[4pt]
+NDCG@10
+  & Normalized Discounted Cumulative Gain at 10. Rewards correct predictions at higher rank positions. Higher $(\uparrow)$ is better. \\[4pt]
+NDCG@20
+  & As above within the top-20 predictions. Higher $(\uparrow)$ is better. \\[4pt]
+Recall@20
+  & For single-target prediction, equivalent to HR@20. Higher $(\uparrow)$ is better. \\[4pt]
+MRR@20
+  & Mean Reciprocal Rank at 20. Average of $1/\text{rank}(i_n)$ for sessions where the target appears in top-20. Higher $(\uparrow)$ is better. \\
+\bottomrule
+\end{tabular}
+\label{tab:metrics_def}
+\end{table}
+
+\subsection{Formal Definitions}
+
+\begin{equation}
+\text{Acc@1} = \frac{1}{|T|} \sum_{s \in T} \mathbb{1}[\hat{i}_1(s) = i_n(s)]
+\end{equation}
+
+\begin{equation}
+\text{HR@K} = \frac{1}{|T|} \sum_{s \in T} \mathbb{1}[i_n(s) \in \text{Top-K}(s)]
+\end{equation}
+
+\begin{equation}
+\text{NDCG@K} = \frac{1}{|T|} \sum_{s \in T}
+  \frac{\mathbb{1}[i_n(s) \in \text{Top-K}(s)]}{\log_2(\text{rank}(i_n(s)) + 1)}
+\end{equation}
+
+\begin{equation}
+\text{MRR@K} = \frac{1}{|T|} \sum_{s \in T}
+  \frac{\mathbb{1}[i_n(s) \in \text{Top-K}(s)]}{\text{rank}(i_n(s))}
+\end{equation}
+
+\section{Implementation Details}
+
+\begin{itemize}
+    \item \textbf{Framework}: PyTorch 2.0+
+    \item \textbf{Hardware}: NVIDIA GPU (HPC cluster, CUDA)
+    \item \textbf{Reproducibility}: Fixed random seed (42) for all experiments
+\end{itemize}
+
+The codebase is modular with separate files for each model:
+
+\begin{table}[H]
+\centering
+\caption{Project File Structure}
+\begin{tabular}{ll}
+\toprule
+\textbf{File}              & \textbf{Role}                                  \\
+\midrule
+\texttt{config.py}         & All hyperparameters                            \\
+\texttt{data\_loader.py}   & YooChoose loading and preprocessing            \\
+\texttt{kan\_layer.py}     & B-spline KAN linear layer                      \\
+\texttt{kan\_recurrent.py} & Recurrent KAN cell and layer                   \\
+\texttt{rnn\_model.py}     & Model 1: GRU baseline                          \\
+\texttt{kan\_model.py}     & Model 2: Pure recurrent KAN                    \\
+\texttt{hybrid\_model.py}  & Model 3: GRU + KAN stacked                     \\
+\texttt{trainer.py}        & Shared training and evaluation loop            \\
+\texttt{metrics.py}        & HR@10, HR@20, NDCG@10, NDCG@20, MRR           \\
+\texttt{compare.py}        & Main script: trains all models, plots, table   \\
+\bottomrule
+\end{tabular}
+\label{tab:files}
+\end{table}
+
+% ═══════════════════════════════════════════════════════════════
+% CHAPTER 6: RESULTS AND DISCUSSION
+% ═══════════════════════════════════════════════════════════════
+\chapter{Results and Discussion}
+
+% ---------------------------------------------------------------
+\section{Epoch-by-Epoch Training Curves}
+% ---------------------------------------------------------------
+
+This chapter presents the quantitative evaluation of all three architectures on
+the YooChoose test set. Tables~\ref{tab:rnn_log}--\ref{tab:hybrid_log} summarize
+the per-epoch training and validation metrics over 20 epochs. The corresponding
+learning curves are presented in Figures~\ref{fig:loss_curves}--\ref{fig:rank_curves}.
+
+\subsection{RNN Baseline Training Log}
+
+\begin{table}[H]
+\centering
+\caption{RNN Baseline --- Per-Epoch Metrics (Total time: 145.8 s)}
+\small
+\begin{tabular}{r r r r r r r r}
+\toprule
+\textbf{Ep} & \textbf{TrLoss} & \textbf{VlLoss} & \textbf{Acc} & \textbf{HR@10} & \textbf{HR@20} & \textbf{NDCG@10} & \textbf{MRR} \\
+\midrule
+ 1  & 8.7991 & 8.1339 & 0.0075 & 0.0614 & 0.1009 & 0.0305 & 0.0238 \\
+ 2  & 7.9848 & 7.5568 & 0.0518 & 0.1802 & 0.2343 & 0.1080 & 0.0896 \\
+ 3  & 7.0007 & 6.4887 & 0.1271 & 0.3801 & 0.4571 & 0.2444 & 0.2073 \\
+ 4  & 6.0661 & 5.9280 & 0.1723 & 0.4802 & 0.5567 & 0.3183 & 0.2728 \\
+ 5  & 5.4881 & 5.6646 & 0.1984 & 0.5273 & 0.6002 & 0.3543 & 0.3049 \\
+ 6  & 5.1113 & 5.5369 & 0.2063 & 0.5502 & 0.6256 & 0.3707 & 0.3193 \\
+ 7  & 4.8530 & 5.4860 & 0.2169 & 0.5663 & 0.6363 & 0.3828 & 0.3299 \\
+ 8  & 4.6511 & 5.4609 & 0.2166 & 0.5733 & 0.6482 & 0.3866 & 0.3330 \\
+ 9  & 4.4963 & 5.4649 & 0.2204 & 0.5768 & 0.6508 & 0.3899 & 0.3362 \\
+10  & 4.3730 & 5.4755 & 0.2202 & 0.5787 & 0.6540 & 0.3906 & 0.3366 \\
+11  & 4.2724 & 5.4963 & 0.2212 & 0.5813 & 0.6551 & 0.3925 & 0.3381 \\
+12  & 4.1906 & 5.5198 & 0.2219 & 0.5803 & 0.6562 & 0.3925 & 0.3386 \\
+13  & 4.1206 & 5.5329 & 0.2250 & 0.5820 & 0.6543 & 0.3942 & 0.3401 \\
+14  & 4.0634 & 5.5513 & 0.2230 & 0.5810 & 0.6540 & 0.3932 & 0.3391 \\
+15  & 4.0187 & 5.5611 & 0.2214 & 0.5812 & 0.6550 & 0.3926 & 0.3383 \\
+16  & 3.9825 & 5.5708 & 0.2221 & 0.5814 & 0.6546 & 0.3930 & 0.3387 \\
+17  & 3.9530 & 5.5758 & 0.2251 & 0.5811 & 0.6545 & 0.3941 & 0.3403 \\
+18  & 3.9322 & 5.5788 & 0.2253 & 0.5809 & 0.6545 & 0.3942 & 0.3405 \\
+19  & 3.9244 & 5.5823 & 0.2255 & 0.5811 & 0.6543 & 0.3944 & 0.3406 \\
+\textbf{20} & \textbf{3.9221} & \textbf{5.5849} & \textbf{0.2253} & \textbf{0.5808} & \textbf{0.6542} & \textbf{0.3942} & \textbf{0.3405} \\
+\bottomrule
+\end{tabular}
+\label{tab:rnn_log}
+\end{table}
+
+\subsection{Pure KAN Training Log}
+
+\begin{table}[H]
+\centering
+\caption{Pure KAN --- Per-Epoch Metrics (Total time: 1569.8 s)}
+\small
+\begin{tabular}{r r r r r r r r}
+\toprule
+\textbf{Ep} & \textbf{TrLoss} & \textbf{VlLoss} & \textbf{Acc} & \textbf{HR@10} & \textbf{HR@20} & \textbf{NDCG@10} & \textbf{MRR} \\
+\midrule
+ 1  & 8.8652 & 8.1575 & 0.0088 & 0.0616 & 0.0981 & 0.0295 & 0.0225 \\
+ 2  & 8.1204 & 8.1154 & 0.0110 & 0.0634 & 0.0997 & 0.0322 & 0.0254 \\
+ 3  & 7.8649 & 7.5769 & 0.0249 & 0.1312 & 0.1869 & 0.0707 & 0.0562 \\
+ 4  & 7.2501 & 7.0365 & 0.0523 & 0.2401 & 0.3225 & 0.1352 & 0.1086 \\
+ 5  & 6.7105 & 6.6397 & 0.0918 & 0.3290 & 0.4086 & 0.1990 & 0.1644 \\
+ 6  & 6.2730 & 6.3846 & 0.1160 & 0.3867 & 0.4650 & 0.2402 & 0.2001 \\
+ 7  & 5.9322 & 6.2095 & 0.1391 & 0.4311 & 0.5027 & 0.2745 & 0.2306 \\
+ 8  & 5.6675 & 6.0776 & 0.1575 & 0.4555 & 0.5295 & 0.2967 & 0.2522 \\
+ 9  & 5.4419 & 6.0083 & 0.1651 & 0.4717 & 0.5458 & 0.3091 & 0.2632 \\
+10  & 5.2529 & 5.9607 & 0.1751 & 0.4878 & 0.5585 & 0.3227 & 0.2758 \\
+11  & 5.0952 & 5.9126 & 0.1808 & 0.4984 & 0.5692 & 0.3317 & 0.2842 \\
+12  & 4.9622 & 5.8991 & 0.1889 & 0.5037 & 0.5746 & 0.3377 & 0.2905 \\
+13  & 4.8561 & 5.8900 & 0.1930 & 0.5088 & 0.5777 & 0.3416 & 0.2939 \\
+14  & 4.7610 & 5.8849 & 0.1955 & 0.5103 & 0.5797 & 0.3446 & 0.2973 \\
+15  & 4.6886 & 5.8773 & 0.1999 & 0.5140 & 0.5821 & 0.3486 & 0.3013 \\
+16  & 4.6326 & 5.8670 & 0.2006 & 0.5161 & 0.5843 & 0.3495 & 0.3019 \\
+17  & 4.5915 & 5.8671 & 0.1981 & 0.5158 & 0.5854 & 0.3487 & 0.3010 \\
+18  & 4.5660 & 5.8654 & 0.2006 & 0.5166 & 0.5850 & 0.3503 & 0.3027 \\
+19  & 4.5501 & 5.8653 & 0.2012 & 0.5170 & 0.5856 & 0.3511 & 0.3037 \\
+\textbf{20} & \textbf{4.5414} & \textbf{5.8678} & \textbf{0.2020} & \textbf{0.5174} & \textbf{0.5850} & \textbf{0.3511} & \textbf{0.3036} \\
+\bottomrule
+\end{tabular}
+\label{tab:kan_log}
+\end{table}
+
+\subsection{Hybrid Model Training Log}
+
+\begin{table}[H]
+\centering
+\caption{Hybrid (GRU + KAN) --- Per-Epoch Metrics (Total time: 981.6 s)}
+\small
+\begin{tabular}{r r r r r r r r}
+\toprule
+\textbf{Ep} & \textbf{TrLoss} & \textbf{VlLoss} & \textbf{Acc} & \textbf{HR@10} & \textbf{HR@20} & \textbf{NDCG@10} & \textbf{MRR} \\
+\midrule
+ 1  & 8.8390 & 8.1555 & 0.0081 & 0.0616 & 0.0993 & 0.0293 & 0.0222 \\
+ 2  & 8.0955 & 7.9467 & 0.0092 & 0.0635 & 0.1020 & 0.0311 & 0.0241 \\
+ 3  & 7.5964 & 7.1895 & 0.0529 & 0.2246 & 0.2963 & 0.1281 & 0.1034 \\
+ 4  & 6.7455 & 6.5120 & 0.1106 & 0.3573 & 0.4309 & 0.2251 & 0.1889 \\
+ 5  & 6.1028 & 6.1547 & 0.1501 & 0.4286 & 0.4991 & 0.2804 & 0.2389 \\
+ 6  & 5.6772 & 5.9623 & 0.1732 & 0.4686 & 0.5437 & 0.3119 & 0.2681 \\
+ 7  & 5.3547 & 5.8428 & 0.1860 & 0.4944 & 0.5691 & 0.3316 & 0.2856 \\
+ 8  & 5.1008 & 5.7726 & 0.1962 & 0.5115 & 0.5814 & 0.3456 & 0.2983 \\
+ 9  & 4.9018 & 5.7400 & 0.2045 & 0.5210 & 0.5903 & 0.3547 & 0.3073 \\
+10  & 4.7219 & 5.7234 & 0.2059 & 0.5284 & 0.5970 & 0.3592 & 0.3108 \\
+11  & 4.5789 & 5.7211 & 0.2098 & 0.5318 & 0.6048 & 0.3626 & 0.3144 \\
+12  & 4.4557 & 5.7161 & 0.2139 & 0.5358 & 0.6024 & 0.3669 & 0.3184 \\
+13  & 4.3579 & 5.7238 & 0.2137 & 0.5359 & 0.6040 & 0.3667 & 0.3182 \\
+14  & 4.2703 & 5.7247 & 0.2132 & 0.5368 & 0.6055 & 0.3667 & 0.3180 \\
+15  & 4.2056 & 5.7311 & 0.2155 & 0.5372 & 0.6063 & 0.3679 & 0.3194 \\
+16  & 4.1578 & 5.7354 & 0.2170 & 0.5381 & 0.6061 & 0.3687 & 0.3202 \\
+17  & 4.1179 & 5.7358 & 0.2156 & 0.5389 & 0.6069 & 0.3684 & 0.3195 \\
+18  & 4.0946 & 5.7361 & 0.2157 & 0.5387 & 0.6068 & 0.3685 & 0.3197 \\
+19  & 4.0856 & 5.7385 & 0.2165 & 0.5386 & 0.6063 & 0.3688 & 0.3201 \\
+\textbf{20} & \textbf{4.0736} & \textbf{5.7374} & \textbf{0.2169} & \textbf{0.5386} & \textbf{0.6071} & \textbf{0.3690} & \textbf{0.3205} \\
+\bottomrule
+\end{tabular}
+\label{tab:hybrid_log}
+\end{table}
+
+% ---------------------------------------------------------------
+\section{Training Curve Comparisons}
+% ---------------------------------------------------------------
+
+Figure~\ref{fig:loss_curves} presents the training and validation loss alongside
+top-1 accuracy. Figures~\ref{fig:hit_curves} and~\ref{fig:rank_curves} show the
+retrieval and ranking metrics respectively.
+
+% ----- Figure: Loss + Accuracy (top row of training_curves.png) ----- %
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={0 660px 1080px 0}, clip]{training_curves.png}
+    \caption{Training loss over 20 epochs. The RNN converges fastest,
+             reaching near-plateau by epoch~10. KAN and Hybrid decrease
+             monotonically, suggesting further gains beyond 20 epochs.}
+    \label{fig:train_loss}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={540px 660px 540px 0}, clip]{training_curves.png}
+    \caption{Validation loss over 20 epochs. The RNN achieves the lowest
+             minimum ($\approx$5.46 at epoch~8) before mild overfitting;
+             KAN and Hybrid continue improving.}
+    \label{fig:val_loss}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={1080px 660px 0 0}, clip]{training_curves.png}
+    \caption{Top-1 validation accuracy over 20 epochs. The RNN peaks at
+             0.2255 (epoch~19); KAN and Hybrid converge more gradually.}
+    \label{fig:val_acc}
+  \end{subfigure}
+  \caption{Loss and accuracy learning curves for RNN (red), KAN (green),
+           and Hybrid (blue) models over 20 training epochs.}
+  \label{fig:loss_curves}
+\end{figure}
+
+% ----- Figure: HR@10, HR@20, NDCG@10 (middle row) ----- %
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={0 340px 1080px 360px}, clip]{training_curves.png}
+    \caption{HR@10 over 20 epochs. The RNN achieves the highest HR@10
+             (0.5808); Hybrid reaches 0.5386 and Pure KAN 0.5174.}
+    \label{fig:hr10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={540px 340px 540px 360px}, clip]{training_curves.png}
+    \caption{HR@20 over 20 epochs. Consistent ordering:
+             RNN (0.6542) $>$ Hybrid (0.6071) $>$ KAN (0.5850).}
+    \label{fig:hr20}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={1080px 340px 0 360px}, clip]{training_curves.png}
+    \caption{NDCG@10 over 20 epochs. The RNN's ranking quality is superior
+             (0.3942), placing relevant items higher in the top-10 list.}
+    \label{fig:ndcg10}
+  \end{subfigure}
+  \caption{Hit-rate and NDCG@10 learning curves. The RNN establishes clear
+           superiority from epoch~5 onward; the Hybrid sits between RNN and
+           Pure KAN on all metrics.}
+  \label{fig:hit_curves}
+\end{figure}
+
+% ----- Figure: NDCG@20, Recall@10, MRR (bottom row) ----- %
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={0 0 1080px 710px}, clip]{training_curves.png}
+    \caption{NDCG@20 over 20 epochs. The RNN advantage is maintained at the
+             wider rank cut-off (0.4128 vs.\ 0.3864 Hybrid, 0.3683 KAN).}
+    \label{fig:ndcg20}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={540px 0 540px 710px}, clip]{training_curves.png}
+    \caption{Recall@10 over 20 epochs. Values mirror HR@10 in this
+             single-ground-truth setting, confirming consistency.}
+    \label{fig:recall10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics[width=\textwidth, trim={1080px 0 0 710px}, clip]{training_curves.png}
+    \caption{MRR@20 over 20 epochs. The RNN (0.3405) consistently ranks the
+             correct item higher than Hybrid (0.3205) or KAN (0.3036).}
+    \label{fig:mrr}
+  \end{subfigure}
+  \caption{NDCG@20, Recall@10, and MRR@20 learning curves confirming the
+           consistent performance ordering across all ranking metrics.}
+  \label{fig:rank_curves}
+\end{figure}
+
+% ---------------------------------------------------------------
+\section{Final Quantitative Comparison}
+% ---------------------------------------------------------------
+
+Table~\ref{tab:results} presents the definitive comparison of all three models
+at epoch 20 on the YooChoose test set, along with the relative improvement or
+degradation of KAN-based models versus the RNN baseline.
+
+\begin{table}[H]
+\centering
+\caption{Final Model Comparison --- All Metrics on YooChoose Test Set (Epoch 20)}
+\begin{tabular}{l r r r r r}
+\toprule
+\textbf{Metric} & \textbf{RNN} & \textbf{KAN} & \textbf{Hybrid}
+                & \textbf{KAN vs RNN} & \textbf{Hybrid vs RNN} \\
+\midrule
+Val Loss $\downarrow$  & 5.5849 & 5.8678 & 5.7374 & $-$0.2829 & $-$0.1525 \\
+Accuracy $\uparrow$    & 0.2253 & 0.2020 & 0.2169 & $-$0.0233 & $-$0.0084 \\
+HR@10 $\uparrow$       & 0.5808 & 0.5174 & 0.5386 & $-$0.0634 & $-$0.0422 \\
+HR@20 $\uparrow$       & 0.6542 & 0.5850 & 0.6071 & $-$0.0692 & $-$0.0471 \\
+NDCG@10 $\uparrow$     & 0.3942 & 0.3511 & 0.3690 & $-$0.0431 & $-$0.0252 \\
+NDCG@20 $\uparrow$     & 0.4128 & 0.3683 & 0.3864 & $-$0.0445 & $-$0.0264 \\
+Recall@20 $\uparrow$   & 0.5808 & 0.5174 & 0.5386 & $-$0.0634 & $-$0.0422 \\
+MRR@20 $\uparrow$      & 0.3405 & 0.3036 & 0.3205 & $-$0.0369 & $-$0.0200 \\
+\midrule
+Time (s)               & \textbf{145.8}   & 1569.8   & 981.6    & $+$1424.0 s & $+$835.8 s \\
+Params                 & \textbf{5,276,805} & 7,569,029 & 6,586,757 & $+$2.29M & $+$1.31M \\
+\midrule
+\multicolumn{3}{l}{\textbf{Winner (metrics)} $\uparrow$} & \multicolumn{3}{l}{\textbf{RNN (7/7 metrics)}} \\
+\bottomrule
+\multicolumn{6}{l}{\small $\uparrow$ = higher is better; $\downarrow$ = lower is better. Negative deltas indicate KAN/Hybrid underperformance.} \\
+\end{tabular}
+\label{tab:results}
+\end{table}
+
+% ---------------------------------------------------------------
+\section{Architecture Analysis}
+% ---------------------------------------------------------------
+
+\subsection{RNN Baseline}
+
+The standard 2-layer GRU baseline achieves the best performance across all
+evaluation metrics while being by far the fastest to train (145.8 s, 10.8$\times$
+faster than Pure KAN). The gating mechanism provides effective memory management
+over the session sequence, and the 2-layer depth gives sufficient representational
+capacity for the 11,910-item vocabulary. Training loss decreases steadily, with
+validation loss plateauing around epoch 8--9 (minimum at 5.4609) before slowly
+increasing due to mild overfitting.
+
+\subsection{Pure Recurrent KAN}
+
+Replacing the GRU entirely with recurrent KAN cells introduces fully learnable
+B-spline transformation curves but at substantial computational cost:
+10.8$\times$ longer training time and 43\% more parameters than the RNN baseline.
+The model converges significantly more slowly --- only reaching HR@10 = 0.50 by
+epoch 14, compared to the RNN achieving HR@10 = 0.48 by epoch 4. The final
+performance gap (HR@10: 0.5174 vs.\ 0.5808) suggests that pure spline recurrence
+without the gating structure of GRU struggles to resolve the long-range dependency
+and vanishing gradient problems that GRU gates directly address. However, the KAN
+model does eventually converge, validating that recurrent KAN cells are viable
+for session-based recommendation.
+
+\subsection{Hybrid Model}
+
+The Hybrid model represents an intermediate point: it outperforms Pure KAN on all
+metrics while training in roughly 67\% of the KAN training time, but still falls
+short of the RNN baseline. The two-stage design --- GRU for sequential order
+capture, KAN for non-linear refinement --- partially addresses the slow convergence
+issue by providing the KAN layer with already-meaningful GRU-encoded representations
+rather than raw embeddings. The Hybrid model shows the most consistent improvement
+across epochs 5--12, suggesting the KAN refinement layer adds value when built on
+top of a well-initialized sequential representation.
+
+% ---------------------------------------------------------------
+\section{Training Speed and Parameter Efficiency}
+% ---------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\caption{Computational Cost Comparison}
+\begin{tabular}{l r r r}
+\toprule
+\textbf{Model} & \textbf{Params} & \textbf{Training Time (s)} & \textbf{Time per Epoch (s)} \\
+\midrule
+RNN Baseline & 5,276,805  &  145.8  &  7.3  \\
+Pure KAN     & 7,569,029  & 1569.8  & 78.5  \\
+Hybrid       & 6,586,757  &  981.6  & 49.1  \\
+\bottomrule
+\end{tabular}
+\label{tab:compute}
+\end{table}
+
+The B-spline basis computation is the primary source of overhead in KAN layers.
+Each forward pass requires evaluating $d_{in} \times (G + p)$ spline coefficients
+per output neuron, where $G=8$ is the grid size and $p=3$ is the spline order.
+This results in approximately $11\times$ slower per-epoch training for Pure KAN
+versus RNN.
+
+% ---------------------------------------------------------------
+\section{B-Spline Interpretability}
+% ---------------------------------------------------------------
+
+One key advantage of KAN-based architectures over standard RNNs is the
+interpretability of learned transformations. Each KAN layer learns a set of
+univariate spline curves --- one per input dimension. These curves can be
+visualized to understand:
+
+\begin{itemize}
+    \item Which item embedding dimensions contribute most to the recommendation
+          decision (by examining spline coefficient magnitudes).
+    \item What non-linear shape is learned for each recurrent transformation
+          (e.g., monotone, oscillatory, piece-wise linear).
+    \item How the Hybrid model's KAN refinement layer differs from the initial
+          GRU encoding in its learned spline shapes.
+\end{itemize}
+
+This interpretability advantage is entirely absent in standard GRU models, which
+expose only weight matrices with no direct insight into the learned transformation
+shape.
+
+% ═══════════════════════════════════════════════════════════════
+% CHAPTER 7: CONCLUSION AND FUTURE WORK
+% ═══════════════════════════════════════════════════════════════
+\chapter{Conclusion and Future Work}
+
+\section{Conclusion}
+
+This project implemented and systematically benchmarked three architectures for
+session-based recommendation on the YooChoose e-commerce dataset (50,000
+sessions, 11,910 items, 128,029 training/test samples):
+
+\begin{enumerate}
+    \item \textbf{RNN Baseline} (5.27M params, 145.8 s): 2-layer GRU with fixed
+          sigmoid/tanh activations. Achieves the best performance on all seven
+          evaluation metrics --- HR@10 = 0.5808, NDCG@10 = 0.3942, Acc = 0.2253,
+          MRR@20 = 0.3405.
+    \item \textbf{Pure Recurrent KAN} (7.57M params, 1569.8 s): Full replacement
+          of GRU with B-spline recurrent cells. Converges more slowly and achieves
+          HR@10 = 0.5174, NDCG@10 = 0.3511, at $10.8\times$ the training cost.
+    \item \textbf{Hybrid (GRU + KAN)} (6.59M params, 981.6 s): GRU encoder
+          followed by KAN recurrent refinement. Intermediate performance (HR@10 =
+          0.5386, NDCG@10 = 0.3690) and training cost, demonstrating that KAN
+          refinement on top of GRU outputs partially closes the performance gap.
+\end{enumerate}
+
+The key finding is that the standard GRU gating mechanism --- which directly
+addresses vanishing gradients and long-range dependencies through learned forget
+and update gates --- provides a stronger inductive bias for session modeling than
+pure B-spline recurrence within the 20-epoch training budget. KAN-based models
+demonstrate the interpretability advantage of learnable spline curves but require
+significantly more training time and parameters to approach comparable performance.
+
+The theoretical contribution of this work is the \textbf{KANRecurrentCell} ---
+a novel recurrent unit using B-spline parameterized learnable activation functions
+in place of fixed activations, validated for the first time on a real-world
+session-based recommendation benchmark.
+
+\section{Future Work}
+
+Several directions remain for future exploration:
+
+\begin{itemize}
+    \item \textbf{Extended training}: KAN models show consistent improvement
+          through epoch 20 without clear plateauing, suggesting that training
+          beyond 20 epochs may narrow the performance gap with RNN.
+    \item \textbf{Spline visualization}: Generate and analyze learned B-spline
+          activation patterns across layers to identify which embedding dimensions
+          drive recommendation decisions.
+    \item \textbf{Ablation studies}: Systematic variation of KAN grid size
+          (4, 6, 8, 12) and order (2, 3, 4) to identify the optimal
+          complexity-accuracy-speed trade-off.
+    \item \textbf{KAN-GRU (gates integration)}: Extend the KAN integration inside
+          each GRU gate (update, reset, new gate) using separate KAN layers for
+          $x_t$ and $h_{t-1}$, with reduced grid size for memory efficiency.
+    \item \textbf{Attention + KAN}: Combine attention mechanisms (as in NARM)
+          with KAN layers for capturing both global session intent and local
+          sequential patterns.
+    \item \textbf{Larger dataset}: Evaluate on the full YooChoose dataset
+          (9.2M sessions) and the Diginetica dataset.
+    \item \textbf{KAN efficiency}: Explore efficient KAN variants (rational
+          functions, Chebyshev polynomials) to reduce the $10\times$ speed
+          overhead of B-spline KAN versus GRU.
+    \item \textbf{Recall@20 and MRR@20 optimization}: Directly optimize
+          ranking-aware loss functions to improve MRR rather than cross-entropy
+          which optimizes for top-1 accuracy.
+\end{itemize}
+
+% ═══════════════════════════════════════════════════════════════
+% APPENDIX
+% ═══════════════════════════════════════════════════════════════
+\appendix
+
+\chapter{KAN Layer Implementation}
+
+\begin{lstlisting}[style=pythonstyle, caption={KANLinear --- B-spline based KAN layer (kan\_layer.py)}]
+class KANLinear(nn.Module):
+    def __init__(self, in_dim, out_dim, grid=KAN_GRID, order=KAN_ORDER):
+        super().__init__()
+        n_coeff = grid + order
+        self.coeff  = nn.Parameter(torch.randn(out_dim, in_dim, n_coeff) * 0.05)
+        self.linear = nn.Linear(in_dim, out_dim, bias=True)
+        self.scale  = nn.Parameter(torch.ones(out_dim, in_dim) * 0.1)
+        self.register_buffer("knots", torch.linspace(-1, 1, grid + 1))
+
+    def _bspline(self, x):
+        k0, target = self.knots, self.grid + self.order
+        xv = x.unsqueeze(-1)
+        b  = ((xv >= k0[:-1]) & (xv < k0[1:])).float()
+        for k in range(1, self.order + 1):
+            kext  = torch.cat([k0[0].expand(k), k0, k0[-1].expand(k)])
+            w     = b.size(-1)
+            denom = (kext[k: k+w] - kext[:w]).clamp(min=1e-6)
+            alpha = ((xv - kext[:w]) / denom).clamp(0.0, 1.0)
+            b_sh  = F.pad(b[..., 1:], (0, 1))
+            b     = alpha * b + (1.0 - alpha) * b_sh
+            if b.size(-1) < target:
+                b = F.pad(b, (0, target - b.size(-1)))
+        return b
+
+    def forward(self, x):
+        xn     = torch.tanh(x).clamp(-1+1e-5, 1-1e-5)
+        basis  = self._bspline(xn)
+        spline = torch.einsum("bdc,odc->bo", basis,
+                              self.coeff * self.scale.unsqueeze(-1))
+        return spline + self.linear(x)
+\end{lstlisting}
+
+\chapter{Recurrent KAN Cell Implementation}
+
+\begin{lstlisting}[style=pythonstyle, caption={KANRecurrentCell --- Fully recurrent KAN cell (kan\_recurrent.py)}]
+class KANRecurrentCell(nn.Module):
+    """
+    Recurrent cell: h_t = tanh(LayerNorm(KAN([x_t || h_{t-1}])))
+    """
+    def __init__(self, input_dim, hidden_dim):
+        super().__init__()
+        self.kan  = KANLinear(input_dim + hidden_dim, hidden_dim)
+        self.norm = nn.LayerNorm(hidden_dim)
+
+    def forward(self, x_t, h_prev):
+        combined = torch.cat([x_t, h_prev], dim=-1)
+        return torch.tanh(self.norm(self.kan(combined)))
+
+
+class KANRecurrentLayer(nn.Module):
+    """
+    Unrolls a KANRecurrentCell over a sequence (batch, seq_len, input_dim)
+    and returns (outputs, final_hidden).
+    """
+    def __init__(self, input_dim, hidden_dim):
+        super().__init__()
+        self.cell       = KANRecurrentCell(input_dim, hidden_dim)
+        self.hidden_dim = hidden_dim
+
+    def forward(self, x, h0=None):
+        B, T, _ = x.shape
+        h = torch.zeros(B, self.hidden_dim, device=x.device) if h0 is None else h0
+        outputs = []
+        for t in range(T):
+            h = self.cell(x[:, t, :], h)
+            outputs.append(h.unsqueeze(1))
+        return torch.cat(outputs, dim=1), h
+\end{lstlisting}
+
+% ═══════════════════════════════════════════════════════════════
+% REFERENCES
+% ═══════════════════════════════════════════════════════════════
+\begin{thebibliography}{99}
+
+\bibitem{hidasi2015}
+Hidasi, B., Karatzoglou, A., Baltrunas, L., \& Tikk, D. (2015).
+\textit{Session-based Recommendations with Recurrent Neural Networks}.
+ArXiv. \url{https://arxiv.org/abs/1511.06939}
+
+\bibitem{li2017}
+Li, J., Ren, P., Chen, Z., Ren, Z., Lian, T., \& Ma, J. (2017).
+\textit{Neural Attentive Session-based Recommendation}.
+Proceedings of CIKM 2017, ACM, 1419--1428.
+
+\bibitem{sun2019}
+Sun, F., Liu, J., Wu, J., Pei, C., Lin, X., Ou, W., \& Jiang, P. (2019).
+\textit{BERT4Rec: Sequential Recommendation with Bidirectional Encoder
+Representations from Transformer}.
+ArXiv. \url{https://arxiv.org/abs/1904.06690}
+
+\bibitem{kang2018}
+Kang, W.-C., \& McAuley, J. (2018).
+\textit{Self-Attentive Sequential Recommendation}.
+IEEE International Conference on Data Mining (ICDM), 197--206.
+
+\bibitem{liu2024}
+Liu, Z., Wang, Y., Vaidya, S., Ruehle, F., Halverson, J., Soljačić, M.,
+Hou, T.~Y., \& Tegmark, M. (2024).
+\textit{KAN: Kolmogorov-Arnold Networks}.
+ArXiv. \url{https://arxiv.org/abs/2404.19756}
+
+\bibitem{hou2024}
+Hou, Y., Ji, T., Zhang, D., \& Stefanidis, A. (2024).
+\textit{Kolmogorov-Arnold Networks: A Critical Assessment of Claims,
+Performance, and Practical Viability}.
+ArXiv. \url{https://arxiv.org/abs/2407.11075}
+
+\bibitem{xu2024kan}
+Xu, K., Chen, L., \& Wang, S. (2024).
+\textit{Kolmogorov-Arnold Networks for Time Series: Bridging Predictive Power
+and Interpretability}.
+ArXiv. \url{https://arxiv.org/abs/2406.02496}
+
+\bibitem{genet2024}
+Genet, R., \& Inzirillo, H. (2024).
+\textit{TKAN: Temporal Kolmogorov-Arnold Networks}.
+ArXiv. \url{https://arxiv.org/abs/2405.07344}
+
+\bibitem{xu2026}
+Xu, Y., Fang, X., Gong, J. et al. (2026).
+\textit{Enhancing global and local interests fusion based on
+Kolmogorov-Arnold networks for sequential recommendation}.
+Multimedia Systems, 32, 81.
+\url{https://doi.org/10.1007/s00530-025-02142-4}
+
+\bibitem{rendle2010}
+Rendle, S., Freudenthaler, C., \& Schmidt-Thieme, L. (2010).
+\textit{Factorizing personalized Markov chains for next-basket recommendation}.
+Proceedings of WWW 2010, 811--820.
+
+\end{thebibliography}
+
+\end{document}

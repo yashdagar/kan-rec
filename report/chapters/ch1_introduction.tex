@@ -1,0 +1,131 @@
+\chapter{Introduction}
+
+\section{Background and Context}
+
+Recommendation systems help users find relevant items in catalogues far too
+large to browse, and they drive engagement on e-commerce sites, streaming
+services and grocery platforms. Classical collaborative filtering builds
+long-term user profiles from historical interactions. Many practical settings do
+not provide such profiles: visitors are anonymous, sessions are short, or
+privacy regulations such as GDPR limit tracking. Other settings provide long
+histories but ask a different question, such as which products a customer will
+buy on their next grocery trip.
+
+This project studies two such sequential tasks:
+
+\begin{itemize}
+    \item \textbf{Session-based recommendation}: predict the next item clicked in
+          an anonymous browsing session, using only the clicks so far in that
+          session.
+    \item \textbf{Next-basket recommendation}: predict the set of products in a
+          customer's next shopping basket from the sequence of their previous
+          baskets.
+\end{itemize}
+
+Both tasks are naturally modelled with recurrent neural networks (RNNs), and
+the gated recurrent unit (GRU) is the standard building block in both: GRU4Rec
+for sessions \cite{hidasi2016,hidasi2018} and the basket-GRU of van Maasakkers
+et al.\ \cite{vanmaasakkers2023} for baskets.
+
+\section{Session-Based Recommendation}
+
+A session is a short sequence of user actions, here clicks on items, within a
+limited time frame. Formally, given the items $S = (i_1, i_2, \ldots, i_t)$ of a
+session so far, the model ranks all items by the probability that $i_{t+1}$ is
+clicked next. Every position in a session is a prediction target. Sessions are
+short (the median YooChoose session has two or three clicks), noisy and highly
+variable, and the item catalogue contains tens of thousands of items with a long
+popularity tail.
+
+\section{Next-Basket Recommendation}
+
+In next-basket recommendation each user $u$ has a history of baskets
+$B^u_1, \ldots, B^u_{T}$, each a set of items, and the model ranks all items for
+the unseen basket $B^u_{T+1}$. Next-basket data differ from session data in two
+ways. Histories are long (tens of baskets per customer), and a large share of
+each next basket consists of items the customer has bought before (\emph{repeat}
+items). Recent work showed that this repeat behaviour dominates the achievable
+accuracy, and that simple personal-frequency baselines are very hard to beat
+\cite{li2023}.
+
+\section{Kolmogorov-Arnold Networks}
+
+Kolmogorov-Arnold Networks (KANs) \cite{liu2025kan} are motivated by the
+Kolmogorov-Arnold representation theorem, which states that any continuous
+function $f:[0,1]^n \to \mathbb{R}$ can be written as
+\begin{equation}
+f(x_1, \ldots, x_n) = \sum_{q=0}^{2n} \Phi_q \left( \sum_{p=1}^{n} \phi_{q,p}(x_p) \right),
+\end{equation}
+where $\phi_{q,p}$ and $\Phi_q$ are continuous univariate functions. A KAN layer
+mapping $d_{in}$ inputs to $d_{out}$ outputs places a learnable univariate
+function on every edge,
+\begin{equation}
+y_o = \sum_{i=1}^{d_{in}} \phi_{o,i}(x_i), \qquad o = 1, \ldots, d_{out},
+\end{equation}
+so a layer contains $d_{in} \times d_{out}$ learnable functions, each usually
+parameterised as a linear combination of basis functions such as B-splines. An
+MLP layer instead applies one fixed non-linearity after a linear map.
+
+The properties usually claimed for KANs are better accuracy per parameter on
+smooth function-fitting problems and interpretability, because each learned edge
+function can be plotted. Later studies qualify these claims: when parameters and
+FLOPs are matched, KANs outperform MLPs mainly on symbolic formula fitting
+\cite{yu2024}, and they are considerably slower to train \cite{hou2025}. Whether
+KAN layers help recommendation models therefore has to be tested against
+carefully controlled baselines.
+
+\section{Motivation: Findings of the First Draft}
+
+A first version of this project compared a 2-layer GRU, an ungated ``pure
+recurrent KAN'' and a GRU+KAN hybrid on a random 50,000-session sample of
+YooChoose. The KAN models lost on every metric and trained up to 10.8 times more
+slowly. A review of that work found that its protocol leaked test information
+into training, used the test set for model selection, and that its B-spline
+implementation produced piecewise-constant step functions rather than cubic
+splines (Appendix~\ref{app:errata}). Those numbers are therefore not reliable
+evidence either for or against KANs, and this report replaces them.
+
+\section{Problem Statement}
+
+Determine whether, and where, KAN layers improve GRU-based recommenders, under
+a protocol that permits a fair conclusion:
+
+\begin{itemize}
+    \item standard, leakage-free data splits that make results comparable with
+          published work;
+    \item correct, independently verified implementations of both the baselines
+          and the KAN layers;
+    \item controls that separate the effect of the KAN from the effect of simply
+          adding parameters;
+    \item evaluation on both session-based and next-basket data.
+\end{itemize}
+
+\section{Project Objectives}
+
+\begin{enumerate}
+    \item Correct the methodological and reporting errors of the first draft.
+    \item Implement a KAN layer with four basis families (B-spline, Gaussian RBF,
+          Chebyshev, rational) and verify it with unit tests.
+    \item Extend the official GRU4Rec implementation with KAN layers in three
+          placements: on the final hidden state, on the input embedding, and
+          inside the GRU cell, each paired with a parameter-matched MLP control.
+    \item Apply the same placements to the basket-GRU and evaluate on the
+          Instacart and Dunnhumby next-basket datasets, using the preprocessing
+          of van Maasakkers et al.\ \cite{vanmaasakkers2023}.
+    \item Compare against strong non-neural baselines (item-kNN, personal top
+          frequency, TIFU-KNN) and report accuracy, cost, statistical
+          significance and the interpretability of the learned functions.
+    \item Propose KAN-NBR, a small additive KAN over interpretable repeat-purchase
+          features, and test whether its learned functions add accuracy or
+          insight over logistic regression and a parameter-matched MLP.
+\end{enumerate}
+
+\section{Report Organisation}
+
+Chapter~\ref{ch:literature} reviews related work on session-based and
+next-basket recommendation and on KANs. Chapter~\ref{ch:data} describes the
+datasets and preprocessing protocols. Chapter~\ref{ch:models} presents the KAN
+layer and the model variants. Chapter~\ref{ch:setup} covers the experimental
+setup, and Chapter~\ref{ch:results} the results. Chapter~\ref{ch:conclusion}
+concludes. The appendices contain the core code and the errata for the first
+draft.

@@ -1,0 +1,171 @@
+\chapter{Experimental Setup}
+\label{ch:setup}
+
+\section{Implementation}
+
+All code is in one Jupyter notebook, \texttt{kan\_rec.ipynb}, backed by a small
+Python package, \texttt{kanrec}:
+
+\begin{table}[H]
+\centering
+\caption{Project structure.}
+\label{tab:files}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{File} & \textbf{Role} \\
+\midrule
+\texttt{kan\_rec.ipynb} & Runs everything: download, preprocessing, training, tables, figures \\
+\texttt{kanrec/kan.py} & KAN layer (four bases), residual block, parameter-matched MLP \\
+\texttt{kanrec/data\_session.py} & YooChoose loading and GRU4Rec-protocol splits \\
+\texttt{kanrec/data\_basket.py} & Instacart and Dunnhumby pipelines, product clustering \\
+\texttt{kanrec/session.py} & KAN variants of GRU4Rec on the official training loop \\
+\texttt{kanrec/session\_baselines.py} & Pop, S-Pop, item-kNN \\
+\texttt{kanrec/basket.py} & Basket-GRU variants, frequency baselines, TIFU-KNN \\
+\texttt{kanrec/metrics.py} & Session and next-basket metrics \\
+\texttt{kanrec/experiments.py} & Resumable runs; one result file per model and seed \\
+\texttt{kanrec/report.py} & LaTeX tables and significance tests for this report \\
+\texttt{tests/} & Unit tests for the KAN layer, metrics and model wrappers \\
+\texttt{third\_party/GRU4Rec\_PyTorch\_Official} & Official GRU4Rec code \cite{hidasi2018} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+The official GRU4Rec code needed one compatibility change for current versions of
+pandas (converting a \texttt{Series} to an array before creating a tensor); it
+does not change the algorithm. The official ``compatibility mode''
+initialisation, which produces float64 weights under NumPy 2, is not used; both
+the reference run and all variants use the standard PyTorch initialisation of
+the official model. Software: Python 3.12 and PyTorch \cite{paszke2019}.
+
+\section{Compute Profiles}
+
+A single variable at the top of the notebook selects the hardware profile:
+
+\begin{itemize}
+    \item \textbf{mac}: Apple M1 Pro, PyTorch MPS backend. YooChoose 1/64 with
+          the official GRU4Rec size, Dunnhumby in full, a 10\% user sample of
+          Instacart, one seed. The results reported in this version of the report
+          come from this profile.
+    \item \textbf{upes}: the UPES HPC cluster's NVIDIA Blackwell GPU. Adds
+          yoochoose1/4, the full Instacart data, larger basket models and three
+          seeds.
+    \item \textbf{colab}: a Google Colab GPU, with intermediate sizes; results are
+          written to Google Drive so that an interrupted session resumes where it
+          stopped.
+\end{itemize}
+
+Every model run stores its configuration, per-epoch validation history, test
+metrics, model weights, and per-prediction metric values in its own file, so an
+interrupted run never repeats completed work.
+
+\section{Hyperparameters}
+
+\begin{table}[H]
+\centering
+\caption{Hyperparameters (mac profile).}
+\label{tab:hyper}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+& \textbf{Session (GRU4Rec)} & \textbf{Next-basket (Basket-GRU)} \\
+\midrule
+Hidden size & 480 (official) & 512 \\
+Loss & Softmax cross-entropy, $\log Q$ correction & Binary cross-entropy over all items \\
+Negatives & 2048 shared, popularity$^{0.2}$ & all items \\
+Optimiser & Adagrad, lr 0.07 (added parameters $10^{-3}$) & Adam, lr $3 \times 10^{-3}$, grad.\ clip 5 \\
+Batch & 48 parallel sessions & 64 users \\
+Dropout & 0.2 on hidden state & 0.3 on input and hidden \\
+Epochs & 10, best epoch on validation & up to 30, early stopping (patience 3) \\
+Model selection & Validation Recall@20 & Validation Recall@10 \\
+KAN basis, grid & RBF, $G=8$ (ablation: all bases, $G \in \{4,8,12\}$) & RBF, $G=8$ \\
+Seed & 42 & 42 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+All variants of a model family share every hyperparameter; only the network
+changes. The GRU4Rec settings are the official tuned values for YooChoose. For
+the basket-GRU, the learning rate ($10^{-3}$ or $3\times10^{-3}$), batch size (16
+or 64) and hidden size (512 or 1024) were chosen on the Dunnhumby
+\emph{validation} users with the plain basket-GRU, before any KAN variant was
+trained. The best settings (lr $3\times10^{-3}$, batch 64, 512 units) reached a
+validation Recall@10 of 0.183; 1024 units were not better (0.178) and five times
+slower.
+
+\section{Training the Added Parameters}
+\label{sec:stability}
+
+The official GRU4Rec optimiser, Adagrad with learning rate 0.07, takes a first
+step of roughly the full learning rate for every parameter. This is harmless
+inside the GRU, where sigmoid and tanh bound every activation, but a residual
+block adds an unbounded term to the hidden state that is used directly for
+scoring. In a 2,000-step probe at the official model size, both the KAN head and
+the MLP head diverged (training loss around 54, against 8.1 for GRU4Rec), with or
+without zero initialisation. Two changes, applied identically to every KAN and
+MLP variant, fix this:
+
+\begin{itemize}
+    \item the output layer of every residual branch is initialised to zero, so
+          each variant starts as exactly the baseline model;
+    \item parameters that are not part of the official network (the residual
+          blocks and the KAN parts of the KAN cells) use Adagrad with learning
+          rate $10^{-3}$, while all official parameters keep 0.07.
+\end{itemize}
+
+With these settings the KAN and MLP heads train as stably as GRU4Rec
+(2,000-step training loss 8.08 and 8.09, against 8.14). Learning rates of
+$3 \times 10^{-3}$ and $3 \times 10^{-4}$ gave similar losses, and $10^{-2}$ was
+unstable early in training. The probe log is included in the repository.
+This step matters for the interpretation of the first draft as well: an
+added block that is trained with an unsuitable optimiser will lose to its
+baseline whether or not it is a KAN.
+
+\section{Evaluation Metrics}
+
+\subsection{Session-Based}
+
+For each prediction, every item is ranked by score. The rank of the target is
+computed conservatively, counting all items whose score is at least the target's
+(ties count against the model), as in the official GRU4Rec evaluation. Over the
+set $T$ of all test predictions:
+\begin{align}
+\mathrm{Recall@}K &= \frac{1}{|T|} \sum_{t \in T} \mathbb{1}[\mathrm{rank}_t \le K], \\
+\mathrm{MRR@}K &= \frac{1}{|T|} \sum_{t \in T} \frac{\mathbb{1}[\mathrm{rank}_t \le K]}{\mathrm{rank}_t}, \\
+\mathrm{NDCG@}K &= \frac{1}{|T|} \sum_{t \in T} \frac{\mathbb{1}[\mathrm{rank}_t \le K]}{\log_2(\mathrm{rank}_t + 1)}.
+\end{align}
+With a single target per prediction, Recall@$K$ equals the hit rate HR@$K$. MRR
+averages over all predictions, counting a miss as zero.
+
+\subsection{Next-Basket}
+
+For a user $u$ with target basket $B_u$ and ranked list $L_u$:
+\begin{align}
+\mathrm{Recall@}K &= \frac{|L_u^{K} \cap B_u|}{|B_u|}, \qquad
+\mathrm{PHR@}K = \mathbb{1}\big[|L_u^{K} \cap B_u| > 0\big], \\
+\mathrm{NDCG@}K &= \frac{\sum_{r=1}^{K} \mathbb{1}[L_{u,r} \in B_u] / \log_2(r+1)}{\sum_{r=1}^{\min(K, |B_u|)} 1/\log_2(r+1)},
+\end{align}
+averaged over users. Following van Maasakkers et al.\ \cite{vanmaasakkers2023},
+we also report precision at the true basket size, $\mathrm{P@}|B| = |L_u^{|B_u|} \cap B_u| / |B_u|$
+(equal to recall at that cut-off), recall at $2|B|$, and the average rank of the
+purchased items (ties share the mid-rank). Recall@10 is further split into
+\emph{repeat recall}, over target items the user had bought before, and
+\emph{explore recall}, over new items \cite{li2023}.
+
+\section{Statistical Testing}
+
+Differences between a variant and its baseline are tested with the paired
+Wilcoxon signed-rank test on per-prediction (session) or per-user (basket)
+metric values, with Holm correction across all comparisons in a table. With the
+large test sets used here, even small differences can be significant, so effect
+sizes are reported alongside $p$-values. On the GPU profiles the mean and
+standard deviation over three seeds are also reported.
+
+\section{Decision Rule}
+
+A KAN placement is considered helpful only if, on the \emph{validation} set, it
+beats both the baseline and its parameter-matched MLP control. This rule was
+fixed before the results were seen, so that the choice of what to report is not
+influenced by the test set.

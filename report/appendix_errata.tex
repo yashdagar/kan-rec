@@ -1,0 +1,122 @@
+% Appendix: Errata for the first draft of this report.
+% \input this file after \appendix in main.tex.
+
+\chapter{Errata: Changes from the First Draft}
+\label{app:errata}
+
+The first draft of this report (\emph{Lightweight Session-Based Recommendation
+System}, YooChoose only) contained methodological issues that invalidate its
+reported numbers, as well as several reporting errors. All experiments in this
+report were re-run from scratch under the corrected protocol. This appendix
+records what was wrong and how it was fixed, so that the earlier results are not
+compared with the present ones.
+
+\section{Methodological Issues (Results Re-run)}
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Data leakage through a sample-level split.}
+        Each session was expanded into prefix samples
+        $\{(i_1)\!\to\! i_2, (i_1,i_2)\!\to\! i_3,\ldots\}$ and the samples were
+        then shuffled and split 80/20. Prefixes of the same session therefore
+        appeared in both training and test sets: a test sample
+        $(i_1,\ldots,i_4)\!\to\! i_5$ could coexist with the training sample
+        $(i_1,\ldots,i_5)\!\to\! i_6$, whose input contains the test target.
+        \emph{Fix:} split by session and by time, following the standard
+        GRU4Rec protocol (sessions of the final day form the test set, the day
+        before forms the validation set).
+
+  \item \textbf{Test set used for model selection.}
+        Per-epoch ``validation'' loss and metrics were computed on the test set,
+        and the final reported row came from the same set.
+        \emph{Fix:} separate train / validation / test splits; early stopping and
+        hyperparameter choices use validation only; test metrics are computed
+        once.
+
+  \item \textbf{Non-standard sampling of YooChoose.}
+        50{,}000 sessions were sampled at random from the full six-month log,
+        which yields a sparse vocabulary and prevents comparison with published
+        results. A figure caption nevertheless described the data as the
+        ``YooChoose 1/64'' split. An item-frequency filter was mentioned but not
+        applied.
+        \emph{Fix:} the standard yoochoose1/64 (and 1/4) splits with item support
+        $\geq 5$ and session length $\geq 2$.
+
+  \item \textbf{Inconsistent dataset statistics.}
+        A mean training prefix length of 4.85 implies sessions of roughly ten
+        items, which would generate far more than the reported 128{,}029 samples
+        from 50{,}000 sessions. The item count was also off by one: the model had
+        an embedding table of 11{,}910 rows (11{,}909 items plus a padding row)
+        and an output layer of 11{,}909 classes, so the dataset contained
+        11{,}909 items rather than 11{,}910.
+        \emph{Fix:} all statistics are now computed and exported by the notebook.
+
+  \item \textbf{The ``cubic B-spline'' was a step function.}
+        Executing the published \texttt{KANLinear.\_bspline} on a dense grid
+        shows that every non-zero basis function is an indicator of a single
+        grid interval (value 1 inside, 0 outside), i.e.\ a degree-0 spline, and
+        that 3 of the 11 coefficients per edge are never used. The recursion
+        reused one $\alpha$ for both terms and never extended the knot vector, so
+        it did not implement the Cox--de~Boor formula given in the report.
+        The learned spline functions were therefore piecewise constant, so the
+        spline path had zero gradient with respect to its input; only the
+        parallel linear path carried input gradients.
+        \emph{Fix:} a correct B-spline basis on an extended grid, verified
+        against a reference implementation (partition of unity and pointwise
+        agreement), together with RBF and Chebyshev bases.
+
+  \item \textbf{Ungated recurrent KAN cell.}
+        The Pure KAN cell $h_t=\tanh(\mathrm{LN}(\mathrm{KAN}([x_t,h_{t-1}])))$
+        has no update or reset gate, making it a vanilla RNN with a different
+        non-linearity, and its input was squashed twice ($\tanh$ inside
+        \texttt{KANLinear} and again after LayerNorm). It was also unrolled in a
+        Python loop, which accounts for most of the reported 10.8$\times$
+        slowdown.
+        \emph{Fix:} KAN placements that keep GRU gating (Chapter~4), and the
+        original Pure KAN and Hybrid models re-run under the corrected protocol
+        for reference.
+
+  \item \textbf{No control for added capacity.}
+        KAN models had 25--43\% more parameters than the baseline, so any gain
+        could not have been attributed to the KAN itself.
+        \emph{Fix:} every KAN variant is paired with a parameter-matched MLP.
+\end{enumerate}
+
+\section{Reporting Errors}
+
+\begin{enumerate}[leftmargin=*]
+  \item The final comparison table listed Recall@20 with the HR@10 values
+        (0.5808 / 0.5174 / 0.5386). With a single target, Recall@20 equals
+        HR@20: 0.6542 / 0.5850 / 0.6071.
+  \item The validation-loss deltas had the wrong sign. KAN and Hybrid had
+        \emph{higher} loss than the RNN: $+0.2829$ and $+0.1525$.
+  \item The table declared the RNN the winner on ``7/7 metrics'' while listing
+        8 metrics.
+  \item The Hybrid model's training time is 62.5\% of the Pure KAN time
+        (981.6\,s / 1569.8\,s), not 67\%.
+  \item Pure KAN first reached HR@10 $\geq 0.50$ at epoch 12 (0.5037), not
+        epoch 14.
+  \item Captions stated that KAN and Hybrid ``continue improving'' through
+        epoch 20. The logs show the Hybrid validation loss reaching its minimum
+        at epoch 12 (5.7161) and both models plateauing by epoch 16, as
+        Chapter 5 of the draft itself stated.
+  \item One figure was labelled Recall@10 while the tables reported Recall@20.
+  \item The MRR@20 definition in the metrics table (average over sessions whose
+        target is in the top 20) disagreed with the formula (average over all
+        sessions, with misses counted as zero). The formula is correct.
+  \item The GRU candidate state was written as
+        $\tanh(W_n[x_t + r_t\odot h_{t-1}] + b_n)$. The correct form is
+        $\tanh(W_{in}x_t + b_{in} + r_t\odot(W_{hn}h_{t-1} + b_{hn}))$.
+  \item The text claimed one spline per input dimension; a KAN layer has one
+        learnable function per edge, i.e.\ $d_{in}\times d_{out}$ functions.
+  \item ``Parameter efficiency'' was listed as a KAN advantage, and the title
+        used ``Lightweight'', although both KAN models were larger and slower
+        than the baseline.
+  \item The reference to Hou et al.\ described a survey; the cited version of
+        arXiv:2407.11075 is a critical assessment (by Hou, Ji, Zhang and
+        Stefanidis) reporting that KANs are substantially slower than MLPs and
+        rarely more accurate outside symbolic regression. Rendle et al.\ (2010)
+        was listed in the bibliography but never cited.
+  \item The research gap claimed no prior work on KAN-based recurrent cells;
+        TKAN (Genet and Inzirillo, 2024) is such a cell. The claim has been
+        narrowed (Chapter~2).
+\end{enumerate}

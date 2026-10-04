@@ -1,0 +1,49 @@
+\chapter{Results and Discussion}
+\label{ch:results}
+
+\section{Session-Based Recommendation}
+
+\generated{results_yoochoose64.tex}
+
+\generated{significance_yoochoose64.tex}
+
+\section{Basis and Grid Ablation}
+
+\generated{ablation_basis.tex}
+
+\section{Next-Basket Recommendation}
+
+\generated{results_instacart.tex}
+
+\generated{results_dunnhumby.tex}
+
+\subsection{Repeat and Explore Items}
+
+\generated{repeat_instacart.tex}
+
+\generated{repeat_dunnhumby.tex}
+
+\generated{significance_instacart.tex}
+
+\generated{significance_dunnhumby.tex}
+
+\section{Training Behaviour and Cost}
+
+\begin{figure}[H]
+\centering
+\genfigure{validation_curves.pdf}{width=\textwidth}
+\caption{Validation accuracy per epoch.}
+\label{fig:curves}
+\end{figure}
+
+\generated{cost.tex}
+
+\section{Interpretability of the Learned Functions}
+\label{sec:interp}
+
+\begin{figure}[H]
+\centering
+\genfigure{kan_edges.pdf}{width=0.85\textwidth}
+\caption{Learned edge functions with the largest spline coefficients.}
+\label{fig:edges}
+\end{figure}

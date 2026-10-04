@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+data/
+results/
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+report/*.pdf
+.DS_Store
+smoke_*.ipynb
+third_party/GRU4Rec_PyTorch_Official/
+report/*.xdv

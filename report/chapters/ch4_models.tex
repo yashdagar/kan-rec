@@ -1,0 +1,236 @@
+\chapter{Model Architectures}
+\label{ch:models}
+
+This chapter describes the KAN layer, the two recurrent baselines, and the
+places where KAN layers are inserted into them. Every equation corresponds
+directly to the code in \texttt{kanrec/kan.py}, \texttt{kanrec/session.py} and
+\texttt{kanrec/basket.py}.
+
+\section{The KAN Layer}
+
+\subsection{Definition}
+
+A KAN layer with $d_{in}$ inputs and $d_{out}$ outputs computes
+\begin{equation}
+y_o = \sum_{i=1}^{d_{in}} \Big( w^{b}_{o,i}\, \mathrm{silu}(x_i) + \sum_{k=1}^{K} c_{o,i,k}\, B_k(x_i) \Big) + b_o,
+\qquad o = 1, \ldots, d_{out},
+\label{eq:kan}
+\end{equation}
+where $B_1, \ldots, B_K$ are fixed basis functions, $c_{o,i,k}$ are learnable
+coefficients and $w^b_{o,i}$, $b_o$ form a linear ``base'' path on
+$\mathrm{silu}(x)$, as in the efficient implementations of the original KAN
+\cite{liu2025kan}. Each of the $d_{in} d_{out}$ edges therefore carries its own
+learnable univariate function
+\begin{equation}
+\phi_{o,i}(x) = w^b_{o,i}\,\mathrm{silu}(x) + \sum_{k} c_{o,i,k} B_k(x),
+\end{equation}
+which can be plotted for interpretation (Section~\ref{sec:interp}). The layer
+has $d_{in} d_{out} (K + 1) + d_{out}$ parameters, compared with
+$d_{in} d_{out} + d_{out}$ for a linear layer.
+
+\subsection{Basis Families}
+
+Four basis families are implemented:
+
+\begin{itemize}
+    \item \textbf{B-spline} (cubic, $p = 3$, grid size $G$). With uniform knots
+          $t_j = t_0 + jh$ on an extended grid that adds $p$ knots beyond each end
+          of the range, the bases follow the Cox-de~Boor recursion
+          \begin{align}
+          B^{(0)}_j(x) &= \mathbb{1}[t_j \le x < t_{j+1}], \\
+          B^{(q)}_j(x) &= \frac{x - t_j}{t_{j+q} - t_j}\, B^{(q-1)}_j(x)
+                       + \frac{t_{j+q+1} - x}{t_{j+q+1} - t_{j+1}}\, B^{(q-1)}_{j+1}(x),
+          \end{align}
+          giving $K = G + p$ bases that sum to one everywhere inside the grid.
+          The unit tests check this partition of unity and compare the bases with
+          the closed-form uniform cubic B-spline.
+    \item \textbf{Gaussian RBF} (FastKAN \cite{li2024fastkan}):
+          $B_k(x) = \exp\!\big(-((x - \mu_k)/h)^2\big)$ with $K = G$ centres
+          $\mu_k$ evenly spaced over the grid range and $h$ their spacing.
+    \item \textbf{Chebyshev} \cite{ss2024cheby}: $B_k(x) = T_{k-1}(\tanh x)$,
+          $k = 1, \ldots, G+1$, where $T_n$ are Chebyshev polynomials,
+          computed with $T_0 = 1$, $T_1(u) = u$, $T_{n}(u) = 2uT_{n-1}(u) - T_{n-2}(u)$.
+    \item \textbf{Group rational} (GR-KAN \cite{yang2025kat}): the inputs are split
+          into 8 groups; within a group every input passes through the same
+          learnable rational function
+          \begin{equation}
+          R(x) = \frac{\sum_{m=0}^{5} a_m x^m}{1 + \big|\sum_{n=1}^{4} b_n x^n\big|},
+          \end{equation}
+          followed by a linear layer. Functions are shared per group rather than
+          per edge, so this variant is much smaller.
+\end{itemize}
+
+The B-spline and RBF grids span $[-2, 2]$, which covers inputs normalised by
+LayerNorm; the default grid size is $G = 8$.
+
+\subsection{Residual Block and MLP Control}
+
+KAN layers are inserted as residual blocks,
+\begin{equation}
+\mathrm{Block}(\mathbf{h}) = \mathbf{h} + f\big(\mathrm{LayerNorm}(\mathbf{h})\big),
+\label{eq:block}
+\end{equation}
+with $f$ a $d \to d$ KAN layer. The output layer of $f$ is initialised to zero,
+so every block starts as the identity and every variant starts as exactly its
+baseline model; the LayerNorm keeps the inputs inside the basis grid. For each KAN block, a \textbf{control block} uses the same
+wrapper with $f(\mathbf{x}) = W_2\, \mathrm{silu}(W_1 \mathbf{x} + b_1) + b_2$, a
+two-layer MLP whose hidden width is chosen so that it has the same number of
+parameters as the KAN (within 2\%). A KAN block that beats the baseline but not
+its control has shown only that the extra capacity helps.
+
+\section{Session Model: GRU4Rec}
+
+GRU4Rec \cite{hidasi2016,hidasi2018} with the official settings for YooChoose
+uses one GRU layer of 480 units and \emph{constrained embeddings}: the item
+embedding matrix $E$ is shared between input and output. For an input item $i_t$,
+\begin{align}
+\mathbf{x}_t &= E_{i_t}, \\
+\mathbf{r}_t &= \sigma(W_{ir}\mathbf{x}_t + b_{ir} + W_{hr}\mathbf{h}_{t-1} + b_{hr}), \\
+\mathbf{z}_t &= \sigma(W_{iz}\mathbf{x}_t + b_{iz} + W_{hz}\mathbf{h}_{t-1} + b_{hz}), \\
+\mathbf{n}_t &= \tanh\big(W_{in}\mathbf{x}_t + b_{in} + \mathbf{r}_t \odot (W_{hn}\mathbf{h}_{t-1} + b_{hn})\big), \\
+\mathbf{h}_t &= (1 - \mathbf{z}_t) \odot \mathbf{n}_t + \mathbf{z}_t \odot \mathbf{h}_{t-1},
+\end{align}
+and the score of item $j$ is $s_j = E_j^\top \mathbf{h}_t + \beta_j$.
+(These are the PyTorch \texttt{GRUCell} equations; the first draft's candidate
+equation was incorrect.) Training uses session-parallel mini-batches of 48
+sessions, 2048 additional negative items shared across the mini-batch and
+sampled in proportion to popularity$^{0.2}$, a softmax cross-entropy loss over
+the targets and samples with a $\log Q$ popularity correction, dropout 0.2 on the
+hidden state, and Adagrad with learning rate 0.07.
+
+\section{KAN Placements in GRU4Rec}
+
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=0.55cm and 0.9cm,
+  box/.style={draw, rounded corners, minimum height=0.7cm, minimum width=1.9cm, align=center, font=\small},
+  kan/.style={box, fill=orange!20},
+  arr/.style={-{stealth}, thick}]
+\node[box] (item) {item $i_t$};
+\node[box, right=of item] (emb) {embedding\\$E_{i_t}$};
+\node[kan, right=of emb] (kin) {KAN input\\block (S2)};
+\node[box, right=of kin, fill=blue!8] (gru) {GRU cell\\(S3: KAN-GRU)};
+\node[kan, right=of gru] (kout) {KAN head\\block (S1)};
+\node[box, right=of kout] (score) {scores\\$E\mathbf{h}' + \beta$};
+\draw[arr] (item) -- (emb);
+\draw[arr] (emb) -- (kin);
+\draw[arr] (kin) -- (gru);
+\draw[arr] (gru) -- (kout);
+\draw[arr] (kout) -- (score);
+\draw[arr] ([xshift=0.4cm]gru.south) .. controls +(0.6,-1.0) and +(-0.6,-1.0) .. node[below, font=\scriptsize]{$\mathbf{h}_{t-1}$} ([xshift=-0.4cm]gru.south);
+\end{tikzpicture}}
+\caption{KAN placements in GRU4Rec. Orange blocks are optional residual KAN (or
+MLP control) blocks; the GRU cell can be replaced by the KAN-GRU cell.}
+\label{fig:placements}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{S1, KAN head}: $\mathbf{h}'_t = \mathrm{Block}(\mathbf{h}_t)$
+          before scoring. The block refines the session representation; scoring
+          stays a dot product, so sampled negatives and constrained embeddings
+          work unchanged. (A KAN on the item-scoring layer itself would need
+          $480 \times 17{,}000 \times K$ coefficients.)
+    \item \textbf{S2, KAN input}: $\mathbf{x}'_t = \mathrm{Block}(E_{i_t})$, a
+          non-linear transformation of the item embedding before the GRU.
+    \item \textbf{S1+S2}: both blocks.
+    \item \textbf{S3, KAN-GRU cell}: the update and reset gates keep their linear
+          + sigmoid form, as in TKAN \cite{genet2024}, and only the candidate
+          state is computed by a KAN:
+          \begin{equation}
+          \mathbf{n}_t = \tanh\big(\mathrm{KAN}([\mathbf{x}_t;\ \mathbf{r}_t \odot \mathbf{h}_{t-1}])\big).
+          \end{equation}
+    \item \textbf{Draft models}, for continuity with the first draft:
+          \emph{Draft Pure KAN} replaces the GRU with the ungated cell
+          $\mathbf{h}_t = \tanh(\mathrm{LayerNorm}(\mathrm{KAN}([\mathbf{x}_t;\mathbf{h}_{t-1}])))$
+          with a correct cubic B-spline basis, and \emph{Draft Hybrid} stacks that
+          cell on top of a GRU layer.
+\end{itemize}
+
+S1 and S2 are paired with parameter-matched MLP controls (\emph{+MLP head},
+\emph{+MLP input}), and S3 with the \emph{MLP-GRU cell}, whose candidate state
+$\tanh(\mathrm{MLP}([\mathbf{x}_t; \mathbf{r}_t \odot \mathbf{h}_{t-1}]))$ uses an MLP with
+the same number of parameters as the KAN. Draft Hybrid has two recurrent layers,
+so it is compared with a two-layer GRU4Rec (same depth) and with \emph{Draft
+Hybrid (MLP)}, in which the KAN of the ungated cell is replaced by a
+parameter-matched MLP. Unless stated otherwise the KAN layers use the RBF basis
+with $G=8$; the other bases are compared in an ablation.
+
+\section{Next-Basket Model: Basket-GRU}
+
+The basket-GRU of van Maasakkers et al.\ \cite{vanmaasakkers2023} reads the
+multi-hot vector $\mathbf{m}_t \in \{0,1\}^N$ of basket $t$ and outputs a purchase
+probability for every one of the $N$ items:
+\begin{align}
+\mathbf{x}_t &= W_{in}\mathbf{m}_t, \\
+\mathbf{h}_t &= \mathrm{GRU}(\mathbf{x}_t, \mathbf{h}_{t-1}), \\
+\hat{\mathbf{y}}_{t+1} &= \sigma(W_{out}\mathbf{h}_t + \mathbf{b}),
+\end{align}
+trained with binary cross-entropy against $\mathbf{m}_{t+1}$, averaged over all
+items and over every step of every training history. The output bias $b_j$ is
+initialised to the log-odds of item $j$'s share of training baskets, so that
+training starts from the popularity predictor; without this, the biases need
+thousands of updates to move from probability 0.5 towards the true base rates
+of roughly $10^{-3}$, and short training runs stay at chance level. $W_{in}\mathbf{m}_t$ is
+implemented as a sum-pooled embedding bag. Sequences of different lengths are
+padded on the right and the representation of a user is read at their true last
+basket (not at the last padded position, the error suspected in the first draft).
+The KAN placements mirror those of GRU4Rec: \emph{+KAN head} applies
+Equation~\eqref{eq:block} to $\mathbf{h}_t$, \emph{+KAN input} to $\mathbf{x}_t$,
+and \emph{KAN-GRU cell} uses the cell of S3, each with its MLP control. As before, no KAN is applied on the
+$N$-dimensional side.
+
+\section{KAN-NBR: An Interpretable Repeat-Aware Model}
+\label{sec:kannbr}
+
+Because repeat purchases account for most of the achievable next-basket
+accuracy \cite{li2023}, we also test a KAN where its interpretability can matter:
+on a few meaningful scalar features rather than on hundreds of hidden units.
+For user $u$ and candidate item $j$, where the candidates are the items $u$ has
+bought before plus the 100 most popular items, KAN-NBR computes seven features
+from the history $B^u_1, \ldots, B^u_n$:
+
+\begin{enumerate}
+    \item $\log(1 + \text{baskets since the last purchase of } j)$;
+    \item $\log(1 + c_{uj})$, where $c_{uj}$ is the number of baskets containing $j$;
+    \item the purchase share $c_{uj}/n$;
+    \item the decayed frequency $\sum_t 0.9^{\,n-t}\, \mathbb{1}[j \in B^u_t]$;
+    \item the log popularity of $j$ across all users;
+    \item $\log(1 + \text{overdue ratio})$, the baskets since the last purchase
+          divided by the user's mean interval between purchases of $j$;
+    \item whether $j$ is in the history at all.
+\end{enumerate}
+
+After batch normalisation, a single KAN layer maps the seven features to a
+purchase logit:
+\begin{equation}
+\mathrm{logit}\, P(j \in B^u_{n+1}) = \sum_{f=1}^{7} \phi_f(z_f) + b,
+\end{equation}
+which is a generalised additive model whose shape functions $\phi_f$ are learned
+KAN edge functions and can be plotted directly. A two-layer KAN
+$[7 \to 4 \to 1]$ allows interactions between features. Controls are logistic
+regression on the same features (linear $\phi_f$) and MLPs with the same number
+of parameters as each KAN. Training pairs are built from the last three positions
+of every user's history (predicting basket $t$ from the baskets before it), so
+the held-out final basket is never seen in training. The model is trained with
+binary cross-entropy and Adam, with early stopping on validation Recall@10.
+
+\section{Baselines}
+
+\textbf{Session}: \emph{Pop} (global popularity), \emph{S-Pop} (items already in
+the session by in-session count, then popularity) and \emph{Item-kNN}
+\cite{hidasi2016}, which scores item $j$ by its similarity to the current item $i$,
+$\mathrm{sim}(i,j) = n_{ij} / (n_i^{0.5} n_j^{0.5} + 20)$, where $n_{ij}$ counts
+sessions containing both items.
+
+\textbf{Next-basket}: \emph{G-TopFreq} (global popularity), \emph{P-TopFreq}
+(the user's own purchase frequencies), \emph{GP-TopFreq} (personal frequencies,
+remaining positions filled by global popularity), \emph{Last basket}, and
+\emph{TIFU-KNN} \cite{hu2020}. TIFU-KNN represents a user by time-decayed item
+frequencies: the history is cut into groups of $m$ baskets, baskets within a
+group are weighted by $r_b^{\,\text{age in group}}$ and groups by
+$r_g^{\,\text{group age}}$. The prediction is
+$\alpha \mathbf{u} + (1-\alpha)\,\overline{\mathbf{u}}_{\mathrm{kNN}}$, mixing the user's
+vector with the mean vector of their $k$ most similar users. Its hyperparameters
+are tuned on validation users.

@@ -1,0 +1,13 @@
+diff --git a/gru4rec_pytorch.py b/gru4rec_pytorch.py
+index 7058de8..f89b0b3 100644
+--- a/gru4rec_pytorch.py
++++ b/gru4rec_pytorch.py
+@@ -451,7 +451,7 @@ class GRU4Rec:
+         self.data_iterator = SessionDataIterator(data, self.batch_size, n_sample=self.n_sample, sample_alpha=self.sample_alpha, sample_cache_max_size=sample_cache_max_size, item_key=item_key, session_key=session_key, time_key=time_key, session_order='time', device=self.device)
+         if self.logq and self.loss == 'cross-entropy':
+             pop = data.groupby(item_key).size()
+-            self.P0 = torch.tensor(pop[self.data_iterator.itemidmap.index.values], dtype=torch.float32, device=self.device)
++            self.P0 = torch.tensor(pop[self.data_iterator.itemidmap.index.values].values, dtype=torch.float32, device=self.device)
+         model = GRU4RecModel(self.data_iterator.n_items, self.layers, self.dropout_p_embed, self.dropout_p_hidden, self.embedding, self.constrained_embedding).to(self.device)
+         if compatibility_mode: 
+             model._reset_weights_to_compatibility_mode()

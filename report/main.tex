@@ -1,0 +1,170 @@
+\input{preamble}
+
+\begin{document}
+
+% ═══════════════════════════════════════════════════════════════
+% TITLE PAGE
+% ═══════════════════════════════════════════════════════════════
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+
+{\Large \textbf{Kolmogorov-Arnold Networks in Recurrent Recommenders:\\[0.15cm]
+Session-Based and Next-Basket Prediction}}\\[0.5cm]
+{\large \textit{A}}\\[0.3cm]
+{\large \textit{\textbf{Project Report}}}\\[0.2cm]
+{\normalsize \textit{submitted in partial fulfillment of the}}\\
+{\normalsize \textit{requirements for the award of the degree of}}\\[0.5cm]
+
+{\Large \textbf{BACHELOR OF TECHNOLOGY}}\\[0.2cm]
+{\large \textbf{in}}\\[0.2cm]
+{\Large \textbf{COMPUTER SCIENCE \& ENGINEERING}}\\[0.8cm]
+
+{\normalsize \textbf{by}}\\[0.5cm]
+
+\begin{tabular}{ll}
+\textbf{Name} & \textbf{Roll No.} \\
+Saksham Agrawal & R2142231383 \\
+Abhishek Yadav  & R2142231410 \\
+Yash Dagar      & R2142231424 \\
+\end{tabular}\\[0.8cm]
+
+{\normalsize \textit{under the guidance of}}\\[0.3cm]
+{\large \textbf{Dr. Amar Jindal}}\\[1.5cm]
+
+\IfFileExists{assets/upes_logo.png}{\includegraphics[width=4cm]{upes_logo.png}}{\fbox{\parbox{4cm}{\centering\small UPES logo\\(assets/upes\_logo.png)}}}\\[0.5cm]
+
+{\large \textbf{School of Computer Science}}\\
+{\large \textbf{University of Petroleum \& Energy Studies}}\\
+{\normalsize Bidholi, Via Prem Nagar, Dehradun, Uttarakhand}\\[0.4cm]
+{\normalsize \textbf{January -- May, 2026}}
+
+\end{titlepage}
+
+\pagenumbering{roman}
+
+% ═══════════════════════════════════════════════════════════════
+% CANDIDATE'S DECLARATION
+% ═══════════════════════════════════════════════════════════════
+\chapter*{Candidate's Declaration}
+\addcontentsline{toc}{chapter}{Candidate's Declaration}
+
+I/We hereby certify that the project work entitled
+\textbf{``Kolmogorov-Arnold Networks in Recurrent Recommenders: Session-Based and
+Next-Basket Prediction''}
+in partial fulfillment of the requirements for the award of the Degree of
+\textbf{BACHELOR OF TECHNOLOGY} in
+\textbf{COMPUTER SCIENCE AND ENGINEERING}
+with specialization in \textbf{Artificial Intelligence and Machine Learning}
+and submitted to the Department of Artificial Intelligence, School of Computer Science,
+University of Petroleum \& Energy Studies, Dehradun, is an authentic record of
+my/our work carried out during a period from \textbf{January, 2026} to
+\textbf{May, 2026} under the supervision of
+\textbf{Dr.\ Amar Jindal, Assistant Professor, Data Science Cluster, UPES}.
+
+The matter presented in this project has not been submitted by me/us for the award
+of any other degree of this or any other University.
+
+\vspace{2cm}
+
+\noindent
+\begin{tabular}{p{4cm} p{4cm} p{4cm}}
+\textbf{(Saksham Agrawal)} & \textbf{(Abhishek Yadav)} & \textbf{(Yash Dagar)} \\
+\textbf{Roll No.\ R2142231383} & \textbf{Roll No.\ R2142231410} & \textbf{Roll No.\ R2142231424} \\
+\end{tabular}
+
+\vspace{1.5cm}
+\noindent
+This is to certify that the above statement made by the candidate is correct to the
+best of my knowledge.
+
+\vspace{1.5cm}
+
+\noindent
+Date: \underline{\hspace{3cm}} \hfill \textbf{Dr.\ Amar Jindal}\\
+\hfill Project Guide
+
+% ═══════════════════════════════════════════════════════════════
+% ACKNOWLEDGEMENT
+% ═══════════════════════════════════════════════════════════════
+\chapter*{Acknowledgement}
+\addcontentsline{toc}{chapter}{Acknowledgement}
+
+We wish to express our deep gratitude to our guide \textbf{Dr.\ Amar Jindal},
+for all advice, encouragement and constant support he has given us throughout our
+project work. This work would not have been possible without his support and
+valuable suggestions on integrating Kolmogorov-Arnold Networks into sequential
+recommendation systems.
+
+We sincerely thank our respected Head of Department, School of Computer
+Science, UPES, for great support in doing our project, and for providing access
+to the High-Performance Computing (HPC) cluster which was essential for training
+our deep learning models.
+
+We are also grateful to the Dean, SoCS, UPES for giving us the necessary facilities
+to carry out our project work successfully. We also thank our Course
+Coordinator and Activity Coordinator for providing timely support and information
+during the completion of this project.
+
+We acknowledge the use of the \textbf{YooChoose} dataset provided by the RecSys 2015
+challenge organizers, the \textbf{Instacart} Market Basket Analysis dataset, and
+the \textbf{dunnhumby} ``The Complete Journey'' dataset. We also thank the authors
+of the official GRU4Rec implementation and of the next-basket GRU study by van
+Maasakkers, Fok and Donkers for making their code public.
+
+We would like to thank all our friends for their help and constructive criticism
+during our project work. Finally, we have no words to express our sincere gratitude
+to our parents who have shown us this world and for every support they have given us.
+
+\vspace{1.5cm}
+
+\noindent
+\begin{tabular}{p{4cm} p{4cm} p{4cm}}
+\textbf{Saksham Agrawal} & \textbf{Abhishek Yadav} & \textbf{Yash Dagar} \\
+R2142231383 & R2142231410 & R2142231424 \\
+\end{tabular}
+
+% ═══════════════════════════════════════════════════════════════
+% ABSTRACT
+% ═══════════════════════════════════════════════════════════════
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+\input{chapters/abstract}
+
+% ═══════════════════════════════════════════════════════════════
+\tableofcontents
+\listoffigures
+\listoftables
+
+\pagenumbering{arabic}
+
+\input{chapters/ch1_introduction}
+\input{chapters/ch2_literature}
+\input{chapters/ch3_data}
+\input{chapters/ch4_models}
+\input{chapters/ch5_setup}
+\input{chapters/ch6_results}
+\input{chapters/ch7_conclusion}
+
+% ═══════════════════════════════════════════════════════════════
+% APPENDICES
+% ═══════════════════════════════════════════════════════════════
+\appendix
+
+\chapter{KAN Layer Implementation}
+\label{app:kan}
+
+\lstinputlisting[style=pythonstyle, caption={KAN layer, residual block and MLP control (\texttt{kanrec/kan.py}).}]{../kanrec/kan.py}
+
+\chapter{KAN Variants of GRU4Rec}
+\label{app:session}
+
+\lstinputlisting[style=pythonstyle, linerange={1-90}, caption={KAN-GRU cell, draft cell and the extended GRU4Rec network (\texttt{kanrec/session.py}, first part).}]{../kanrec/session.py}
+
+\input{appendix_errata}
+
+% ═══════════════════════════════════════════════════════════════
+\input{references}
+
+\end{document}

@@ -1,0 +1,173 @@
+\chapter{Literature Review}
+\label{ch:literature}
+
+\section{Session-Based Recommendation}
+
+Early session-based recommenders relied on item-to-item similarity: the item-kNN
+approach recommends the items that most often co-occur in sessions with the
+current item. It remains a strong baseline.
+
+\textbf{Hidasi et al.\ (2016)} \cite{hidasi2016} introduced GRU4Rec, the first
+RNN for session-based recommendation. Its central engineering contribution is
+\emph{session-parallel mini-batches}: each mini-batch slot holds one session and
+advances one click per step; when a session ends, a new session takes its slot
+and the slot's hidden state is reset. On YooChoose, GRU4Rec clearly outperformed
+item-kNN.
+
+\textbf{Hidasi and Karatzoglou (2018)} \cite{hidasi2018} improved GRU4Rec with
+additional negative samples shared across the mini-batch and drawn in proportion
+to popularity$^\alpha$, and with the BPR-max and TOP1-max ranking losses, raising
+Recall@20 on the full YooChoose data from 0.585 to 0.721. This improved version
+is the one used in this project.
+
+\textbf{Hidasi and Czapp (2023)} \cite{hidasi2023} examined six third-party
+implementations of GRU4Rec used in comparative studies and found that they
+scored 30--99\% below the official implementation, because of incorrect loss
+functions, wrong hidden-state handling, missing negative sampling, or broken
+dropout. Many papers that report GRU4Rec as a weak baseline used such
+implementations. For this reason all session-based models in this project are
+built on the official PyTorch code.
+
+\textbf{Li et al.\ (2017)} \cite{li2017} proposed NARM, which adds an attention
+mechanism over the GRU hidden states to capture the user's main purpose in the
+session. \textbf{Liu et al.\ (2018)} \cite{liu2018} proposed STAMP, an
+attention-based model of short-term interest. \textbf{Wu et al.\ (2019)}
+\cite{wu2019} modelled sessions as graphs with SR-GNN. These papers established
+the standard yoochoose1/64 and yoochoose1/4 benchmarks used in
+Chapter~\ref{ch:results}.
+
+\textbf{Kang and McAuley (2018)} \cite{kang2018} proposed SASRec, a
+self-attentive sequential recommender, and \textbf{Sun et al.\ (2019)}
+\cite{sun2019} the bidirectional BERT4Rec. Transformer-based models capture
+long-range dependencies but are larger and more expensive than GRU4Rec.
+
+\section{Next-Basket Recommendation}
+
+\textbf{Rendle et al.\ (2010)} \cite{rendle2010} introduced FPMC, which combines
+matrix factorisation with a personalised Markov chain over consecutive baskets.
+\textbf{Yu et al.\ (2016)} \cite{yu2016} proposed DREAM, the first RNN for
+next-basket recommendation, which pools the item embeddings of each basket and
+feeds the pooled vectors to an RNN.
+
+\textbf{Guidotti et al.\ (2019)} \cite{guidotti2019} proposed TARS, which mines
+temporal annotated recurring sequences from each customer's own history and
+predicts the next basket from them; it is interpretable by construction. Its
+implementation, \texttt{tbp-next-basket}, also provides an evaluation suite of
+set-based precision, recall, F-scores and hit rate.
+
+\textbf{Hu and He (2019)} \cite{hu2019} proposed Sets2Sets, an encoder-decoder
+with an explicit repeat component. \textbf{Hu et al.\ (2020)} \cite{hu2020}
+showed with TIFU-KNN that a simple method based on time-decayed personal item
+frequencies, combined with the frequencies of nearest-neighbour users,
+outperforms most neural models. \textbf{Ariannezhad et al.\ (2022)}
+\cite{ariannezhad2022} proposed ReCANet, a model dedicated to repeat
+consumption.
+
+\textbf{Li et al.\ (2023)} \cite{li2023} re-evaluated next-basket methods and
+found that repeat items account for most of the correct predictions on Instacart
+and Dunnhumby, that personal-frequency baselines are very strong, and that
+several neural models perform close to global popularity. They recommend
+reporting repeat and explore performance separately, which this project does.
+
+\textbf{Van Maasakkers, Fok and Donkers (2023)} \cite{vanmaasakkers2023} applied
+a GRU directly to multi-hot basket vectors, with a sigmoid output for every
+product, on Instacart and Dunnhumby (The Complete Journey). With large hidden
+layers (750 and 1500 units) the GRU outperformed personal frequency and TARS on
+most metrics. Their preprocessing and evaluation protocol is followed here, and
+their basket-GRU is the next-basket baseline that KAN layers are added to.
+
+\section{Kolmogorov-Arnold Networks}
+
+\textbf{Liu et al.\ (2025)} \cite{liu2025kan} introduced KANs, which place a
+learnable univariate function, parameterised by B-splines, on every edge. On
+small scientific and function-fitting tasks KANs reached a given accuracy with
+fewer parameters than MLPs and allowed learned functions to be inspected and
+even replaced by symbolic formulas. The authors identified slow training as the
+main limitation.
+
+Two later studies qualify these results. \textbf{Yu, Yu and Wang (2024)}
+\cite{yu2024} compared KANs and MLPs with matched parameters and FLOPs across
+machine learning, computer vision, NLP, audio and symbolic formula
+representation; KANs were better only on symbolic formulas, and an MLP given
+B-spline activations matched or exceeded KAN elsewhere.
+\textbf{Hou et al.\ (2025)} \cite{hou2025} critically assessed the claims made
+for KANs and reported that they are substantially slower to train than MLPs and
+rarely more accurate outside symbolic regression. Both studies motivate the
+parameter-matched MLP controls used in this project.
+
+Several cheaper bases have been proposed. \textbf{FastKAN} \cite{li2024fastkan}
+replaces B-splines with Gaussian radial basis functions and shows that a KAN
+with such a basis is a radial basis function network. Chebyshev-polynomial KANs
+\cite{ss2024cheby} use orthogonal polynomials on tanh-bounded inputs, and
+ReLU-KAN \cite{relukan} builds the basis from ReLU products. The
+\textbf{Kolmogorov-Arnold Transformer} \cite{yang2025kat} introduced group-rational
+KAN (GR-KAN) layers, in which rational functions are shared within groups of
+input channels, and used them as drop-in replacements for the MLP blocks of
+vision transformers.
+
+\section{KANs for Sequential and Temporal Data}
+
+\textbf{Xu, Chen and Wang (2024)} \cite{xu2024tskan} applied KANs to time-series
+forecasting and argued that the learned univariate functions make the models
+interpretable. \textbf{Genet and Inzirillo (2024)} \cite{genet2024} proposed TKAN,
+a recurrent cell that keeps the LSTM's sigmoid gates and memory cell and uses KAN
+layers only inside the recurrent transformation. TKAN shows that KANs can be
+placed inside a recurrent cell without giving up gating; the KAN-GRU cell of
+Chapter~\ref{ch:models} follows the same principle.
+
+\section{KANs in Recommender Systems}
+
+\textbf{CF-KAN} \cite{park2024cfkan} replaces the MLP of an autoencoder-based
+collaborative filtering model with a KAN and reports higher Recall@20 than strong
+collaborative filtering baselines on MovieLens-1M, Yelp and Anime, together with
+more robustness to catastrophic forgetting. It is, to our knowledge, the only KAN
+recommender that compares against an MLP version of the same model with the same
+number of parameters, and it is not yet peer-reviewed. \textbf{FourierKAN-GCF}
+\cite{xu2024fkgcf} replaces the feature transformation in graph collaborative
+filtering with a Fourier-basis KAN. \textbf{KANRec} \cite{xu2026kanrec} uses KAN
+layers to fuse global and local interests in sequential recommendation.
+
+\section{Summary of Related Work}
+
+
+\begin{table}[H]
+\centering
+\caption{Summary of the main related work.}
+\label{tab:related}
+\small
+\begin{tabular}{p{3.4cm} p{0.7cm} p{3.2cm} p{2.6cm} p{4.2cm}}
+\toprule
+\textbf{Work} & \textbf{Year} & \textbf{Model} & \textbf{Data} & \textbf{Relevance / limitation} \\
+\midrule
+Hidasi et al.\ \cite{hidasi2016,hidasi2018} & 2016, 2018 & GRU4Rec & YooChoose & Strong session baseline; reimplementations often flawed \cite{hidasi2023} \\
+Li et al.\ \cite{li2017} & 2017 & NARM (GRU + attention) & YooChoose, Diginetica & Standard benchmark; black-box attention \\
+Wu et al.\ \cite{wu2019} & 2019 & SR-GNN & YooChoose, Diginetica & Standard yoochoose1/64 table \\
+Yu et al.\ \cite{yu2016} & 2016 & DREAM (RNN) & Ta-Feng, T-Mall & Close to popularity in later re-evaluations \cite{li2023} \\
+Guidotti et al.\ \cite{guidotti2019} & 2019 & TARS & Coop, Ta-Feng & Interpretable; per-customer, slow \\
+Hu et al.\ \cite{hu2020} & 2020 & TIFU-KNN & Instacart, Dunnhumby & Simple frequency model beats neural models \\
+Li et al.\ \cite{li2023} & 2023 & Re-evaluation & Instacart, Dunnhumby, Ta-Feng & Repeat items dominate accuracy \\
+van Maasakkers et al.\ \cite{vanmaasakkers2023} & 2023 & Basket-GRU & Instacart, Dunnhumby & Our basket baseline and protocol \\
+Liu et al.\ \cite{liu2025kan} & 2025 & KAN & Function fitting, science & Slow training \\
+Yu et al.\ \cite{yu2024} & 2024 & KAN vs MLP & Many domains & KAN rarely wins when matched \\
+Genet and Inzirillo \cite{genet2024} & 2024 & TKAN & Time series & KAN inside a gated cell \\
+Park et al.\ \cite{park2024cfkan} & 2024 & CF-KAN & ML-1M, Yelp, Anime & KAN in collaborative filtering \\
+Xu et al.\ \cite{xu2026kanrec} & 2026 & KANRec & Sequential rec. & KAN interest fusion \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Research Gap}
+
+KAN layers have been applied to collaborative filtering, graph recommendation and
+attention-based sequential recommendation, and KAN components have been placed
+inside gated recurrent cells for time series. We found no work that places KAN
+layers inside GRU4Rec, the most widely used RNN for session-based recommendation,
+or that applies KANs to next-basket recommendation, and among the KAN
+recommenders we found, only CF-KAN controls for model size with a
+parameter-matched MLP. The first draft of this
+project also showed how easily such comparisons go wrong: without a standard
+protocol, a verified implementation and a capacity-matched control, neither a
+gain nor a loss can be attributed to the KAN. This project therefore asks a
+narrower question than ``are KANs better?'': \emph{where in a GRU-based
+recommender, if anywhere, does a KAN layer help, compared with an MLP of the same
+size, on standard session and basket benchmarks?}
