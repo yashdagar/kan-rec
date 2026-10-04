@@ -462,3 +462,11 @@
 04:27:19 epoch 3: loss 6.2035 (84.7s) valid Recall@20 0.6829 MRR@20 0.2993
 04:28:39 epoch 4: loss 5.9584 (79.9s) valid Recall@20 0.6807 MRR@20 0.3014
 04:30:03 epoch 5: loss 5.8101 (83.1s) valid Recall@20 0.6829 MRR@20 0.3008
+04:31:29 epoch 6: loss 5.7131 (84.3s) valid Recall@20 0.6779 MRR@20 0.2989
+04:33:05 epoch 7: loss 5.6083 (94.9s) valid Recall@20 0.6765 MRR@20 0.3001
+04:34:46 epoch 8: loss 5.5419 (99.7s) valid Recall@20 0.6750 MRR@20 0.3006
+04:36:33 epoch 9: loss 5.4805 (106.5s) valid Recall@20 0.6730 MRR@20 0.3012
+04:38:00 epoch 10: loss 5.4228 (86.2s) valid Recall@20 0.6713 MRR@20 0.2989
+04:38:02   test Recall@20 0.6828 MRR@20 0.2904 params 13,378,180
+04:38:03 [yoochoose64] MLP-GRU cell [matched to rational, G=8] seed 42
+04:39:38 epoch 1: loss 8.1887 (92.7s) valid Recall@20 0.6446 MRR@20 0.2647

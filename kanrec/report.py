@@ -48,7 +48,13 @@ def bold_best(table, metrics, lower_better=()):
     return t
 
 
+def fmt_p(p):
+    return "$<10^{-300}$" if p == 0 else f"{p:.1e}"
+
+
 def write_latex(table, path, caption, label, col_format=None):
+    if table.index.nlevels == 1:
+        table = table.rename_axis(index=None)
     n_index = table.index.nlevels
     tex = table.to_latex(escape=False, column_format=col_format or "l" * n_index + "r" * len(table.columns),
                          caption=caption, label=label, position="H")

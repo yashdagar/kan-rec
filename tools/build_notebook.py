@@ -381,7 +381,7 @@ for frac in CFG["yoochoose_fractions"]:
                    f"tab:results_{name}")
     sig = rp.session_significance(RESULTS, name, list(SESSION_MODELS), seed=CFG["seeds"][0])
     display(sig)
-    rp.write_latex(sig.assign(**{"p": sig["p"].map("{:.2e}".format), "p (Holm)": sig["p (Holm)"].map("{:.2e}".format)}).set_index("Model"),
+    rp.write_latex(sig.assign(**{"p": sig["p"].map(rp.fmt_p), "p (Holm)": sig["p (Holm)"].map(rp.fmt_p)}).set_index("Model"),
                    GEN / f"significance_{name}.tex",
                    f"Paired Wilcoxon signed-rank tests against GRU4Rec on YooChoose 1/{frac} test events (Holm-corrected).",
                    f"tab:sig_{name}")
@@ -437,8 +437,8 @@ if key_sig:
     ks["p (Holm)"] = rp.holm(ks["p"].to_numpy())
     display(ks)
     rp.write_latex(ks[["Reference", "Seed", "Metric", "Delta", "p", "p (Holm)"]].assign(
-                       Delta=ks["Delta"].map("{:+.4f}".format), p=ks["p"].map("{:.1e}".format),
-                       **{"p (Holm)": ks["p (Holm)"].map("{:.1e}".format)}).set_index("Reference"),
+                       Delta=ks["Delta"].map("{:+.4f}".format), p=ks["p"].map(rp.fmt_p),
+                       **{"p (Holm)": ks["p (Holm)"].map(rp.fmt_p)}).set_index("Reference"),
                    GEN / "key_significance.tex",
                    f"Paired Wilcoxon tests of {BEST_ABLATION} against each reference model, per seed (Holm-corrected).", "tab:key_sig")
 
@@ -454,7 +454,7 @@ for data in (INSTA, DUNN):
                    f"Repeat vs explore recall on {data.name.capitalize()}.", f"tab:repeat_{data.name}")
     sig = rp.basket_significance(RESULTS, data.name, list(BASKET_MODELS) + list(KANNBR_MODELS) + ["GP-TopFreq", "TIFU-KNN"], seed=CFG["seeds"][0])
     display(sig)
-    rp.write_latex(sig.assign(**{"p": sig["p"].map("{:.2e}".format), "p (Holm)": sig["p (Holm)"].map("{:.2e}".format)}).set_index("Model"),
+    rp.write_latex(sig.assign(**{"p": sig["p"].map(rp.fmt_p), "p (Holm)": sig["p (Holm)"].map(rp.fmt_p)}).set_index("Model"),
                    GEN / f"significance_{data.name}.tex", f"Paired Wilcoxon tests against Basket-GRU on {data.name.capitalize()} test users (Holm-corrected).",
                    f"tab:sig_{data.name}")'''))
 
