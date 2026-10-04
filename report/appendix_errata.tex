@@ -51,7 +51,7 @@ compared with the present ones.
         \emph{Fix:} all statistics are now computed and exported by the notebook.
 
   \item \textbf{The ``cubic B-spline'' was a step function.}
-        Executing the published \texttt{KANLinear.\_bspline} on a dense grid
+        Executing the published B-spline routine (\texttt{\_bspline}) on a dense grid
         shows that every non-zero basis function is an indicator of a single
         grid interval (value 1 inside, 0 outside), i.e.\ a degree-0 spline, and
         that 3 of the 11 coefficients per edge are never used. The recursion

@@ -109,9 +109,9 @@ a protocol that permits a fair conclusion:
     \item Extend the official GRU4Rec implementation with KAN layers in three
           placements: on the final hidden state, on the input embedding, and
           inside the GRU cell, each paired with a parameter-matched MLP control.
-    \item Apply the same placements to the basket-GRU and evaluate on the
-          Instacart and Dunnhumby next-basket datasets, using the preprocessing
-          of van Maasakkers et al.\ \cite{vanmaasakkers2023}.
+    \item Apply the same placements to the basket-GRU on the Instacart and
+          Dunnhumby next-basket datasets, following the preprocessing of
+          \cite{vanmaasakkers2023}.
     \item Compare against strong non-neural baselines (item-kNN, personal top
           frequency, TIFU-KNN) and report accuracy, cost, statistical
           significance and the interpretability of the learned functions.

@@ -17,3 +17,4 @@ smoke_*.ipynb
 third_party/GRU4Rec_PyTorch_Official/
 report/*.xdv
 !results/**/*.log
+.overleaf_test/
