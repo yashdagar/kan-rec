@@ -1,0 +1,1 @@
+{"hidden": 1024, "lr": 0.003, "bs": 64, "best_epoch": 7, "valid_Recall@10": 0.1778, "valid_NDCG@10": 0.1965, "valid_P@B": 0.1296, "s/epoch": 59.0}

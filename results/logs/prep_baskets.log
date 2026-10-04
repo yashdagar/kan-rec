@@ -1,0 +1,2 @@
+dunnhumby 2 s {'Users': 2478, 'Items': 10370, 'Baskets': 163937, 'Mean baskets per user': 66.16, 'Mean basket size': 8.65, 'Repeat ratio (target)': 0.531, 'Valid users': 1239, 'Test users': 1239}
+instacart 56 s {'Users': 206209, 'Items': 12058, 'Baskets': 3346083, 'Mean baskets per user': 16.23, 'Mean basket size': 10.06, 'Repeat ratio (target)': 0.602, 'Valid users': 103104, 'Test users': 103105}

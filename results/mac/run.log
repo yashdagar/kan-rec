@@ -1,0 +1,464 @@
+21:28:57 [yoochoose64] GRU4Rec seed 42
+21:30:13 epoch 1: loss 7.8455 (74.0s) valid Recall@20 0.6841 MRR@20 0.2976
+21:31:31 epoch 2: loss 6.6055 (77.2s) valid Recall@20 0.6921 MRR@20 0.3054
+21:32:32 [dunnhumby] Logistic (features) seed 42
+21:32:37 epoch 1: loss 0.22694 (0.6s) valid Recall@10 0.2087 NDCG@10 0.2296
+21:32:39 epoch 2: loss 0.07116 (0.6s) valid Recall@10 0.2109 NDCG@10 0.2294
+21:32:40 epoch 3: loss 0.06241 (0.5s) valid Recall@10 0.2097 NDCG@10 0.2273
+21:32:42 epoch 4: loss 0.06088 (0.6s) valid Recall@10 0.2096 NDCG@10 0.2265
+21:32:43 epoch 3: loss 6.1707 (70.7s) valid Recall@20 0.6914 MRR@20 0.3047
+21:32:43 epoch 5: loss 0.06061 (0.5s) valid Recall@10 0.2088 NDCG@10 0.2260
+21:32:45 epoch 6: loss 0.06055 (0.6s) valid Recall@10 0.2083 NDCG@10 0.2261
+21:32:46   test Recall@10 0.2060 NDCG@10 0.2312 P@B 0.1524
+21:32:46 [dunnhumby] KAN-NBR (additive) seed 42
+21:32:51 epoch 1: loss 0.07303 (0.9s) valid Recall@10 0.2093 NDCG@10 0.2297
+21:32:53 epoch 2: loss 0.06010 (1.0s) valid Recall@10 0.2078 NDCG@10 0.2308
+21:32:55 epoch 3: loss 0.06004 (0.9s) valid Recall@10 0.2099 NDCG@10 0.2318
+21:32:57 epoch 4: loss 0.06005 (0.9s) valid Recall@10 0.2093 NDCG@10 0.2325
+21:33:00 epoch 5: loss 0.06006 (0.9s) valid Recall@10 0.2091 NDCG@10 0.2319
+21:33:02 epoch 6: loss 0.06005 (1.0s) valid Recall@10 0.2094 NDCG@10 0.2315
+21:33:04 epoch 7: loss 0.06007 (1.0s) valid Recall@10 0.2075 NDCG@10 0.2307
+21:33:05 [instacart] Logistic (features) seed 42
+21:33:06   test Recall@10 0.2101 NDCG@10 0.2303 P@B 0.1501
+21:33:06 [dunnhumby] MLP-NBR (matched) seed 42
+21:33:10 epoch 1: loss 0.07997 (0.8s) valid Recall@10 0.2032 NDCG@10 0.2256
+21:33:13 epoch 2: loss 0.06029 (0.9s) valid Recall@10 0.2098 NDCG@10 0.2307
+21:33:15 epoch 3: loss 0.06010 (0.9s) valid Recall@10 0.2098 NDCG@10 0.2309
+21:33:17 epoch 4: loss 0.06001 (1.0s) valid Recall@10 0.2077 NDCG@10 0.2312
+21:33:19 epoch 5: loss 0.05998 (0.8s) valid Recall@10 0.2122 NDCG@10 0.2333
+21:33:22 epoch 6: loss 0.05992 (0.9s) valid Recall@10 0.2086 NDCG@10 0.2320
+21:33:24 epoch 7: loss 0.05996 (0.9s) valid Recall@10 0.2094 NDCG@10 0.2311
+21:33:25 epoch 1: loss 0.17630 (2.1s) valid Recall@10 0.3521 NDCG@10 0.4233
+21:33:26 epoch 8: loss 0.05992 (0.9s) valid Recall@10 0.2100 NDCG@10 0.2341
+21:33:29 epoch 9: loss 0.05990 (0.9s) valid Recall@10 0.2095 NDCG@10 0.2344
+21:33:30   test Recall@10 0.2050 NDCG@10 0.2283 P@B 0.1483
+21:33:30 [dunnhumby] KAN-NBR [F-4-1] seed 42
+21:33:35 epoch 2: loss 0.12838 (2.1s) valid Recall@10 0.3523 NDCG@10 0.4233
+21:33:38 epoch 1: loss 0.07150 (2.4s) valid Recall@10 0.2108 NDCG@10 0.2321
+21:33:41 epoch 2: loss 0.05986 (1.9s) valid Recall@10 0.2105 NDCG@10 0.2336
+21:33:46 epoch 3: loss 0.05983 (2.6s) valid Recall@10 0.2118 NDCG@10 0.2354
+21:33:46 epoch 3: loss 0.12832 (2.1s) valid Recall@10 0.3521 NDCG@10 0.4229
+21:33:50 epoch 4: loss 0.05983 (2.5s) valid Recall@10 0.2131 NDCG@10 0.2364
+21:33:54 epoch 5: loss 0.05984 (2.2s) valid Recall@10 0.2088 NDCG@10 0.2348
+21:33:59 epoch 4: loss 0.12833 (2.4s) valid Recall@10 0.3519 NDCG@10 0.4233
+21:33:59 epoch 6: loss 0.05981 (2.5s) valid Recall@10 0.2100 NDCG@10 0.2355
+21:34:03 epoch 7: loss 0.05983 (2.3s) valid Recall@10 0.2124 NDCG@10 0.2354
+21:34:07 epoch 8: loss 0.05984 (2.4s) valid Recall@10 0.2125 NDCG@10 0.2359
+21:34:09   test Recall@10 0.2085 NDCG@10 0.2327 P@B 0.1524
+21:34:10 [dunnhumby] MLP-NBR [F-4-1] (matched) seed 42
+21:34:10 epoch 4: loss 5.9677 (85.8s) valid Recall@20 0.6890 MRR@20 0.3063
+21:34:11 epoch 5: loss 0.12831 (2.3s) valid Recall@10 0.3520 NDCG@10 0.4233
+21:34:17 epoch 1: loss 0.06981 (1.2s) valid Recall@10 0.2068 NDCG@10 0.2305
+21:34:20 epoch 2: loss 0.06010 (1.5s) valid Recall@10 0.2093 NDCG@10 0.2328
+21:34:22 epoch 3: loss 0.06003 (1.2s) valid Recall@10 0.2137 NDCG@10 0.2353
+21:34:23 epoch 6: loss 0.12832 (2.1s) valid Recall@10 0.3520 NDCG@10 0.4231
+21:34:25 epoch 4: loss 0.06001 (1.3s) valid Recall@10 0.2082 NDCG@10 0.2335
+21:34:28 epoch 5: loss 0.05997 (1.3s) valid Recall@10 0.2142 NDCG@10 0.2371
+21:34:31 epoch 6: loss 0.05991 (1.4s) valid Recall@10 0.2107 NDCG@10 0.2353
+21:34:32   test Recall@10 0.3532 NDCG@10 0.4249 P@B 0.3198
+21:34:32 [instacart] KAN-NBR (additive) seed 42
+21:34:34 epoch 7: loss 0.05996 (1.4s) valid Recall@10 0.2128 NDCG@10 0.2366
+21:34:36 epoch 8: loss 0.05991 (1.2s) valid Recall@10 0.2116 NDCG@10 0.2369
+21:34:39 epoch 9: loss 0.05989 (1.2s) valid Recall@10 0.2116 NDCG@10 0.2339
+21:34:40   test Recall@10 0.2061 NDCG@10 0.2316 P@B 0.1533
+21:34:54 epoch 1: loss 0.13169 (3.3s) valid Recall@10 0.3532 NDCG@10 0.4253
+21:35:07 epoch 2: loss 0.12754 (3.1s) valid Recall@10 0.3539 NDCG@10 0.4258
+21:35:23 epoch 3: loss 0.12750 (3.8s) valid Recall@10 0.3538 NDCG@10 0.4258
+21:35:37 epoch 4: loss 0.12750 (4.7s) valid Recall@10 0.3533 NDCG@10 0.4257
+21:35:40 epoch 5: loss 5.8256 (89.2s) valid Recall@20 0.6876 MRR@20 0.3049
+21:35:50 epoch 5: loss 0.12749 (3.9s) valid Recall@10 0.3531 NDCG@10 0.4254
+21:36:02 epoch 6: loss 0.12749 (3.1s) valid Recall@10 0.3537 NDCG@10 0.4258
+21:36:10   test Recall@10 0.3548 NDCG@10 0.4271 P@B 0.3219
+21:36:10 [instacart] MLP-NBR (matched) seed 42
+21:36:27 epoch 1: loss 0.13245 (2.1s) valid Recall@10 0.3532 NDCG@10 0.4252
+21:36:36 epoch 2: loss 0.12718 (2.1s) valid Recall@10 0.3545 NDCG@10 0.4266
+21:36:46 epoch 3: loss 0.12703 (2.2s) valid Recall@10 0.3534 NDCG@10 0.4260
+21:36:56 epoch 4: loss 0.12701 (2.3s) valid Recall@10 0.3543 NDCG@10 0.4263
+21:37:02 epoch 6: loss 5.7290 (81.2s) valid Recall@20 0.6848 MRR@20 0.3054
+21:37:06 epoch 5: loss 0.12699 (2.2s) valid Recall@10 0.3539 NDCG@10 0.4264
+21:37:16 epoch 6: loss 0.12698 (2.3s) valid Recall@10 0.3542 NDCG@10 0.4265
+21:37:23   test Recall@10 0.3549 NDCG@10 0.4285 P@B 0.3231
+21:37:23 [instacart] KAN-NBR [F-4-1] seed 42
+21:37:45 epoch 1: loss 0.13076 (5.1s) valid Recall@10 0.3539 NDCG@10 0.4266
+21:38:00 epoch 2: loss 0.12705 (5.2s) valid Recall@10 0.3543 NDCG@10 0.4266
+21:38:14 epoch 3: loss 0.12702 (5.2s) valid Recall@10 0.3543 NDCG@10 0.4267
+21:38:25 epoch 7: loss 5.6426 (81.6s) valid Recall@20 0.6840 MRR@20 0.3035
+21:38:28 epoch 4: loss 0.12701 (5.0s) valid Recall@10 0.3542 NDCG@10 0.4269
+21:38:42 epoch 5: loss 0.12699 (5.1s) valid Recall@10 0.3542 NDCG@10 0.4265
+21:38:57 epoch 6: loss 0.12698 (5.0s) valid Recall@10 0.3542 NDCG@10 0.4264
+21:39:06   test Recall@10 0.3556 NDCG@10 0.4287 P@B 0.3233
+21:39:06 [instacart] MLP-NBR [F-4-1] (matched) seed 42
+21:39:23 epoch 1: loss 0.12997 (2.7s) valid Recall@10 0.3545 NDCG@10 0.4270
+21:39:33 epoch 2: loss 0.12708 (2.7s) valid Recall@10 0.3546 NDCG@10 0.4270
+21:39:43 epoch 3: loss 0.12700 (2.8s) valid Recall@10 0.3543 NDCG@10 0.4268
+21:39:47 epoch 8: loss 5.5728 (81.2s) valid Recall@20 0.6824 MRR@20 0.3042
+21:39:54 epoch 4: loss 0.12697 (2.6s) valid Recall@10 0.3536 NDCG@10 0.4263
+21:40:04 epoch 5: loss 0.12695 (2.9s) valid Recall@10 0.3544 NDCG@10 0.4268
+21:40:13 epoch 6: loss 0.12691 (2.8s) valid Recall@10 0.3541 NDCG@10 0.4269
+21:40:20   test Recall@10 0.3557 NDCG@10 0.4291 P@B 0.3231
+21:41:03 epoch 9: loss 5.5158 (74.6s) valid Recall@20 0.6819 MRR@20 0.3049
+21:42:13 epoch 10: loss 5.4772 (69.6s) valid Recall@20 0.6799 MRR@20 0.3043
+21:42:14   test Recall@20 0.6901 MRR@20 0.2927 params 9,689,264
+21:42:14 [yoochoose64] +KAN head seed 42
+21:43:38 epoch 1: loss 54.6043 (80.7s) valid Recall@20 0.0387 MRR@20 0.0179
+21:45:00 epoch 2: loss 54.6567 (80.6s) valid Recall@20 0.0353 MRR@20 0.0188
+21:46:20 epoch 3: loss 54.5355 (79.0s) valid Recall@20 0.0312 MRR@20 0.0099
+21:47:40 epoch 4: loss 54.4553 (79.3s) valid Recall@20 0.0366 MRR@20 0.0136
+21:49:00 epoch 5: loss 54.3549 (79.0s) valid Recall@20 0.0398 MRR@20 0.0222
+21:50:20 epoch 6: loss 54.3721 (78.7s) valid Recall@20 0.0463 MRR@20 0.0230
+21:51:40 epoch 7: loss 54.3294 (78.7s) valid Recall@20 0.0466 MRR@20 0.0232
+21:53:00 epoch 8: loss 54.2206 (79.0s) valid Recall@20 0.0520 MRR@20 0.0218
+22:03:11 [yoochoose64] +KAN head seed 42
+22:04:32 epoch 1: loss 7.8546 (77.7s) valid Recall@20 0.6792 MRR@20 0.2975
+22:05:51 epoch 2: loss 6.5420 (78.6s) valid Recall@20 0.6881 MRR@20 0.3035
+22:07:11 epoch 3: loss 6.1020 (78.5s) valid Recall@20 0.6852 MRR@20 0.3022
+22:08:29 epoch 4: loss 5.8793 (77.5s) valid Recall@20 0.6829 MRR@20 0.3028
+22:09:50 epoch 5: loss 5.7440 (79.1s) valid Recall@20 0.6802 MRR@20 0.3023
+22:11:15 epoch 6: loss 5.6429 (83.9s) valid Recall@20 0.6770 MRR@20 0.3016
+22:12:36 epoch 7: loss 5.5622 (80.3s) valid Recall@20 0.6760 MRR@20 0.3000
+22:13:56 epoch 8: loss 5.5008 (78.5s) valid Recall@20 0.6751 MRR@20 0.3001
+22:15:22 epoch 9: loss 5.4368 (85.4s) valid Recall@20 0.6717 MRR@20 0.2995
+22:16:43 epoch 10: loss 5.3872 (79.9s) valid Recall@20 0.6702 MRR@20 0.2998
+22:16:45   test Recall@20 0.6832 MRR@20 0.2919 params 11,764,304
+22:16:45 [yoochoose64] +MLP head seed 42
+22:18:14 epoch 1: loss 7.8220 (86.4s) valid Recall@20 0.6867 MRR@20 0.2977
+22:19:35 epoch 2: loss 6.5672 (78.9s) valid Recall@20 0.6919 MRR@20 0.3053
+22:20:57 epoch 3: loss 6.1393 (80.9s) valid Recall@20 0.6900 MRR@20 0.3055
+22:22:23 epoch 4: loss 5.9310 (84.6s) valid Recall@20 0.6854 MRR@20 0.3050
+22:23:50 epoch 5: loss 5.7828 (86.0s) valid Recall@20 0.6836 MRR@20 0.3042
+22:25:13 epoch 6: loss 5.6825 (81.5s) valid Recall@20 0.6812 MRR@20 0.3050
+22:26:34 epoch 7: loss 5.5913 (80.1s) valid Recall@20 0.6802 MRR@20 0.3037
+22:27:55 epoch 8: loss 5.5389 (79.9s) valid Recall@20 0.6791 MRR@20 0.3028
+22:29:21 epoch 9: loss 5.4695 (84.1s) valid Recall@20 0.6780 MRR@20 0.3043
+22:30:48 epoch 10: loss 5.4316 (86.1s) valid Recall@20 0.6746 MRR@20 0.3038
+22:30:50   test Recall@20 0.6878 MRR@20 0.2922 params 11,764,542
+22:30:50 [yoochoose64] +KAN input seed 42
+22:32:16 epoch 1: loss 9.2824 (84.1s) valid Recall@20 0.5661 MRR@20 0.2217
+22:33:39 epoch 2: loss 7.9225 (82.0s) valid Recall@20 0.6315 MRR@20 0.2667
+22:35:01 epoch 3: loss 7.2808 (80.8s) valid Recall@20 0.6537 MRR@20 0.2794
+22:36:23 epoch 4: loss 6.8717 (80.0s) valid Recall@20 0.6616 MRR@20 0.2876
+22:37:48 epoch 5: loss 6.5897 (84.3s) valid Recall@20 0.6678 MRR@20 0.2928
+22:39:12 epoch 6: loss 6.4014 (81.9s) valid Recall@20 0.6699 MRR@20 0.2954
+22:40:39 epoch 7: loss 6.2261 (86.0s) valid Recall@20 0.6701 MRR@20 0.2941
+22:42:04 epoch 8: loss 6.1179 (83.8s) valid Recall@20 0.6682 MRR@20 0.2940
+22:43:31 epoch 9: loss 6.0216 (85.4s) valid Recall@20 0.6698 MRR@20 0.2961
+22:44:58 epoch 10: loss 5.9257 (85.0s) valid Recall@20 0.6665 MRR@20 0.2950
+22:44:59   test Recall@20 0.6669 MRR@20 0.2853 params 11,764,304
+22:44:59 [yoochoose64] +MLP input seed 42
+22:46:28 epoch 1: loss 8.1812 (87.8s) valid Recall@20 0.6705 MRR@20 0.2908
+22:47:53 epoch 2: loss 6.8422 (84.0s) valid Recall@20 0.6875 MRR@20 0.3026
+22:49:19 epoch 3: loss 6.3526 (84.5s) valid Recall@20 0.6886 MRR@20 0.3018
+22:50:44 epoch 4: loss 6.1219 (84.1s) valid Recall@20 0.6839 MRR@20 0.3020
+22:52:11 epoch 5: loss 5.9626 (86.0s) valid Recall@20 0.6833 MRR@20 0.3019
+22:53:37 epoch 6: loss 5.8579 (85.4s) valid Recall@20 0.6791 MRR@20 0.3030
+22:55:05 epoch 7: loss 5.7572 (86.7s) valid Recall@20 0.6795 MRR@20 0.3022
+22:56:30 epoch 8: loss 5.6871 (84.0s) valid Recall@20 0.6769 MRR@20 0.3015
+22:57:55 epoch 9: loss 5.6395 (83.7s) valid Recall@20 0.6757 MRR@20 0.3021
+22:59:17 epoch 10: loss 5.5769 (80.6s) valid Recall@20 0.6751 MRR@20 0.3035
+22:59:18   test Recall@20 0.6854 MRR@20 0.2924 params 11,764,542
+22:59:18 [yoochoose64] +KAN head+input seed 42
+23:01:02 epoch 1: loss 9.7461 (102.6s) valid Recall@20 0.4067 MRR@20 0.1235
+23:02:47 epoch 2: loss 8.4770 (103.9s) valid Recall@20 0.5029 MRR@20 0.1726
+23:04:32 epoch 3: loss 7.8569 (103.8s) valid Recall@20 0.5480 MRR@20 0.2038
+23:06:18 epoch 4: loss 7.4815 (104.4s) valid Recall@20 0.5787 MRR@20 0.2255
+23:08:05 epoch 5: loss 7.1798 (105.3s) valid Recall@20 0.6034 MRR@20 0.2438
+23:09:52 epoch 6: loss 6.9441 (106.5s) valid Recall@20 0.6180 MRR@20 0.2559
+23:11:40 epoch 7: loss 6.7744 (106.0s) valid Recall@20 0.6311 MRR@20 0.2618
+23:13:27 epoch 8: loss 6.6463 (106.6s) valid Recall@20 0.6406 MRR@20 0.2684
+23:15:15 epoch 9: loss 6.5412 (105.9s) valid Recall@20 0.6447 MRR@20 0.2757
+23:17:01 epoch 10: loss 6.4659 (105.3s) valid Recall@20 0.6490 MRR@20 0.2800
+23:17:02   test Recall@20 0.6490 MRR@20 0.2735 params 13,839,344
+23:17:03 [yoochoose64] KAN-GRU cell seed 42
+23:18:28 epoch 1: loss 8.3144 (82.1s) valid Recall@20 0.6454 MRR@20 0.2733
+23:19:43 epoch 2: loss 6.9087 (73.8s) valid Recall@20 0.6768 MRR@20 0.2951
+23:21:02 epoch 3: loss 6.4856 (78.8s) valid Recall@20 0.6828 MRR@20 0.2977
+23:22:18 epoch 4: loss 6.2669 (74.3s) valid Recall@20 0.6882 MRR@20 0.3003
+23:23:34 epoch 5: loss 6.1327 (75.0s) valid Recall@20 0.6929 MRR@20 0.3064
+23:24:50 epoch 6: loss 6.0327 (74.7s) valid Recall@20 0.6925 MRR@20 0.3073
+23:26:07 epoch 7: loss 5.9548 (75.8s) valid Recall@20 0.6955 MRR@20 0.3086
+23:27:21 epoch 8: loss 5.8948 (72.9s) valid Recall@20 0.6933 MRR@20 0.3102
+23:28:36 epoch 9: loss 5.8371 (73.6s) valid Recall@20 0.6957 MRR@20 0.3125
+23:29:49 epoch 10: loss 5.7938 (72.5s) valid Recall@20 0.6951 MRR@20 0.3114
+23:29:51   test Recall@20 0.6926 MRR@20 0.3021 params 13,374,224
+23:29:51 [yoochoose64] Draft Pure KAN seed 42
+23:31:49 epoch 1: loss 8.3826 (113.6s) valid Recall@20 0.6537 MRR@20 0.2733
+23:33:43 epoch 2: loss 6.9880 (110.3s) valid Recall@20 0.6814 MRR@20 0.2964
+23:35:36 epoch 3: loss 6.5491 (108.6s) valid Recall@20 0.6861 MRR@20 0.3004
+23:37:28 epoch 4: loss 6.3142 (108.9s) valid Recall@20 0.6896 MRR@20 0.3041
+23:39:22 epoch 5: loss 6.1592 (109.8s) valid Recall@20 0.6882 MRR@20 0.3037
+23:41:18 epoch 6: loss 6.0392 (112.4s) valid Recall@20 0.6897 MRR@20 0.3056
+23:43:10 epoch 7: loss 5.9417 (109.1s) valid Recall@20 0.6855 MRR@20 0.3041
+23:45:05 epoch 8: loss 5.8542 (111.0s) valid Recall@20 0.6832 MRR@20 0.3019
+23:47:04 epoch 9: loss 5.7828 (115.3s) valid Recall@20 0.6823 MRR@20 0.3046
+23:49:02 epoch 10: loss 5.7230 (114.0s) valid Recall@20 0.6787 MRR@20 0.3004
+23:49:06   test Recall@20 0.6855 MRR@20 0.2958 params 13,835,024
+23:49:06 [yoochoose64] Draft Hybrid seed 42
+23:51:15 epoch 1: loss 8.1281 (124.3s) valid Recall@20 0.6627 MRR@20 0.2734
+23:53:22 epoch 2: loss 6.9457 (123.4s) valid Recall@20 0.6909 MRR@20 0.2976
+23:55:28 epoch 3: loss 6.5688 (122.3s) valid Recall@20 0.6969 MRR@20 0.3052
+23:57:35 epoch 4: loss 6.3631 (122.9s) valid Recall@20 0.7004 MRR@20 0.3091
+23:59:41 epoch 5: loss 6.2208 (122.1s) valid Recall@20 0.6962 MRR@20 0.3092
+00:01:48 epoch 6: loss 6.1131 (123.0s) valid Recall@20 0.6953 MRR@20 0.3112
+00:03:55 epoch 7: loss 6.0321 (123.2s) valid Recall@20 0.6941 MRR@20 0.3112
+00:06:05 epoch 8: loss 5.9529 (126.3s) valid Recall@20 0.6950 MRR@20 0.3128
+00:08:12 epoch 9: loss 5.8973 (123.1s) valid Recall@20 0.6909 MRR@20 0.3123
+00:10:17 epoch 10: loss 5.8402 (121.8s) valid Recall@20 0.6888 MRR@20 0.3098
+00:10:22   test Recall@20 0.6960 MRR@20 0.3022 params 15,220,304
+00:10:22 [yoochoose64] KAN-GRU cell [bspline, G=8] seed 42
+00:12:18 epoch 1: loss 8.1081 (112.1s) valid Recall@20 0.6619 MRR@20 0.2832
+00:14:12 epoch 2: loss 6.8358 (109.6s) valid Recall@20 0.6867 MRR@20 0.2995
+00:16:04 epoch 3: loss 6.4426 (108.8s) valid Recall@20 0.6925 MRR@20 0.3038
+00:17:57 epoch 4: loss 6.2450 (108.8s) valid Recall@20 0.6970 MRR@20 0.3079
+00:19:50 epoch 5: loss 6.1194 (109.3s) valid Recall@20 0.6991 MRR@20 0.3097
+00:21:45 epoch 6: loss 6.0232 (112.0s) valid Recall@20 0.7007 MRR@20 0.3125
+00:23:42 epoch 7: loss 5.9538 (112.8s) valid Recall@20 0.7016 MRR@20 0.3130
+00:25:36 epoch 8: loss 5.8932 (110.7s) valid Recall@20 0.6996 MRR@20 0.3139
+00:27:29 epoch 9: loss 5.8368 (109.6s) valid Recall@20 0.7020 MRR@20 0.3169
+00:29:22 epoch 10: loss 5.7935 (109.1s) valid Recall@20 0.7005 MRR@20 0.3155
+00:29:26   test Recall@20 0.7007 MRR@20 0.3061 params 14,756,624
+00:29:27 [yoochoose64] KAN-GRU cell [rbf, G=4] seed 42
+00:30:41 epoch 1: loss 8.5045 (72.6s) valid Recall@20 0.6202 MRR@20 0.2561
+00:31:50 epoch 2: loss 7.1142 (68.1s) valid Recall@20 0.6603 MRR@20 0.2870
+00:32:58 epoch 3: loss 6.6592 (67.1s) valid Recall@20 0.6707 MRR@20 0.2908
+00:34:09 epoch 4: loss 6.4174 (69.6s) valid Recall@20 0.6769 MRR@20 0.2927
+00:35:14 epoch 5: loss 6.2652 (64.7s) valid Recall@20 0.6826 MRR@20 0.2995
+00:36:22 epoch 6: loss 6.1603 (66.2s) valid Recall@20 0.6822 MRR@20 0.3008
+00:37:32 epoch 7: loss 6.0769 (69.4s) valid Recall@20 0.6875 MRR@20 0.3030
+00:38:38 epoch 8: loss 6.0172 (64.5s) valid Recall@20 0.6872 MRR@20 0.3048
+00:39:45 epoch 9: loss 5.9563 (66.0s) valid Recall@20 0.6914 MRR@20 0.3096
+00:40:59 epoch 10: loss 5.9182 (73.2s) valid Recall@20 0.6890 MRR@20 0.3075
+00:41:00   test Recall@20 0.6887 MRR@20 0.3017 params 11,531,024
+00:41:00 [yoochoose64] KAN-GRU cell [rbf, G=12] seed 42
+00:42:25 epoch 1: loss 8.1325 (83.2s) valid Recall@20 0.6633 MRR@20 0.2818
+00:43:49 epoch 2: loss 6.7858 (82.3s) valid Recall@20 0.6863 MRR@20 0.3001
+00:45:08 epoch 3: loss 6.3963 (77.8s) valid Recall@20 0.6913 MRR@20 0.3019
+00:46:27 epoch 4: loss 6.1983 (78.0s) valid Recall@20 0.6929 MRR@20 0.3053
+00:47:49 epoch 5: loss 6.0623 (80.7s) valid Recall@20 0.6947 MRR@20 0.3084
+00:49:14 epoch 6: loss 5.9636 (83.6s) valid Recall@20 0.6955 MRR@20 0.3105
+00:50:37 epoch 7: loss 5.8869 (81.1s) valid Recall@20 0.6973 MRR@20 0.3097
+00:51:58 epoch 8: loss 5.8248 (79.8s) valid Recall@20 0.6949 MRR@20 0.3111
+00:53:22 epoch 9: loss 5.7615 (82.7s) valid Recall@20 0.6966 MRR@20 0.3139
+00:54:41 epoch 10: loss 5.7172 (78.5s) valid Recall@20 0.6956 MRR@20 0.3137
+00:54:43   test Recall@20 0.6934 MRR@20 0.2999 params 15,217,424
+00:54:43 [yoochoose64] KAN-GRU cell [cheby, G=8] seed 42
+00:56:18 epoch 1: loss 8.4977 (92.1s) valid Recall@20 0.6451 MRR@20 0.2726
+00:57:45 epoch 2: loss 6.9460 (85.8s) valid Recall@20 0.6734 MRR@20 0.2965
+00:59:12 epoch 3: loss 6.4275 (84.9s) valid Recall@20 0.6809 MRR@20 0.2982
+01:00:38 epoch 4: loss 6.1578 (84.4s) valid Recall@20 0.6747 MRR@20 0.2969
+01:02:09 epoch 5: loss 5.9813 (89.8s) valid Recall@20 0.6746 MRR@20 0.2978
+01:03:44 epoch 6: loss 5.8454 (93.2s) valid Recall@20 0.6710 MRR@20 0.2971
+01:05:10 epoch 7: loss 5.7487 (84.3s) valid Recall@20 0.6676 MRR@20 0.2948
+01:06:32 epoch 8: loss 5.6722 (80.6s) valid Recall@20 0.6656 MRR@20 0.2927
+01:07:58 epoch 9: loss 5.6016 (84.3s) valid Recall@20 0.6656 MRR@20 0.2950
+01:09:21 epoch 10: loss 5.5407 (81.3s) valid Recall@20 0.6617 MRR@20 0.2924
+01:09:23   test Recall@20 0.6788 MRR@20 0.2921 params 13,835,024
+01:09:23 [yoochoose64] KAN-GRU cell [rational, G=8] seed 42
+01:10:44 epoch 1: loss 7.7882 (78.8s) valid Recall@20 0.6834 MRR@20 0.3002
+01:11:59 epoch 2: loss 6.7020 (73.3s) valid Recall@20 0.7049 MRR@20 0.3137
+01:13:14 epoch 3: loss 6.3213 (73.9s) valid Recall@20 0.7106 MRR@20 0.3179
+01:14:31 epoch 4: loss 6.0997 (75.2s) valid Recall@20 0.7117 MRR@20 0.3193
+01:15:46 epoch 5: loss 5.9457 (73.3s) valid Recall@20 0.7094 MRR@20 0.3188
+01:16:57 epoch 6: loss 5.8338 (70.0s) valid Recall@20 0.7083 MRR@20 0.3194
+01:18:09 epoch 7: loss 5.7467 (71.0s) valid Recall@20 0.7075 MRR@20 0.3198
+01:19:21 epoch 8: loss 5.6844 (69.7s) valid Recall@20 0.7047 MRR@20 0.3188
+01:20:36 epoch 9: loss 5.6281 (73.7s) valid Recall@20 0.7040 MRR@20 0.3196
+01:21:51 epoch 10: loss 5.5730 (73.6s) valid Recall@20 0.7031 MRR@20 0.3185
+01:21:52   test Recall@20 0.7095 MRR@20 0.3089 params 10,148,704
+01:22:31 [dunnhumby] Basket-GRU seed 42
+01:22:42 epoch 1: loss 0.00613 (8.8s) valid Recall@10 0.1381 NDCG@10 0.1497 P@B 0.0951
+01:22:52 epoch 2: loss 0.00588 (8.9s) valid Recall@10 0.1479 NDCG@10 0.1667 P@B 0.1089
+01:23:02 epoch 3: loss 0.00571 (8.7s) valid Recall@10 0.1592 NDCG@10 0.1783 P@B 0.1135
+01:23:12 epoch 4: loss 0.00560 (8.8s) valid Recall@10 0.1691 NDCG@10 0.1865 P@B 0.1200
+01:23:22 epoch 5: loss 0.00552 (8.6s) valid Recall@10 0.1709 NDCG@10 0.1892 P@B 0.1216
+01:23:32 epoch 6: loss 0.00546 (8.7s) valid Recall@10 0.1712 NDCG@10 0.1916 P@B 0.1249
+01:23:42 epoch 7: loss 0.00540 (8.6s) valid Recall@10 0.1721 NDCG@10 0.1946 P@B 0.1256
+01:23:52 epoch 8: loss 0.00536 (8.7s) valid Recall@10 0.1730 NDCG@10 0.1980 P@B 0.1338
+01:24:01 epoch 9: loss 0.00533 (8.7s) valid Recall@10 0.1795 NDCG@10 0.2004 P@B 0.1313
+01:24:11 epoch 10: loss 0.00530 (8.6s) valid Recall@10 0.1753 NDCG@10 0.1993 P@B 0.1331
+01:24:21 epoch 11: loss 0.00529 (8.8s) valid Recall@10 0.1718 NDCG@10 0.1967 P@B 0.1311
+01:24:31 epoch 12: loss 0.00526 (8.7s) valid Recall@10 0.1752 NDCG@10 0.2032 P@B 0.1349
+01:24:32   test Recall@10 0.1663 NDCG@10 0.1839 P@B 0.1160
+01:24:32 [dunnhumby] +KAN head seed 42
+01:24:45 epoch 1: loss 0.00636 (10.9s) valid Recall@10 0.1198 NDCG@10 0.1219 P@B 0.0804
+01:24:58 epoch 2: loss 0.00602 (11.0s) valid Recall@10 0.1353 NDCG@10 0.1521 P@B 0.0941
+01:25:10 epoch 3: loss 0.00586 (10.8s) valid Recall@10 0.1483 NDCG@10 0.1655 P@B 0.1090
+01:25:23 epoch 4: loss 0.00577 (11.0s) valid Recall@10 0.1546 NDCG@10 0.1696 P@B 0.1105
+01:25:35 epoch 5: loss 0.00574 (10.8s) valid Recall@10 0.1620 NDCG@10 0.1801 P@B 0.1216
+01:25:48 epoch 6: loss 0.00567 (10.9s) valid Recall@10 0.1623 NDCG@10 0.1794 P@B 0.1189
+01:26:00 epoch 7: loss 0.00564 (11.1s) valid Recall@10 0.1558 NDCG@10 0.1733 P@B 0.1106
+01:26:13 epoch 8: loss 0.00560 (10.7s) valid Recall@10 0.1572 NDCG@10 0.1777 P@B 0.1228
+01:26:25 epoch 9: loss 0.00558 (10.8s) valid Recall@10 0.1594 NDCG@10 0.1807 P@B 0.1192
+01:26:27   test Recall@10 0.1535 NDCG@10 0.1686 P@B 0.1064
+01:26:27 [dunnhumby] +MLP head seed 42
+01:26:40 epoch 1: loss 0.00612 (11.5s) valid Recall@10 0.1400 NDCG@10 0.1537 P@B 0.1015
+01:26:52 epoch 2: loss 0.00590 (10.6s) valid Recall@10 0.1493 NDCG@10 0.1655 P@B 0.1014
+01:27:05 epoch 3: loss 0.00577 (10.7s) valid Recall@10 0.1599 NDCG@10 0.1760 P@B 0.1190
+01:27:16 epoch 4: loss 0.00568 (10.3s) valid Recall@10 0.1669 NDCG@10 0.1818 P@B 0.1195
+01:27:28 epoch 5: loss 0.00560 (10.2s) valid Recall@10 0.1679 NDCG@10 0.1831 P@B 0.1178
+01:27:40 epoch 6: loss 0.00555 (10.3s) valid Recall@10 0.1681 NDCG@10 0.1838 P@B 0.1174
+01:27:52 epoch 7: loss 0.00549 (10.3s) valid Recall@10 0.1754 NDCG@10 0.1917 P@B 0.1253
+01:28:04 epoch 8: loss 0.00544 (10.2s) valid Recall@10 0.1766 NDCG@10 0.1933 P@B 0.1285
+01:28:15 epoch 9: loss 0.00540 (10.3s) valid Recall@10 0.1745 NDCG@10 0.1936 P@B 0.1263
+01:28:27 epoch 10: loss 0.00536 (10.3s) valid Recall@10 0.1770 NDCG@10 0.1968 P@B 0.1257
+01:28:39 epoch 11: loss 0.00534 (10.3s) valid Recall@10 0.1794 NDCG@10 0.2005 P@B 0.1317
+01:28:51 epoch 12: loss 0.00530 (10.3s) valid Recall@10 0.1745 NDCG@10 0.1956 P@B 0.1321
+01:29:03 epoch 13: loss 0.00527 (10.3s) valid Recall@10 0.1841 NDCG@10 0.2032 P@B 0.1353
+01:29:14 epoch 14: loss 0.00525 (10.3s) valid Recall@10 0.1783 NDCG@10 0.2034 P@B 0.1371
+01:29:26 epoch 15: loss 0.00522 (10.3s) valid Recall@10 0.1807 NDCG@10 0.2013 P@B 0.1356
+01:29:38 epoch 16: loss 0.00521 (10.2s) valid Recall@10 0.1831 NDCG@10 0.2027 P@B 0.1391
+01:29:39   test Recall@10 0.1722 NDCG@10 0.1895 P@B 0.1231
+01:29:40 [dunnhumby] +KAN input seed 42
+01:29:53 epoch 1: loss 0.00613 (11.4s) valid Recall@10 0.1205 NDCG@10 0.1349 P@B 0.0892
+01:30:05 epoch 2: loss 0.00600 (10.8s) valid Recall@10 0.1288 NDCG@10 0.1408 P@B 0.0790
+01:30:18 epoch 3: loss 0.00592 (10.8s) valid Recall@10 0.1338 NDCG@10 0.1515 P@B 0.0968
+01:30:30 epoch 4: loss 0.00585 (10.9s) valid Recall@10 0.1342 NDCG@10 0.1536 P@B 0.0992
+01:30:43 epoch 5: loss 0.00580 (10.7s) valid Recall@10 0.1385 NDCG@10 0.1559 P@B 0.0936
+01:30:55 epoch 6: loss 0.00574 (10.8s) valid Recall@10 0.1409 NDCG@10 0.1610 P@B 0.1009
+01:31:07 epoch 7: loss 0.00569 (10.8s) valid Recall@10 0.1461 NDCG@10 0.1643 P@B 0.1086
+01:31:20 epoch 8: loss 0.00563 (10.8s) valid Recall@10 0.1512 NDCG@10 0.1658 P@B 0.1024
+01:31:32 epoch 9: loss 0.00559 (10.8s) valid Recall@10 0.1498 NDCG@10 0.1692 P@B 0.1074
+01:31:44 epoch 10: loss 0.00556 (10.8s) valid Recall@10 0.1531 NDCG@10 0.1699 P@B 0.1068
+01:31:57 epoch 11: loss 0.00553 (10.8s) valid Recall@10 0.1540 NDCG@10 0.1737 P@B 0.1113
+01:32:09 epoch 12: loss 0.00549 (10.8s) valid Recall@10 0.1577 NDCG@10 0.1756 P@B 0.1106
+01:32:21 epoch 13: loss 0.00545 (10.8s) valid Recall@10 0.1616 NDCG@10 0.1798 P@B 0.1156
+01:32:34 epoch 14: loss 0.00543 (10.7s) valid Recall@10 0.1654 NDCG@10 0.1839 P@B 0.1177
+01:32:46 epoch 15: loss 0.00541 (10.7s) valid Recall@10 0.1616 NDCG@10 0.1767 P@B 0.1165
+01:32:58 epoch 16: loss 0.00539 (10.8s) valid Recall@10 0.1646 NDCG@10 0.1781 P@B 0.1091
+01:33:10 epoch 17: loss 0.00537 (10.8s) valid Recall@10 0.1662 NDCG@10 0.1820 P@B 0.1173
+01:33:23 epoch 18: loss 0.00534 (10.8s) valid Recall@10 0.1675 NDCG@10 0.1850 P@B 0.1165
+01:33:35 epoch 19: loss 0.00531 (10.7s) valid Recall@10 0.1660 NDCG@10 0.1842 P@B 0.1174
+01:33:48 epoch 20: loss 0.00531 (10.9s) valid Recall@10 0.1731 NDCG@10 0.1883 P@B 0.1222
+01:34:00 epoch 21: loss 0.00529 (10.9s) valid Recall@10 0.1728 NDCG@10 0.1873 P@B 0.1177
+01:34:13 epoch 22: loss 0.00526 (10.8s) valid Recall@10 0.1698 NDCG@10 0.1875 P@B 0.1226
+01:34:25 epoch 23: loss 0.00525 (10.7s) valid Recall@10 0.1727 NDCG@10 0.1888 P@B 0.1244
+01:34:27   test Recall@10 0.1634 NDCG@10 0.1747 P@B 0.1071
+01:34:27 [dunnhumby] +MLP input seed 42
+01:34:39 epoch 1: loss 0.00610 (10.5s) valid Recall@10 0.1335 NDCG@10 0.1392 P@B 0.0801
+01:34:51 epoch 2: loss 0.00589 (10.6s) valid Recall@10 0.1512 NDCG@10 0.1678 P@B 0.1049
+01:35:04 epoch 3: loss 0.00572 (10.8s) valid Recall@10 0.1586 NDCG@10 0.1752 P@B 0.1147
+01:35:16 epoch 4: loss 0.00561 (10.6s) valid Recall@10 0.1702 NDCG@10 0.1869 P@B 0.1215
+01:35:28 epoch 5: loss 0.00554 (10.6s) valid Recall@10 0.1721 NDCG@10 0.1880 P@B 0.1253
+01:35:40 epoch 6: loss 0.00548 (10.7s) valid Recall@10 0.1738 NDCG@10 0.1907 P@B 0.1216
+01:35:52 epoch 7: loss 0.00543 (10.5s) valid Recall@10 0.1773 NDCG@10 0.1981 P@B 0.1309
+01:36:04 epoch 8: loss 0.00539 (10.6s) valid Recall@10 0.1789 NDCG@10 0.1983 P@B 0.1308
+01:36:16 epoch 9: loss 0.00535 (10.7s) valid Recall@10 0.1822 NDCG@10 0.2030 P@B 0.1314
+01:36:29 epoch 10: loss 0.00532 (10.6s) valid Recall@10 0.1851 NDCG@10 0.2039 P@B 0.1313
+01:36:41 epoch 11: loss 0.00529 (10.6s) valid Recall@10 0.1842 NDCG@10 0.2029 P@B 0.1332
+01:36:53 epoch 12: loss 0.00526 (11.1s) valid Recall@10 0.1823 NDCG@10 0.2072 P@B 0.1410
+01:37:05 epoch 13: loss 0.00524 (10.6s) valid Recall@10 0.1861 NDCG@10 0.2045 P@B 0.1327
+01:37:17 epoch 14: loss 0.00523 (10.7s) valid Recall@10 0.1909 NDCG@10 0.2038 P@B 0.1319
+01:37:30 epoch 15: loss 0.00521 (10.6s) valid Recall@10 0.1824 NDCG@10 0.1990 P@B 0.1264
+01:37:42 epoch 16: loss 0.00519 (10.6s) valid Recall@10 0.1845 NDCG@10 0.2039 P@B 0.1350
+01:37:54 epoch 17: loss 0.00516 (10.7s) valid Recall@10 0.1884 NDCG@10 0.2067 P@B 0.1379
+01:37:55   test Recall@10 0.1787 NDCG@10 0.1915 P@B 0.1138
+01:37:56 [dunnhumby] KAN-GRU cell seed 42
+01:38:16 epoch 1: loss 0.00627 (18.3s) valid Recall@10 0.1164 NDCG@10 0.1178 P@B 0.0573
+01:38:35 epoch 2: loss 0.00608 (17.4s) valid Recall@10 0.1250 NDCG@10 0.1353 P@B 0.0813
+01:38:54 epoch 3: loss 0.00595 (16.5s) valid Recall@10 0.1259 NDCG@10 0.1419 P@B 0.0944
+01:39:12 epoch 4: loss 0.00585 (16.6s) valid Recall@10 0.1338 NDCG@10 0.1520 P@B 0.1008
+01:39:31 epoch 5: loss 0.00576 (16.6s) valid Recall@10 0.1367 NDCG@10 0.1572 P@B 0.1019
+01:39:49 epoch 6: loss 0.00567 (16.6s) valid Recall@10 0.1389 NDCG@10 0.1572 P@B 0.0957
+01:40:08 epoch 7: loss 0.00559 (16.6s) valid Recall@10 0.1524 NDCG@10 0.1662 P@B 0.1015
+01:40:26 epoch 8: loss 0.00551 (16.5s) valid Recall@10 0.1545 NDCG@10 0.1711 P@B 0.1102
+01:40:45 epoch 9: loss 0.00544 (16.6s) valid Recall@10 0.1617 NDCG@10 0.1771 P@B 0.1135
+01:41:03 epoch 10: loss 0.00539 (16.6s) valid Recall@10 0.1646 NDCG@10 0.1791 P@B 0.1151
+01:41:22 epoch 11: loss 0.00535 (16.6s) valid Recall@10 0.1717 NDCG@10 0.1823 P@B 0.1172
+01:41:40 epoch 12: loss 0.00530 (16.6s) valid Recall@10 0.1665 NDCG@10 0.1790 P@B 0.1120
+01:41:59 epoch 13: loss 0.00526 (16.4s) valid Recall@10 0.1746 NDCG@10 0.1839 P@B 0.1151
+01:42:17 epoch 14: loss 0.00523 (16.6s) valid Recall@10 0.1733 NDCG@10 0.1813 P@B 0.1143
+01:42:36 epoch 15: loss 0.00520 (16.6s) valid Recall@10 0.1733 NDCG@10 0.1805 P@B 0.1152
+01:42:54 epoch 16: loss 0.00518 (16.5s) valid Recall@10 0.1763 NDCG@10 0.1872 P@B 0.1152
+01:43:13 epoch 17: loss 0.00514 (16.5s) valid Recall@10 0.1736 NDCG@10 0.1832 P@B 0.1138
+01:43:31 epoch 18: loss 0.00512 (16.5s) valid Recall@10 0.1760 NDCG@10 0.1877 P@B 0.1154
+01:43:49 epoch 19: loss 0.00510 (16.6s) valid Recall@10 0.1765 NDCG@10 0.1888 P@B 0.1178
+01:44:08 epoch 20: loss 0.00508 (16.5s) valid Recall@10 0.1729 NDCG@10 0.1838 P@B 0.1165
+01:44:26 epoch 21: loss 0.00507 (16.6s) valid Recall@10 0.1741 NDCG@10 0.1851 P@B 0.1187
+01:44:46 epoch 22: loss 0.00504 (18.0s) valid Recall@10 0.1785 NDCG@10 0.1870 P@B 0.1199
+01:45:05 epoch 23: loss 0.00503 (16.6s) valid Recall@10 0.1813 NDCG@10 0.1932 P@B 0.1212
+01:45:23 epoch 24: loss 0.00502 (16.6s) valid Recall@10 0.1800 NDCG@10 0.1881 P@B 0.1191
+01:45:42 epoch 25: loss 0.00502 (16.5s) valid Recall@10 0.1868 NDCG@10 0.1921 P@B 0.1211
+01:46:01 epoch 26: loss 0.00500 (16.6s) valid Recall@10 0.1820 NDCG@10 0.1879 P@B 0.1178
+01:46:19 epoch 27: loss 0.00498 (16.7s) valid Recall@10 0.1811 NDCG@10 0.1873 P@B 0.1194
+01:46:38 epoch 28: loss 0.00497 (16.5s) valid Recall@10 0.1790 NDCG@10 0.1908 P@B 0.1233
+01:46:40   test Recall@10 0.1709 NDCG@10 0.1816 P@B 0.1142
+01:50:11 [instacart] Basket-GRU seed 42
+01:51:30 epoch 1: loss 0.00542 (67.5s) valid Recall@10 0.1884 NDCG@10 0.2534 P@B 0.1729
+01:52:50 epoch 2: loss 0.00507 (70.0s) valid Recall@10 0.2072 NDCG@10 0.2736 P@B 0.1898
+01:54:10 epoch 3: loss 0.00494 (70.4s) valid Recall@10 0.2169 NDCG@10 0.2830 P@B 0.1967
+01:55:30 epoch 4: loss 0.00486 (69.0s) valid Recall@10 0.2206 NDCG@10 0.2877 P@B 0.2005
+01:56:50 epoch 5: loss 0.00481 (69.2s) valid Recall@10 0.2226 NDCG@10 0.2911 P@B 0.2040
+01:58:10 epoch 6: loss 0.00478 (70.2s) valid Recall@10 0.2270 NDCG@10 0.2940 P@B 0.2051
+01:59:29 epoch 7: loss 0.00475 (68.9s) valid Recall@10 0.2293 NDCG@10 0.2954 P@B 0.2084
+02:00:48 epoch 8: loss 0.00472 (67.9s) valid Recall@10 0.2297 NDCG@10 0.2974 P@B 0.2091
+02:02:06 epoch 9: loss 0.00469 (67.4s) valid Recall@10 0.2324 NDCG@10 0.2987 P@B 0.2097
+02:03:28 epoch 10: loss 0.00468 (72.1s) valid Recall@10 0.2333 NDCG@10 0.2999 P@B 0.2118
+02:04:52 epoch 11: loss 0.00465 (74.4s) valid Recall@10 0.2329 NDCG@10 0.3005 P@B 0.2115
+02:06:15 epoch 12: loss 0.00465 (73.8s) valid Recall@10 0.2336 NDCG@10 0.3006 P@B 0.2122
+02:07:39 epoch 13: loss 0.00463 (73.9s) valid Recall@10 0.2351 NDCG@10 0.3012 P@B 0.2142
+02:09:01 epoch 14: loss 0.00462 (72.4s) valid Recall@10 0.2360 NDCG@10 0.3023 P@B 0.2143
+02:10:34 epoch 15: loss 0.00461 (80.7s) valid Recall@10 0.2365 NDCG@10 0.3034 P@B 0.2145
+02:12:04 epoch 16: loss 0.00461 (80.6s) valid Recall@10 0.2349 NDCG@10 0.3009 P@B 0.2147
+02:13:28 epoch 17: loss 0.00459 (73.7s) valid Recall@10 0.2380 NDCG@10 0.3044 P@B 0.2159
+02:14:53 epoch 18: loss 0.00457 (74.7s) valid Recall@10 0.2373 NDCG@10 0.3036 P@B 0.2162
+02:16:25 epoch 19: loss 0.00456 (79.0s) valid Recall@10 0.2378 NDCG@10 0.3043 P@B 0.2160
+02:18:03 epoch 20: loss 0.00455 (87.8s) valid Recall@10 0.2390 NDCG@10 0.3057 P@B 0.2162
+02:19:35 epoch 21: loss 0.00453 (78.7s) valid Recall@10 0.2405 NDCG@10 0.3067 P@B 0.2170
+02:21:17 epoch 22: loss 0.00453 (91.0s) valid Recall@10 0.2395 NDCG@10 0.3059 P@B 0.2183
+02:22:56 epoch 23: loss 0.00452 (87.3s) valid Recall@10 0.2398 NDCG@10 0.3047 P@B 0.2170
+02:24:41 epoch 24: loss 0.00451 (90.9s) valid Recall@10 0.2401 NDCG@10 0.3055 P@B 0.2164
+02:24:57   test Recall@10 0.2453 NDCG@10 0.3117 P@B 0.2234
+02:24:58 [instacart] +KAN head seed 42
+02:27:40 epoch 1: loss 0.00567 (145.3s) valid Recall@10 0.1345 NDCG@10 0.1833 P@B 0.1217
+02:30:04 epoch 2: loss 0.00555 (129.0s) valid Recall@10 0.1370 NDCG@10 0.1798 P@B 0.1226
+02:32:27 epoch 3: loss 0.00547 (129.0s) valid Recall@10 0.1408 NDCG@10 0.1791 P@B 0.1246
+02:35:26 epoch 4: loss 0.00541 (163.8s) valid Recall@10 0.0628 NDCG@10 0.0477 P@B 0.0437
+02:37:47 epoch 5: loss 0.06342 (122.8s) valid Recall@10 0.0570 NDCG@10 0.0664 P@B 0.0497
+02:40:19 epoch 6: loss 0.04866 (134.5s) valid Recall@10 0.0302 NDCG@10 0.0331 P@B 0.0242
+02:41:40   test Recall@10 0.1420 NDCG@10 0.1790 P@B 0.1265
+02:41:41 [instacart] +MLP head seed 42
+03:08:19 epoch 1: loss 0.00551 (1471.3s) valid Recall@10 0.1669 NDCG@10 0.2276 P@B 0.1534
+03:35:22 [yoochoose64] MLP-GRU cell seed 42
+03:36:36 epoch 1: loss 8.0025 (70.7s) valid Recall@20 0.6599 MRR@20 0.2781
+03:37:56 epoch 2: loss 6.9943 (78.9s) valid Recall@20 0.6877 MRR@20 0.2974
+03:39:45 epoch 3: loss 6.6416 (108.3s) valid Recall@20 0.6972 MRR@20 0.3057
+03:41:04 epoch 4: loss 6.4334 (77.1s) valid Recall@20 0.6997 MRR@20 0.3101
+03:42:13 epoch 5: loss 6.2927 (68.0s) valid Recall@20 0.7018 MRR@20 0.3120
+03:43:20 epoch 6: loss 6.1796 (66.7s) valid Recall@20 0.7025 MRR@20 0.3137
+03:44:28 epoch 7: loss 6.0983 (66.7s) valid Recall@20 0.7024 MRR@20 0.3153
+03:45:36 epoch 8: loss 6.0262 (66.5s) valid Recall@20 0.7006 MRR@20 0.3154
+03:46:43 epoch 9: loss 5.9673 (66.5s) valid Recall@20 0.7005 MRR@20 0.3172
+03:47:51 epoch 10: loss 5.9142 (66.4s) valid Recall@20 0.6998 MRR@20 0.3170
+03:47:52   test Recall@20 0.7016 MRR@20 0.3040 params 13,374,222
+03:47:54 [yoochoose64] Draft Hybrid (MLP) seed 42
+03:49:38 epoch 1: loss 7.9630 (101.5s) valid Recall@20 0.6741 MRR@20 0.2823
+03:51:18 epoch 2: loss 6.8328 (98.9s) valid Recall@20 0.6961 MRR@20 0.3028
+03:52:59 epoch 3: loss 6.4939 (99.5s) valid Recall@20 0.7019 MRR@20 0.3090
+03:54:43 epoch 4: loss 6.3081 (102.8s) valid Recall@20 0.7048 MRR@20 0.3143
+03:56:25 epoch 5: loss 6.1712 (101.1s) valid Recall@20 0.7007 MRR@20 0.3132
+03:57:59 epoch 6: loss 6.0618 (92.2s) valid Recall@20 0.7002 MRR@20 0.3147
+03:59:34 epoch 7: loss 5.9794 (94.5s) valid Recall@20 0.6981 MRR@20 0.3135
+04:01:10 epoch 8: loss 5.8988 (94.6s) valid Recall@20 0.6970 MRR@20 0.3143
+04:02:48 epoch 9: loss 5.8397 (96.3s) valid Recall@20 0.6949 MRR@20 0.3142
+04:04:24 epoch 10: loss 5.7827 (94.8s) valid Recall@20 0.6920 MRR@20 0.3114
+04:04:25   test Recall@20 0.7009 MRR@20 0.3043 params 15,219,821
+04:04:26 [yoochoose64] GRU4Rec (2 layers) seed 42
+04:05:51 epoch 1: loss 8.7888 (83.3s) valid Recall@20 0.6003 MRR@20 0.2358
+04:07:13 epoch 2: loss 7.7365 (80.5s) valid Recall@20 0.6465 MRR@20 0.2712
+04:08:44 epoch 3: loss 7.2705 (90.4s) valid Recall@20 0.6636 MRR@20 0.2838
+04:10:06 epoch 4: loss 6.9918 (80.9s) valid Recall@20 0.6719 MRR@20 0.2923
+04:11:30 epoch 5: loss 6.7541 (82.7s) valid Recall@20 0.6755 MRR@20 0.2964
+04:12:54 epoch 6: loss 6.5921 (82.6s) valid Recall@20 0.6756 MRR@20 0.2999
+04:14:17 epoch 7: loss 6.4724 (82.2s) valid Recall@20 0.6781 MRR@20 0.3001
+04:15:37 epoch 8: loss 6.3609 (78.4s) valid Recall@20 0.6814 MRR@20 0.3023
+04:17:11 epoch 9: loss 6.2823 (92.9s) valid Recall@20 0.6822 MRR@20 0.3046
+04:18:46 epoch 10: loss 6.2084 (93.6s) valid Recall@20 0.6813 MRR@20 0.3021
+04:18:47   test Recall@20 0.6766 MRR@20 0.2935 params 11,074,544
+04:18:48 [yoochoose64] GRU4Rec (wide) seed 42
+04:20:20 epoch 1: loss 8.0035 (88.0s) valid Recall@20 0.6759 MRR@20 0.2917
+04:21:46 epoch 2: loss 6.6562 (84.9s) valid Recall@20 0.6862 MRR@20 0.3009
+04:23:04 [yoochoose64] GRU4Rec (wide) seed 42
+04:24:30 epoch 1: loss 8.0035 (82.2s) valid Recall@20 0.6759 MRR@20 0.2917
+04:25:53 epoch 2: loss 6.6562 (82.1s) valid Recall@20 0.6862 MRR@20 0.3009
+04:27:19 epoch 3: loss 6.2035 (84.7s) valid Recall@20 0.6829 MRR@20 0.2993
+04:28:39 epoch 4: loss 5.9584 (79.9s) valid Recall@20 0.6807 MRR@20 0.3014
+04:30:03 epoch 5: loss 5.8101 (83.1s) valid Recall@20 0.6829 MRR@20 0.3008

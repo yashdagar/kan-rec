@@ -1,0 +1,19 @@
+The dataframe is already sorted by SessionId, Time
+Created sample store with 4882 batches of samples (type=GPU)
+Epoch1 --> loss: 7.839723 	(83.12s) 	[87.14 mb/s | 4183 e/s]
+Epoch2 --> loss: 6.591543 	(79.59s) 	[91.00 mb/s | 4368 e/s]
+Epoch3 --> loss: 6.172890 	(92.41s) 	[78.38 mb/s | 3762 e/s]
+Epoch4 --> loss: 5.947494 	(76.25s) 	[94.99 mb/s | 4559 e/s]
+Epoch5 --> loss: 5.811996 	(72.98s) 	[99.24 mb/s | 4764 e/s]
+Epoch6 --> loss: 5.711155 	(75.25s) 	[96.25 mb/s | 4620 e/s]
+Epoch7 --> loss: 5.634607 	(74.84s) 	[96.78 mb/s | 4646 e/s]
+Epoch8 --> loss: 5.574860 	(75.44s) 	[96.01 mb/s | 4609 e/s]
+Epoch9 --> loss: 5.526410 	(74.00s) 	[97.87 mb/s | 4698 e/s]
+Epoch10 --> loss: 5.460422 	(73.71s) 	[98.27 mb/s | 4717 e/s]
+train seconds 779.4
+Using existing item ID map
+The dataframe is already sorted by SessionId, Time
+valid {10: 0.5801, 20: 0.6795} {10: 0.2987, 20: 0.3057}
+Using existing item ID map
+The dataframe is already sorted by SessionId, Time
+test {10: 0.5688, 20: 0.6732} {10: 0.2866, 20: 0.2939}

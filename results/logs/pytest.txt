@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- /Users/apple/Documents/kan-rec/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/apple/Documents/kan-rec
+configfile: pyproject.toml
+testpaths: tests
+plugins: platformdirs-4.12.3, anyio-4.15.1
+collecting ... collected 40 items
+
+tests/test_kan.py::test_bspline_partition_of_unity_inside_grid PASSED    [  2%]
+tests/test_kan.py::test_bspline_is_cubic_not_step PASSED                 [  5%]
+tests/test_kan.py::test_bspline_matches_closed_form_uniform_cubic PASSED [  7%]
+tests/test_kan.py::test_shapes_and_gradients[bspline] PASSED             [ 10%]
+tests/test_kan.py::test_shapes_and_gradients[rbf] PASSED                 [ 12%]
+tests/test_kan.py::test_shapes_and_gradients[cheby] PASSED               [ 15%]
+tests/test_kan.py::test_shapes_and_gradients[rational] PASSED            [ 17%]
+tests/test_kan.py::test_param_count[bspline] PASSED                      [ 20%]
+tests/test_kan.py::test_param_count[rbf] PASSED                          [ 22%]
+tests/test_kan.py::test_param_count[cheby] PASSED                        [ 25%]
+tests/test_kan.py::test_mlp_control_is_param_matched[bspline] PASSED     [ 27%]
+tests/test_kan.py::test_mlp_control_is_param_matched[rbf] PASSED         [ 30%]
+tests/test_kan.py::test_mlp_control_is_param_matched[cheby] PASSED       [ 32%]
+tests/test_kan.py::test_mlp_control_is_param_matched[rational] PASSED    [ 35%]
+tests/test_kan.py::test_edge_function_matches_forward PASSED             [ 37%]
+tests/test_kan.py::test_zero_init_block_is_identity[bspline-kan] PASSED  [ 40%]
+tests/test_kan.py::test_zero_init_block_is_identity[bspline-mlp] PASSED  [ 42%]
+tests/test_kan.py::test_zero_init_block_is_identity[rbf-kan] PASSED      [ 45%]
+tests/test_kan.py::test_zero_init_block_is_identity[rbf-mlp] PASSED      [ 47%]
+tests/test_kan.py::test_zero_init_block_is_identity[cheby-kan] PASSED    [ 50%]
+tests/test_kan.py::test_zero_init_block_is_identity[cheby-mlp] PASSED    [ 52%]
+tests/test_kan.py::test_zero_init_block_is_identity[rational-kan] PASSED [ 55%]
+tests/test_kan.py::test_zero_init_block_is_identity[rational-mlp] PASSED [ 57%]
+tests/test_metrics.py::test_target_ranks_are_pessimistic_on_ties PASSED  [ 60%]
+tests/test_metrics.py::test_session_metrics_hand_computed PASSED         [ 62%]
+tests/test_metrics.py::test_basket_metrics_hand_computed PASSED          [ 65%]
+tests/test_metrics.py::test_vectorised_basket_metrics_match_loop PASSED  [ 67%]
+tests/test_metrics.py::test_sparse_bce_matches_dense PASSED              [ 70%]
+tests/test_session.py::test_plain_wrapper_matches_official_model PASSED  [ 72%]
+tests/test_session.py::test_variants_forward_backward[kwargs0] PASSED    [ 75%]
+tests/test_session.py::test_variants_forward_backward[kwargs1] PASSED    [ 77%]
+tests/test_session.py::test_variants_forward_backward[kwargs2] PASSED    [ 80%]
+tests/test_session.py::test_variants_forward_backward[kwargs3] PASSED    [ 82%]
+tests/test_session.py::test_variants_forward_backward[kwargs4] PASSED    [ 85%]
+tests/test_session.py::test_variants_forward_backward[kwargs5] PASSED    [ 87%]
+tests/test_session.py::test_training_learns_deterministic_sequence PASSED [ 90%]
+tests/test_session.py::test_mlp_gru_cell_is_param_matched PASSED         [ 92%]
+tests/test_session.py::test_mlp_rnn_cell_is_param_matched PASSED         [ 95%]
+tests/test_session.py::test_device_iterator_matches_official PASSED      [ 97%]
+tests/test_session.py::test_kannbr_batched_scores_match_per_user PASSED  [100%]
+
+============================== 40 passed in 3.17s ==============================

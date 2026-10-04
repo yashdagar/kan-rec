@@ -1,0 +1,15 @@
+{
+ "valid": {
+  "Recall@10": 0.5801,
+  "Recall@20": 0.6795,
+  "MRR@10": 0.2987,
+  "MRR@20": 0.3057
+ },
+ "test": {
+  "Recall@10": 0.5688,
+  "Recall@20": 0.6732,
+  "MRR@10": 0.2866,
+  "MRR@20": 0.2939
+ },
+ "note": "Official GRU4Rec_PyTorch_Official fit() + evaluation.batch_eval (conservative ties), yoochoose_xe_shared_best params, 10 epochs, model after the last epoch, MPS."
+}

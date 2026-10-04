@@ -1,0 +1,24 @@
+Stability probe, yoochoose1/64, 480 units, official GRU4Rec settings, 2000 training steps, MPS.
+Mean training loss of the first and last 200 steps.
+
+Added-parameter Adagrad lr = 0.07 (official):
+  GRU4Rec (no block)               first200 10.230 last200 8.104
+  KAN head                         first200 54.305 last200 54.608   (diverged)
+  MLP head                         first200 53.463 last200 54.715   (diverged)
+  KAN head zero-init               first200 53.619 last200 54.515   (diverged)
+  MLP head zero-init               first200 53.904 last200 54.877   (diverged)
+Added-parameter lr 0.01:
+  KAN head                         first200 53.957 last200  9.259
+  KAN head zero-init               first200 36.570 last200  9.082
+  MLP head zero-init               first200 40.275 last200  8.714
+Zero-init, added-parameter lr 0.003 / 0.001 / 0.0003:
+  KAN head  13.042/8.292   10.906/8.119   10.424/8.072
+  MLP head  11.500/8.171   10.540/8.094   10.218/8.079
+Final setting (zero-init, added lr 0.001):
+  GRU4Rec                          first200 10.304 last200 8.141
+  +KAN head                        first200 10.927 last200 8.075
+  +KAN input                       first200 11.623 last200 9.415
+  KAN-GRU cell, KAN lr 0.07        first200 12.810 last200 9.234
+  KAN-GRU cell, KAN lr 0.001       first200 11.194 last200 8.737
+  Draft Pure KAN, KAN lr 0.07      first200 11.612 last200 9.001
+  Draft Pure KAN, KAN lr 0.001     first200 11.759 last200 8.679
