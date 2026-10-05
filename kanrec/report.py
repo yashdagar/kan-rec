@@ -33,7 +33,8 @@ def mean_std_table(df, metrics, order):
         elif m == "AvgRank":
             out[m] = [f"{mean[k]:.1f}" + (f" $\\pm$ {std[k]:.1f}" if n[k] > 1 else "") for k in out.index]
         elif m == "s/epoch":
-            out[m] = [f"{mean[k]:.1f}" if np.isfinite(mean[k]) else "--" for k in out.index]
+            med = g[m].median()
+            out[m] = [f"{med[k]:.1f}" if np.isfinite(med[k]) else "--" for k in out.index]
         else:
             out[m] = [f"{mean[k]:.4f}" + (f" $\\pm$ {std[k]:.4f}" if n[k] > 1 else "") for k in out.index]
     return out

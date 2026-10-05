@@ -86,7 +86,7 @@ PROFILES = {
         dunnhumby_max_items=None,
         basket=dict(hidden=512, epochs=30, lr=3e-3, batch_size=64, dropout=0.3, max_history=100),
         seeds=[42],
-        key_seeds=[43, 44],
+        key_seeds=[],
     ),
     "smoke": dict(
         device="mps",
@@ -419,12 +419,13 @@ if abl:
 
 C.append(code('''name = f"yoochoose{CFG['yoochoose_fractions'][0]}"
 kdf, _ = rp.results_frame([r for r in ALL if r["model"] in KEY_MODELS], name, S_METRICS)
-n_key = len(CFG["seeds"] + CFG["key_seeds"])
+seed_counts = kdf.groupby("Model")["seed"].nunique()
 ktable = rp.bold_best(rp.mean_std_table(kdf, S_METRICS, list(KEY_MODELS)), S_METRICS)
+ktable.insert(0, "Seeds", [int(seed_counts.get(m, 0)) for m in ktable.index])
 display(ktable)
 rp.write_latex(ktable, GEN / "key_comparison.tex",
                f"Main comparison on YooChoose 1/{CFG['yoochoose_fractions'][0]}: best KAN configuration against GRU4Rec, a GRU4Rec with "
-               f"the same number of parameters, and a parameter-matched MLP-GRU cell (mean $\\\\pm$ std over {n_key} seeds).",
+               f"the same number of parameters, and a parameter-matched MLP-GRU cell (mean $\\\\pm$ std over the seeds in the Seeds column).",
                "tab:key")
 key_sig = []
 for ref in [m for m in KEY_MODELS if m != BEST_ABLATION]:
