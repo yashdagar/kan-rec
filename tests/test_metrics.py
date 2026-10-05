@@ -2,6 +2,7 @@ import math
 from functools import partial
 
 import numpy as np
+import pytest
 import torch
 
 from kanrec.metrics import basket_user_metrics, session_metrics_from_ranks, summarize, target_ranks
@@ -68,3 +69,15 @@ def test_sparse_bce_matches_dense():
     dense = F.binary_cross_entropy_with_logits(logits, y, reduction="none").mean(-1)
     rows, cols = _target_index(steps, T, torch.device("cpu"))
     assert torch.allclose(sparse_bce(logits, rows, cols), dense, atol=1e-6)
+
+
+@pytest.mark.skipif(not torch.backends.mps.is_available(), reason="needs Apple GPU")
+def test_vectorised_basket_metrics_on_mps():
+    rng = np.random.default_rng(2)
+    scores = torch.tensor(rng.random((10, 30), dtype=np.float32))
+    truth = [rng.choice(30, 3, replace=False) for _ in range(10)]
+    hist = [rng.choice(30, 5, replace=False) for _ in range(10)]
+    cpu = basket_user_metrics(scores, truth, hist)
+    mps = basket_user_metrics(scores.to("mps"), truth, hist)
+    for k in cpu:
+        assert np.allclose(cpu[k], mps[k], equal_nan=True), k

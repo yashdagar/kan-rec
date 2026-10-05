@@ -148,4 +148,4 @@ def basket_user_metrics(scores, truth, history=None, cutoffs=BASKET_CUTOFFS):
             nrep, nexpl = rep.sum(1).float(), expl.sum(1).float()
             res[f"RepRecall@{k}"] = torch.where(nrep > 0, (kmask & rep).sum(1) / nrep.clamp(min=1), torch.nan)
             res[f"ExplRecall@{k}"] = torch.where(nexpl > 0, (kmask & expl).sum(1) / nexpl.clamp(min=1), torch.nan)
-    return {k: v.double().cpu().numpy() for k, v in res.items()}
+    return {k: v.float().cpu().numpy().astype(np.float64) for k, v in res.items()}
