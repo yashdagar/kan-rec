@@ -1,0 +1,20 @@
+@startuml
+!include _style.iuml
+object "nb: Notebook" as nb
+object "ex: experiments" as ex
+object "g: GRU4Rec" as g
+object "m: KANGRU4RecModel" as m
+object "blk: ResidualBlock" as b
+object "kan: KANLinear" as k
+object "met: metrics" as me
+object "store: results/" as rs
+nb --> ex : 1: run_session_model()
+ex --> rs : 2: check cached result
+ex --> g : 3: fit(train)
+g --> m : 4: forward(batch)
+m --> b : 5: head_block(h)
+b --> k : 6: KAN(LN(h))
+ex --> me : 7: evaluate(valid, test)
+ex --> rs : 8: save result
+ex --> nb : 9: return metrics
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+!include _style.iuml
+node "Developer Mac (M1 Pro)" as mac {
+  artifact "kan_rec.ipynb\n(mac profile)" as nb1
+  component "PyTorch MPS" as mps
+}
+node "UPES HPC" as upes {
+  artifact "kan_rec_upes.ipynb" as nb2
+  component "PyTorch CUDA\n(Blackwell GPU)" as cuda
+}
+node "Google Colab" as colab {
+  artifact "kan_rec.ipynb\n(colab profile)" as nb3
+  database "Google Drive\n(results)" as drive
+}
+cloud "Kaggle" as kaggle
+cloud "GitHub\nyashdagar/kan-rec" as gh
+cloud "Overleaf" as ov
+nb1 --> mps
+nb2 --> cuda
+nb3 --> drive
+mac --> kaggle : HTTPS download
+upes --> kaggle : HTTPS download
+colab --> kaggle : HTTPS download
+mac --> gh : git push (code, results)
+upes --> gh : git pull
+colab --> gh : git clone
+gh --> ov : report .tex
+@enduml

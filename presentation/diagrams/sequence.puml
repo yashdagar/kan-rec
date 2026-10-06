@@ -1,0 +1,28 @@
+@startuml
+!include _style.iuml
+actor Researcher
+participant "Notebook\nkan_rec.ipynb" as NB
+participant "experiments" as EX
+participant "data_session" as DS
+participant "GRU4Rec\n(official)" as G
+participant "KANGRU4RecModel" as KM
+participant "metrics" as ME
+database "results/" as RS
+Researcher -> NB : run all cells
+NB -> DS : prepare_yoochoose(clicks, 64)
+DS --> NB : train, valid, test
+NB -> EX : run_session_model("KAN-GRU cell", seed)
+EX -> RS : result exists?
+RS --> EX : no
+EX -> G : create with official params
+EX -> KM : attach KAN blocks / cells
+loop each epoch
+  EX -> G : train epoch (session-parallel batches)
+  G -> KM : forward, sampled softmax loss
+  EX -> ME : validation Recall@20, MRR@20
+end
+EX -> ME : test metrics (best epoch)
+EX -> RS : save JSON + NPZ + weights
+EX --> NB : result dict
+NB -> NB : tables, figures, significance
+@enduml

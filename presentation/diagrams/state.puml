@@ -1,0 +1,14 @@
+@startuml
+!include _style.iuml
+[*] --> Pending
+Pending --> Cached : result file found
+Pending --> Training : no result file
+Training --> Validating : epoch done
+Validating --> Training : improved or patience left
+Validating --> Testing : max epochs or patience exhausted
+Training --> Interrupted : kernel stopped / session limit
+Interrupted --> Pending : notebook re-run
+Testing --> Saved : metrics written
+Cached --> [*]
+Saved --> [*]
+@enduml

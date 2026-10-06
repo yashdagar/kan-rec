@@ -1,0 +1,28 @@
+@startuml
+!include _style.iuml
+start
+:Read PROFILE (mac / upes / colab);
+:Download datasets with kagglehub;
+:Preprocess and split\n(asserts: no overlap, time order);
+repeat :Next (dataset, model, seed);
+  if (result file exists?) then (yes)
+    :Load stored result;
+  else (no)
+    :Build model and optimiser;
+    repeat
+      :Train one epoch;
+      :Evaluate on validation set;
+      if (validation improved?) then (yes)
+        :Keep best weights;
+      else (no)
+      endif
+    repeat while (more epochs and patience left?) is (yes)
+    :Restore best weights;
+    :Evaluate once on test set;
+    :Save JSON metrics + NPZ per-user scores;
+  endif
+repeat while (more runs?) is (yes)
+:Significance tests (Wilcoxon + Holm);
+:Write LaTeX tables and figures;
+stop
+@enduml

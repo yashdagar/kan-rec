@@ -1,0 +1,87 @@
+@startuml
+!include _style.iuml
+hide empty members
+class KANLinear {
+  in_features, out_features
+  basis: bspline|rbf|cheby|rational
+  grid_size, base_weight, coef
+  +forward(x)
+  +edge_function(o, i, x)
+}
+class MLP {
+  +forward(x)
+}
+class ResidualBlock {
+  norm: LayerNorm
+  f: KANLinear | MLP
+  +forward(h): h + f(LN(h))
+}
+class KANGRUCell {
+  gates: Linear + sigmoid
+  candidate: KANLinear
+  +forward(x, h)
+}
+class MLPGRUCell {
+  candidate: MLP (matched)
+  +forward(x, h)
+}
+class KANGRU4RecModel {
+  embedding E (shared)
+  input_block, head_block
+  cells
+  +forward(items, H)
+  +score(h)
+}
+class "GRU4Rec\n(official)" as G4R {
+  +fit(data)
+}
+class DeviceSessionIterator {
+  session-parallel batches
+}
+class BasketGRU {
+  EmbeddingBag input
+  GRU | KAN-GRU cell
+  head block, output bias
+  +forward(histories)
+}
+class KANNBR {
+  norm: BatchNorm1d
+  f: KANLinear | MLP | Linear
+  +forward(features)
+}
+class NBRFeaturizer {
+  +for_user(u): 7 features
+}
+class BasketData {
+  baskets, n_items
+  valid_users, test_users
+  +history(u)
+}
+class Metrics <<module>> {
+  +session_metrics_from_ranks()
+  +basket_user_metrics()
+}
+class Experiments <<module>> {
+  +run_session_model()
+  +run_basket_model()
+  +run_kannbr_model()
+  +load_results()
+}
+ResidualBlock o-- KANLinear
+ResidualBlock o-- MLP
+KANGRUCell *-- KANLinear
+MLPGRUCell *-- MLP
+KANGRU4RecModel o-- ResidualBlock
+KANGRU4RecModel o-- KANGRUCell
+KANGRU4RecModel o-- MLPGRUCell
+G4R o-- KANGRU4RecModel : model
+G4R ..> DeviceSessionIterator
+BasketGRU o-- ResidualBlock
+BasketGRU o-- KANGRUCell
+KANNBR o-- KANLinear
+NBRFeaturizer --> BasketData
+Experiments ..> G4R
+Experiments ..> BasketGRU
+Experiments ..> KANNBR
+Experiments ..> Metrics
+@enduml
