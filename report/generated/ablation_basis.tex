@@ -1,0 +1,17 @@
+\begin{table}[H]
+\centering\small
+\caption{KAN basis and grid ablation for KAN-GRU cell on YooChoose.}
+\label{tab:ablation}
+\begin{tabular}{lrrrrr}
+\toprule
+ & Valid Recall@20 & Test Recall@20 & Test MRR@20 & Params & s/epoch \\
+\midrule
+rational, G=8 & 0.711700 & 0.709500 & 0.308900 & 10,148,704 & 73.300000 \\
+rbf, G=8 & 0.695700 & 0.692600 & 0.302100 & 13,374,224 & 75.400000 \\
+rbf, G=12 & 0.697300 & 0.693400 & 0.299900 & 15,217,424 & 80.800000 \\
+rbf, G=4 & 0.691400 & 0.688700 & 0.301700 & 11,531,024 & 68.100000 \\
+bspline, G=8 & 0.702000 & 0.700700 & 0.306100 & 14,756,624 & 110.300000 \\
+cheby, G=8 & 0.680900 & 0.678800 & 0.292100 & 13,835,024 & 86.100000 \\
+\bottomrule
+\end{tabular}
+\end{table}

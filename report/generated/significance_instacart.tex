@@ -1,0 +1,37 @@
+\begin{table}[H]
+\centering\small
+\caption{Paired Wilcoxon tests against Basket-GRU on Instacart test users (Holm-corrected).}
+\label{tab:sig_instacart}
+\begin{tabular}{lrrrr}
+\toprule
+ & Metric & Delta vs Basket-GRU & p & p (Holm) \\
+\midrule
++KAN head & Recall@10 & -0.103274 & $<10^{-300}$ & $<10^{-300}$ \\
++KAN head & NDCG@10 & -0.132696 & $<10^{-300}$ & $<10^{-300}$ \\
++MLP head & Recall@10 & -0.007803 & 5.5e-27 & 2.7e-26 \\
++MLP head & NDCG@10 & -0.007995 & 1.0e-06 & 2.1e-06 \\
++KAN input & Recall@10 & -0.138524 & $<10^{-300}$ & $<10^{-300}$ \\
++KAN input & NDCG@10 & -0.163671 & $<10^{-300}$ & $<10^{-300}$ \\
++MLP input & Recall@10 & -0.016000 & 1.6e-12 & 4.8e-12 \\
++MLP input & NDCG@10 & -0.017901 & 2.0e-20 & 8.1e-20 \\
+KAN-GRU cell & Recall@10 & 0.006398 & 1.1e-91 & 8.0e-91 \\
+KAN-GRU cell & NDCG@10 & 0.000242 & 7.6e-01 & 7.6e-01 \\
+MLP-GRU cell & Recall@10 & 0.018612 & 5.5e-195 & 4.4e-194 \\
+MLP-GRU cell & NDCG@10 & 0.018885 & 8.9e-40 & 5.3e-39 \\
+Logistic (features) & Recall@10 & 0.107925 & $<10^{-300}$ & $<10^{-300}$ \\
+Logistic (features) & NDCG@10 & 0.113247 & $<10^{-300}$ & $<10^{-300}$ \\
+KAN-NBR (additive) & Recall@10 & 0.109585 & $<10^{-300}$ & $<10^{-300}$ \\
+KAN-NBR (additive) & NDCG@10 & 0.115374 & $<10^{-300}$ & $<10^{-300}$ \\
+MLP-NBR (matched) & Recall@10 & 0.109652 & $<10^{-300}$ & $<10^{-300}$ \\
+MLP-NBR (matched) & NDCG@10 & 0.116830 & $<10^{-300}$ & $<10^{-300}$ \\
+KAN-NBR [F-4-1] & Recall@10 & 0.110316 & $<10^{-300}$ & $<10^{-300}$ \\
+KAN-NBR [F-4-1] & NDCG@10 & 0.117057 & $<10^{-300}$ & $<10^{-300}$ \\
+MLP-NBR [F-4-1] (matched) & Recall@10 & 0.110438 & $<10^{-300}$ & $<10^{-300}$ \\
+MLP-NBR [F-4-1] (matched) & NDCG@10 & 0.117386 & $<10^{-300}$ & $<10^{-300}$ \\
+GP-TopFreq & Recall@10 & 0.085390 & $<10^{-300}$ & $<10^{-300}$ \\
+GP-TopFreq & NDCG@10 & 0.086649 & $<10^{-300}$ & $<10^{-300}$ \\
+TIFU-KNN & Recall@10 & 0.106957 & $<10^{-300}$ & $<10^{-300}$ \\
+TIFU-KNN & NDCG@10 & 0.111288 & $<10^{-300}$ & $<10^{-300}$ \\
+\bottomrule
+\end{tabular}
+\end{table}

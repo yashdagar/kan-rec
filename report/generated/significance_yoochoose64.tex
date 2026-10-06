@@ -1,0 +1,35 @@
+\begin{table}[H]
+\centering\small
+\caption{Paired Wilcoxon signed-rank tests against GRU4Rec on YooChoose 1/64 test events (Holm-corrected).}
+\label{tab:sig_yoochoose64}
+\begin{tabular}{lrrrr}
+\toprule
+ & Metric & Delta vs GRU4Rec & p & p (Holm) \\
+\midrule
++KAN head & Recall@20 & -0.006846 & 2.7e-03 & 2.5e-02 \\
++KAN head & MRR@20 & -0.000753 & 2.1e-07 & 3.1e-06 \\
++MLP head & Recall@20 & -0.002330 & 3.0e-01 & 1.0e+00 \\
++MLP head & MRR@20 & -0.000431 & 4.9e-01 & 1.0e+00 \\
++KAN input & Recall@20 & -0.023231 & 1.4e-23 & 2.6e-22 \\
++KAN input & MRR@20 & -0.007362 & 2.8e-21 & 5.0e-20 \\
++MLP input & Recall@20 & -0.004715 & 4.0e-02 & 2.8e-01 \\
++MLP input & MRR@20 & -0.000219 & 9.3e-01 & 1.0e+00 \\
++KAN head+input & Recall@20 & -0.041079 & 2.5e-67 & 5.7e-66 \\
++KAN head+input & MRR@20 & -0.019113 & 1.2e-99 & 2.8e-98 \\
+KAN-GRU cell & Recall@20 & 0.002493 & 2.8e-01 & 1.0e+00 \\
+KAN-GRU cell & MRR@20 & 0.009471 & 4.5e-29 & 9.0e-28 \\
+MLP-GRU cell & Recall@20 & 0.011489 & 5.6e-07 & 7.8e-06 \\
+MLP-GRU cell & MRR@20 & 0.011356 & 4.9e-61 & 1.1e-59 \\
+Draft Pure KAN & Recall@20 & -0.004606 & 4.6e-02 & 2.8e-01 \\
+Draft Pure KAN & MRR@20 & 0.003178 & 1.5e-05 & 1.8e-04 \\
+Draft Hybrid & Recall@20 & 0.005961 & 9.4e-03 & 7.6e-02 \\
+Draft Hybrid & MRR@20 & 0.009561 & 9.8e-21 & 1.7e-19 \\
+Draft Hybrid (MLP) & Recall@20 & 0.010857 & 2.2e-06 & 2.8e-05 \\
+Draft Hybrid (MLP) & MRR@20 & 0.011637 & 7.2e-55 & 1.5e-53 \\
+GRU4Rec (2 layers) & Recall@20 & -0.013476 & 6.4e-09 & 1.0e-07 \\
+GRU4Rec (2 layers) & MRR@20 & 0.000810 & 1.1e-01 & 5.7e-01 \\
+GRU4Rec (wide) & Recall@20 & -0.007262 & 1.6e-03 & 1.6e-02 \\
+GRU4Rec (wide) & MRR@20 & -0.002303 & 2.8e-04 & 3.1e-03 \\
+\bottomrule
+\end{tabular}
+\end{table}

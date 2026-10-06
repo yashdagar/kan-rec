@@ -1,0 +1,37 @@
+\begin{table}[H]
+\centering\small
+\caption{Paired Wilcoxon tests against Basket-GRU on Dunnhumby test users (Holm-corrected).}
+\label{tab:sig_dunnhumby}
+\begin{tabular}{lrrrr}
+\toprule
+ & Metric & Delta vs Basket-GRU & p & p (Holm) \\
+\midrule
++KAN head & Recall@10 & -0.012738 & 1.3e-04 & 1.2e-03 \\
++KAN head & NDCG@10 & -0.015270 & 2.1e-05 & 2.3e-04 \\
++MLP head & Recall@10 & 0.005889 & 2.8e-01 & 1.0e+00 \\
++MLP head & NDCG@10 & 0.005628 & 4.4e-01 & 1.0e+00 \\
++KAN input & Recall@10 & -0.002910 & 9.6e-01 & 1.0e+00 \\
++KAN input & NDCG@10 & -0.009219 & 2.1e-02 & 1.7e-01 \\
++MLP input & Recall@10 & 0.012431 & 1.2e-04 & 1.2e-03 \\
++MLP input & NDCG@10 & 0.007611 & 4.9e-02 & 3.4e-01 \\
+KAN-GRU cell & Recall@10 & 0.004598 & 1.2e-01 & 6.9e-01 \\
+KAN-GRU cell & NDCG@10 & -0.002258 & 4.7e-01 & 1.0e+00 \\
+MLP-GRU cell & Recall@10 & 0.006331 & 1.6e-21 & 2.2e-20 \\
+MLP-GRU cell & NDCG@10 & 0.006252 & 2.8e-01 & 1.0e+00 \\
+Logistic (features) & Recall@10 & 0.039669 & 4.5e-26 & 9.5e-25 \\
+Logistic (features) & NDCG@10 & 0.047354 & 3.7e-26 & 8.1e-25 \\
+KAN-NBR (additive) & Recall@10 & 0.043823 & 5.4e-27 & 1.3e-25 \\
+KAN-NBR (additive) & NDCG@10 & 0.046417 & 3.1e-25 & 5.5e-24 \\
+MLP-NBR (matched) & Recall@10 & 0.038712 & 9.6e-24 & 1.6e-22 \\
+MLP-NBR (matched) & NDCG@10 & 0.044461 & 1.3e-26 & 3.1e-25 \\
+KAN-NBR [F-4-1] & Recall@10 & 0.042180 & 7.4e-26 & 1.4e-24 \\
+KAN-NBR [F-4-1] & NDCG@10 & 0.048865 & 1.0e-27 & 2.7e-26 \\
+MLP-NBR [F-4-1] (matched) & Recall@10 & 0.039843 & 5.1e-26 & 1.0e-24 \\
+MLP-NBR [F-4-1] (matched) & NDCG@10 & 0.047681 & 1.8e-26 & 4.1e-25 \\
+GP-TopFreq & Recall@10 & 0.026227 & 2.9e-14 & 3.8e-13 \\
+GP-TopFreq & NDCG@10 & 0.030261 & 4.2e-13 & 5.1e-12 \\
+TIFU-KNN & Recall@10 & 0.035673 & 5.9e-23 & 8.9e-22 \\
+TIFU-KNN & NDCG@10 & 0.040321 & 2.1e-23 & 3.4e-22 \\
+\bottomrule
+\end{tabular}
+\end{table}

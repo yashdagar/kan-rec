@@ -1,0 +1,17 @@
+\begin{table}[H]
+\centering\small
+\caption{Paired Wilcoxon tests of KAN-GRU cell [rational, G=8] against each reference model, per seed (Holm-corrected).}
+\label{tab:key_sig}
+\begin{tabular}{lrrrrr}
+\toprule
+ & Seed & Metric & Delta & p & p (Holm) \\
+\midrule
+GRU4Rec & 42 & Recall@20 & +0.0194 & 1.4e-17 & 4.2e-17 \\
+GRU4Rec & 42 & MRR@20 & +0.0162 & 1.1e-150 & 5.4e-150 \\
+GRU4Rec (wide) & 42 & Recall@20 & +0.0267 & 2.5e-31 & 9.8e-31 \\
+GRU4Rec (wide) & 42 & MRR@20 & +0.0185 & 1.7e-154 & 1.0e-153 \\
+MLP-GRU cell [matched to rational, G=8] & 42 & Recall@20 & +0.0061 & 7.2e-03 & 1.1e-02 \\
+MLP-GRU cell [matched to rational, G=8] & 42 & MRR@20 & +0.0025 & 5.4e-03 & 1.1e-02 \\
+\bottomrule
+\end{tabular}
+\end{table}

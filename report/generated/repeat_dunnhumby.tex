@@ -1,0 +1,28 @@
+\begin{table}[H]
+\centering\small
+\caption{Repeat vs explore recall on Dunnhumby.}
+\label{tab:repeat_dunnhumby}
+\begin{tabular}{lrrrr}
+\toprule
+ & RepRecall@10 & ExplRecall@10 & PHR@10 & R@2B \\
+\midrule
+G-TopFreq & 0.1490 & 0.0128 & 0.3801 & 0.1126 \\
+P-TopFreq & 0.3292 & 0.0000 & 0.5593 & 0.1950 \\
+GP-TopFreq & 0.3397 & 0.0000 & 0.5706 & 0.1997 \\
+Last basket & 0.2067 & 0.0101 & 0.4366 & 0.1111 \\
+TIFU-KNN & 0.3572 & 0.0023 & 0.5779 & 0.2124 \\
+Basket-GRU & 0.2675 & 0.0110 & 0.5125 & 0.1660 \\
++KAN head & 0.2405 & \textbf{0.0142} & 0.5012 & 0.1459 \\
++MLP head & 0.2839 & 0.0098 & 0.5327 & 0.1778 \\
++KAN input & 0.2613 & 0.0103 & 0.5085 & 0.1616 \\
++MLP input & 0.2867 & 0.0121 & 0.5335 & 0.1715 \\
+KAN-GRU cell & 0.2735 & 0.0104 & 0.5278 & 0.1739 \\
+MLP-GRU cell & 0.2802 & 0.0098 & 0.5270 & 0.1754 \\
+Logistic (features) & 0.3652 & 0.0000 & 0.5900 & 0.2162 \\
+KAN-NBR (additive) & \textbf{0.3725} & 0.0000 & 0.5916 & 0.2142 \\
+MLP-NBR (matched) & 0.3591 & 0.0015 & 0.5819 & 0.2150 \\
+KAN-NBR [F-4-1] & 0.3687 & 0.0014 & 0.5940 & 0.2132 \\
+MLP-NBR [F-4-1] (matched) & 0.3642 & 0.0015 & \textbf{0.5964} & \textbf{0.2165} \\
+\bottomrule
+\end{tabular}
+\end{table}

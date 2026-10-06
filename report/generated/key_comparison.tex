@@ -1,0 +1,15 @@
+\begin{table}[H]
+\centering\small
+\caption{Main comparison on YooChoose 1/64: best KAN configuration against GRU4Rec, a GRU4Rec with the same number of parameters, and a parameter-matched MLP-GRU cell (mean $\pm$ std over 1 seeds).}
+\label{tab:key}
+\resizebox{\textwidth}{!}{\begin{tabular}{lrrrrrrr}
+\toprule
+ & Recall@10 & Recall@20 & MRR@20 & NDCG@10 & NDCG@20 & Params & s/epoch \\
+\midrule
+GRU4Rec & 0.5791 $\pm$ 0.0009 & 0.6897 $\pm$ 0.0006 & 0.2939 $\pm$ 0.0018 & 0.3555 $\pm$ 0.0017 & 0.3836 $\pm$ 0.0013 & 9,689,264 & 832.8 \\
+GRU4Rec (wide) & 0.5734 $\pm$ 0.0026 & 0.6828 $\pm$ 0.0001 & 0.2888 $\pm$ 0.0022 & 0.3504 $\pm$ 0.0024 & 0.3782 $\pm$ 0.0018 & 13,378,180 & 95.3 \\
+KAN-GRU cell [rational, G=8] & \textbf{0.6034 $\pm$ 0.0011} & \textbf{0.7092 $\pm$ 0.0004} & \textbf{0.3092 $\pm$ 0.0004} & \textbf{0.3734 $\pm$ 0.0006} & \textbf{0.4003 $\pm$ 0.0003} & 10,148,704 & 71.6 \\
+MLP-GRU cell [matched to rational, G=8] & 0.5972 & 0.7035 & 0.3064 & 0.3698 & 0.3969 & 10,149,264 & 63.0 \\
+\bottomrule
+\end{tabular}}
+\end{table}

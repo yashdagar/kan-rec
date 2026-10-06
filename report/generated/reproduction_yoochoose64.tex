@@ -1,0 +1,19 @@
+\begin{table}[H]
+\centering\small
+\caption{Our yoochoose1/64 test results next to the numbers published by Wu et al. (SR-GNN, 2019), in \%. The published GRU4Rec row is the original 2016 version; ours uses the improved 2018 training.}
+\label{tab:repro}
+\begin{tabular}{lrrrr}
+\toprule
+ & Published Recall@20 & Published MRR@20 & Ours Recall@20 & Ours MRR@20 \\
+\midrule
+Pop & 6.71 & 1.65 & -- & -- \\
+S-Pop & 30.44 & 18.35 & -- & -- \\
+Item-kNN & 51.60 & 21.81 & -- & -- \\
+GRU4Rec & 60.64 & 22.89 & 69.01 & 29.27 \\
+NARM & 68.32 & 28.63 & -- & -- \\
+STAMP & 68.74 & 29.67 & -- & -- \\
+SR-GNN & 70.57 & 30.94 & -- & -- \\
+GRU4Rec (official code, epoch 10) & -- & -- & 67.32 & 29.39 \\
+\bottomrule
+\end{tabular}
+\end{table}

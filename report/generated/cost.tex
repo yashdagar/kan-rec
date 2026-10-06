@@ -1,0 +1,53 @@
+\begin{table}[H]
+\centering\small
+\caption{Model size and training cost on the mac profile (mps).}
+\label{tab:cost}
+\begin{tabular}{llrrr}
+\toprule
+ &  & Params & s/epoch & Test inference (s) \\
+Dataset & Model &  &  &  \\
+\midrule
+\multirow[t]{12}{*}{instacart} & KAN-NBR (additive) & 64 & 3.600000 & 8.300000 \\
+ & KAN-GRU cell & 18,128,154 & 117.800000 & 7.900000 \\
+ & +MLP input & 16,296,472 & 92.400000 & 13.800000 \\
+ & MLP-GRU cell & 18,128,152 & 141.500000 & 7.400000 \\
+ & Basket-GRU & 13,935,386 & 75.500000 & 16.400000 \\
+ & +KAN input & 16,296,218 & 119.300000 & 5.700000 \\
+ & Logistic (features) & 8 & 2.200000 & 9.500000 \\
+ & +MLP head & 16,296,472 & 107.900000 & 10.000000 \\
+ & +KAN head & 16,296,218 & 137.400000 & 80.600000 \\
+ & MLP-NBR [F-4-1] (matched) & 289 & 2.800000 & 7.000000 \\
+ & KAN-NBR [F-4-1] & 293 & 5.100000 & 9.100000 \\
+ & MLP-NBR (matched) & 64 & 2.200000 & 7.500000 \\
+\cline{1-5}
+\multirow[t]{14}{*}{yoochoose64} & KAN-GRU cell & 13,374,224 & 75.400000 & 1.500000 \\
+ & GRU4Rec & 9,689,264 & 78.500000 & 1.300000 \\
+ & +MLP input & 11,764,542 & 84.700000 & 1.100000 \\
+ & MLP-GRU cell & 13,374,222 & 73.600000 & 1.600000 \\
+ & MLP-GRU cell [matched to rational, G=8] & 10,149,264 & 63.000000 & 1.000000 \\
+ & +KAN input & 11,764,304 & 83.300000 & 1.200000 \\
+ & +MLP head & 11,764,542 & 82.800000 & 1.400000 \\
+ & Draft Hybrid (MLP) & 15,219,821 & 97.600000 & 1.500000 \\
+ & +KAN head & 11,764,304 & 79.900000 & 1.600000 \\
+ & GRU4Rec (2 layers) & 11,074,544 & 84.700000 & 1.400000 \\
+ & Draft Hybrid & 15,220,304 & 123.300000 & 4.500000 \\
+ & +KAN head+input & 13,839,344 & 105.000000 & 1.400000 \\
+ & Draft Pure KAN & 13,835,024 & 111.300000 & 4.400000 \\
+ & GRU4Rec (wide) & 13,378,180 & 88.400000 & 1.700000 \\
+\cline{1-5}
+\multirow[t]{12}{*}{dunnhumby} & KAN-NBR (additive) & 64 & 0.900000 & 1.400000 \\
+ & KAN-GRU cell & 16,397,954 & 16.700000 & 2.000000 \\
+ & +MLP input & 14,566,272 & 10.700000 & 1.400000 \\
+ & MLP-GRU cell & 16,397,952 & 15.500000 & 1.100000 \\
+ & Basket-GRU & 12,205,186 & 8.700000 & 1.200000 \\
+ & +KAN input & 14,566,018 & 10.800000 & 1.500000 \\
+ & Logistic (features) & 8 & 0.600000 & 1.000000 \\
+ & +MLP head & 14,566,272 & 10.400000 & 1.500000 \\
+ & +KAN head & 14,566,018 & 10.900000 & 1.600000 \\
+ & MLP-NBR [F-4-1] (matched) & 289 & 1.300000 & 1.400000 \\
+ & KAN-NBR [F-4-1] & 293 & 2.300000 & 2.100000 \\
+ & MLP-NBR (matched) & 64 & 0.900000 & 1.400000 \\
+\cline{1-5}
+\bottomrule
+\end{tabular}
+\end{table}
